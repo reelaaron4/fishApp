@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.taskmanager.edit_fish">
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="409dp"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/createButton"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="136dp"
+            android:layout_height="48dp"
+            android:text="Enter Fish" />
+
+        <Button
+            android:id="@+id/editButton"
+            style="@android:style/Widget.DeviceDefault.Button.Colored"
+            android:layout_width="136dp"
+            android:layout_height="48dp"
+            android:text="Edit Fish" />
+
+        <Button
+            android:id="@+id/deleteButton"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="136dp"
+            android:layout_height="48dp"
+            android:text="Delete Fish" />
+    </LinearLayout>
+    <Button
+        android:id="@+id/viewButton"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="404dp"
+        android:layout_height="49dp"
+        android:text="View Fish"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+    <Button
+        android:id="@+id/editFishButton"
+        android:layout_width="180dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="60dp"
+        android:text="Edit Fish"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.475"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editFishWeather"
+        app:layout_constraintVertical_bias="0.278" />
+
+    <EditText
+        android:id="@+id/editFishSpecies"
+        android:layout_width="210dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="184dp"
+        android:ems="10"
+        android:hint="*Species"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="@+id/textView2"
+        app:layout_constraintHorizontal_bias="0.427"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editFishLength"
+        android:layout_width="210dp"
+        android:layout_height="48dp"
+        android:ems="10"
+        android:hint="*Length"
+        android:inputType="numberDecimal"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/editFishSpecies"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editFishSpecies"
+        app:layout_constraintTop_toBottomOf="@+id/editFishSpecies"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/editFishBait"
+        android:layout_width="210dp"
+        android:layout_height="48dp"
+        android:ems="10"
+        android:hint="*Bait"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/editFishWeight"
+        app:layout_constraintHorizontal_bias="0.278"
+        app:layout_constraintStart_toStartOf="@+id/editFishWeight"
+        app:layout_constraintTop_toBottomOf="@+id/editFishWeight"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/editFishWeather"
+        android:layout_width="210dp"
+        android:layout_height="48dp"
+        android:ems="10"
+        android:hint="Weather"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/editFishTemp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editFishTemp"
+        app:layout_constraintTop_toBottomOf="@+id/editFishTemp"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/editFishWeight"
+        android:layout_width="210dp"
+        android:layout_height="48dp"
+        android:ems="10"
+        android:hint="Weight"
+        android:inputType="numberDecimal"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/editFishLength"
+        app:layout_constraintHorizontal_bias="0.373"
+        app:layout_constraintStart_toStartOf="@+id/editFishLength"
+        app:layout_constraintTop_toBottomOf="@+id/editFishLength"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/editFishTemp"
+        android:layout_width="210dp"
+        android:layout_height="48dp"
+        android:ems="10"
+        android:hint="Temperature"
+        android:inputType="numberDecimal"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/editFishBait"
+        app:layout_constraintHorizontal_bias="0.278"
+        app:layout_constraintStart_toStartOf="@+id/editFishBait"
+        app:layout_constraintTop_toBottomOf="@+id/editFishBait"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/editFishDate"
+        android:layout_width="210dp"
+        android:layout_height="48dp"
+        android:ems="10"
+        android:hint="MM-DD-YYYY HH:MM"
+        android:inputType="datetime"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/editFishWeather"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editFishWeather"
+        app:layout_constraintTop_toBottomOf="@+id/editFishWeather"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/errorTextView"
+        android:layout_width="399dp"
+        android:layout_height="19dp"
+        android:textAlignment="center"
+        android:textColor="#FF0000"
+        app:layout_constraintBottom_toTopOf="@+id/editFishSpecies"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="160dp"
+        android:layout_height="35dp"
+        android:text="Enter a Fish"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/editFishSpecies"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.59" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

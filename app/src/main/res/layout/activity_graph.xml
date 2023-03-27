@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.taskmanager.graph">
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="409dp"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/createButton"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="136dp"
+            android:layout_height="48dp"
+            android:text="Enter Fish" />
+
+        <Button
+            android:id="@+id/editButton"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="136dp"
+            android:layout_height="48dp"
+            android:text="Edit" />
+
+        <Button
+            android:id="@+id/deleteButton"
+            style="@android:style/Widget.DeviceDefault.Button.Colored"
+            android:layout_width="136dp"
+            android:layout_height="48dp"
+            android:text="Graph" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/createGraph"
+        android:layout_width="180dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="45dp"
+        android:text="Create Graph"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="@+id/range"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/range"
+        app:layout_constraintTop_toBottomOf="@+id/range"
+        app:layout_constraintVertical_bias="0.498" />
+
+    <Spinner
+        android:id="@+id/dropDown"
+        android:layout_width="210dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="332dp"
+        app:layout_constraintEnd_toEndOf="@+id/textView2"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/dropDownY"
+        android:layout_width="210dp"
+        android:layout_height="48dp"
+        app:layout_constraintBottom_toTopOf="@+id/createGraph"
+        app:layout_constraintEnd_toEndOf="@+id/range"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/range"
+        app:layout_constraintTop_toBottomOf="@+id/range"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/range"
+        android:layout_width="210dp"
+        android:layout_height="48dp"
+        android:ems="10"
+        android:hint="Range"
+        android:inputType="number"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="@+id/dropDown"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/dropDown"
+        app:layout_constraintTop_toBottomOf="@+id/dropDown"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/completeErrorTextView"
+        android:layout_width="399dp"
+        android:layout_height="19dp"
+        android:textAlignment="center"
+        android:textColor="#FF0000"
+        app:layout_constraintBottom_toTopOf="@+id/dropDown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="160dp"
+        android:layout_height="35dp"
+        android:text="Enter Graph Data"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/dropDown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.59" />
+
+    <Button
+        android:id="@+id/viewButton"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="404dp"
+        android:layout_height="49dp"
+        android:text="View"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

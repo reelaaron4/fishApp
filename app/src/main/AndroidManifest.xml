@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.taskmanager">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="Task Manager"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.TaskManager"
+        tools:targetApi="31">
+        <activity
+            android:name=".scatterGraph"
+            android:configChanges="orientation|screenSize"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".graph"
+            android:exported="false" />
+        <activity
+            android:name=".graphTest"
+            android:configChanges="orientation|screenSize"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+        <!--
+ android:label="@string/title_activity_graph_test"
+            android:theme="@style/AppTheme.NoActionBar"
+            />
+        -->
+        <activity
+            android:name=".edit_fish"
+            android:exported="false" />
+        <activity
+            android:name=".delete_task"
+            android:exported="false" />
+        <activity
+            android:name=".view_task"
+            android:exported="false" />
+        <activity
+            android:name=".edit_task"
+            android:exported="false" />
+        <activity
+            android:name=".complete_task"
+            android:exported="false" />
+        <activity
+            android:name=".view_fish"
+            android:exported="false" />
+        <activity
+            android:name=".create_task"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
