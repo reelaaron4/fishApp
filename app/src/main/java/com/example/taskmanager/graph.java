@@ -1,5 +1,6 @@
 package com.example.taskmanager;
 
+import static com.example.taskmanager.create_task.taskList;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,11 +12,16 @@ import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+
 public class graph extends AppCompatActivity {
 
     public static String type = "length";
     public static int range = 1;
     public static String typeY = null;
+    public static String typeSpecies = null;
+    public static int currentId = view_task.getCurrentId();
+    public static ArrayList<String> speciesList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +40,13 @@ public class graph extends AppCompatActivity {
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         Spinner dropDownY = findViewById(R.id.dropDownY);
         dropDownY.setAdapter(adapter2);
+
+        speciesList.add("No Selection");
+        setSpecies(currentId, speciesList);
+        ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, yaxisOptions);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        Spinner dropDownSpecies = findViewById(R.id.dropDownSpecies);
+        dropDownY.setAdapter(adapter3);
 
         dropDown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -57,6 +70,17 @@ public class graph extends AppCompatActivity {
                 typeY = null;
             }
         });
+        dropDownSpecies.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItem = parent.getItemAtPosition(position).toString();
+                typeSpecies = selectedItem;
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                typeSpecies = null;
+            }
+        });
         createGraph.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,6 +101,22 @@ public class graph extends AppCompatActivity {
 
             }
         });
+    }
+    public void setSpecies(int currentId, ArrayList<String> speciesList){
+        boolean found = false;
+        speciesList.add(((Fish) taskList.get(currentId).getFish().get(1)).getSpecies());
+
+        for(int i = 2; i < taskList.get(currentId).getFish().size(); i++){
+            for(int j = 0; j < speciesList.size(); j++){
+                if(((Fish) taskList.get(currentId).getFish().get(i)).getSpecies().equals(speciesList.get(j))){
+                    found = true;
+                }
+            }
+            if(!found){
+                speciesList.add(((Fish) taskList.get(currentId).getFish().get(i)).getSpecies());
+            }
+        }
+
     }
     public void setType(String type){this.type =  type;}
     public void setRange(int range){this.range = range;}
