@@ -41,7 +41,7 @@
         android:id="@+id/createTaskButton"
         android:layout_width="210dp"
         android:layout_height="48dp"
-        android:text="Create Task"
+        android:text="Create Location"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
@@ -55,7 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="232dp"
         android:ems="10"
-        android:hint="Enter task name"
+        android:hint="Enter location name"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -68,7 +68,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Enter task description"
+        android:hint="Enter location description"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -77,23 +77,23 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="155dp"
-        android:layout_height="36dp"
-        android:text="Create a task"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Location"
         android:textAlignment="center"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/createNameEditText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.755" />
+        app:layout_constraintVertical_bias="0.5" />
 
     <Button
         android:id="@+id/viewButton"
         style="?android:attr/buttonBarButtonStyle"
-        android:layout_width="404dp"
-        android:layout_height="49dp"
-        android:text="View"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="View Locations"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.428"
@@ -103,8 +103,8 @@
 
     <TextView
         android:id="@+id/createErrorTextView"
-        android:layout_width="399dp"
-        android:layout_height="19dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:textAlignment="center"
         android:textColor="#FF0000"
         app:layout_constraintBottom_toTopOf="@+id/createNameEditText"

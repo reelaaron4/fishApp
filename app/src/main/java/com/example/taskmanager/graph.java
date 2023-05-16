@@ -1,6 +1,7 @@
 package com.example.taskmanager;
 
 import static com.example.taskmanager.create_task.taskList;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -21,13 +22,18 @@ public class graph extends AppCompatActivity {
     public static String typeY = null;
     public static String typeSpecies = null;
     public static int currentId = view_task.getCurrentId();
-    public static ArrayList<String> speciesList;
+    public static ArrayList<String> speciesList = new ArrayList<String>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph);
         EditText range = findViewById(R.id.range);
         Button createGraph = findViewById(R.id.createGraph);
+        Button createButton = findViewById(R.id.createButton);
+        Button viewButton = findViewById(R.id.viewButton);
+
+
 
         String[] xaxisOptions = {"length", "weight", "bait", "species", "date"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, xaxisOptions);
@@ -41,12 +47,13 @@ public class graph extends AppCompatActivity {
         Spinner dropDownY = findViewById(R.id.dropDownY);
         dropDownY.setAdapter(adapter2);
 
+        speciesList.clear();
         speciesList.add("No Selection");
         setSpecies(currentId, speciesList);
-        ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, yaxisOptions);
-        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, speciesList);
+        adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         Spinner dropDownSpecies = findViewById(R.id.dropDownSpecies);
-        dropDownY.setAdapter(adapter3);
+        dropDownSpecies.setAdapter(adapter3);
 
         dropDown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -101,15 +108,36 @@ public class graph extends AppCompatActivity {
 
             }
         });
+        viewButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Intent switchToView = new Intent(getApplicationContext(), view_fish.class);
+                startActivity(switchToView);
+
+            }
+        });
+        createButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Intent switchToCreate = new Intent(getApplicationContext(), complete_task.class);
+                startActivity(switchToCreate);
+
+            }
+        });
     }
     public void setSpecies(int currentId, ArrayList<String> speciesList){
-        boolean found = false;
-        speciesList.add(((Fish) taskList.get(currentId).getFish().get(1)).getSpecies());
+        speciesList.add(((Fish) taskList.get(currentId).getFish().get(0)).getSpecies());
 
-        for(int i = 2; i < taskList.get(currentId).getFish().size(); i++){
+        for(int i = 0; i < taskList.get(currentId).getFish().size(); i++){
+            boolean found = false;
             for(int j = 0; j < speciesList.size(); j++){
                 if(((Fish) taskList.get(currentId).getFish().get(i)).getSpecies().equals(speciesList.get(j))){
                     found = true;
+                    System.out.println(((Fish) taskList.get(currentId).getFish().get(i)).getSpecies());
                 }
             }
             if(!found){
@@ -123,4 +151,5 @@ public class graph extends AppCompatActivity {
     public static String getType(){return type;}
     public static int getRange(){return range;}
     public static String getTypeY(){return typeY;}
+    public static String getTypeSpecies(){return typeSpecies;}
 }

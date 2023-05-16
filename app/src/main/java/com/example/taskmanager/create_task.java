@@ -39,6 +39,7 @@ public class create_task extends AppCompatActivity {
         Button deleteButton = findViewById(R.id.deleteButton);
         Button createButton = findViewById(R.id.createTaskButton);
         Button viewButton = findViewById(R.id.viewButton);
+        Button createB = findViewById(R.id.createButton);
 
         EditText inputName = (EditText)findViewById(R.id.createNameEditText);
         EditText inputDesc = (EditText)findViewById(R.id.createDescriptionEditText);
@@ -52,7 +53,7 @@ public class create_task extends AppCompatActivity {
                 String nameText = inputName.getText().toString();
                 String descText = inputDesc.getText().toString();
                 if(nameText.isEmpty()) {
-                    error.setText("Invalid Input: A name must be entered");
+                    error.setText("Invalid Input: a name must be entered");
                     return;
                 }
                 createTask(nameText, descText);
@@ -88,8 +89,18 @@ public class create_task extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
-                Intent switchToView = new Intent(getApplicationContext(), graph.class);
+                Intent switchToView = new Intent(getApplicationContext(), view_task.class);
                 startActivity(switchToView);
+
+            }
+        });
+        createB.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Intent switchToCreate = new Intent(getApplicationContext(), create_task.class);
+                startActivity(switchToCreate);
 
             }
         });

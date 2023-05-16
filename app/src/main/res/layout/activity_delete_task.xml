@@ -32,9 +32,9 @@
     <Button
         android:id="@+id/viewButton"
         style="?android:attr/buttonBarButtonStyle"
-        android:layout_width="404dp"
-        android:layout_height="49dp"
-        android:text="View"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="View locations"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.428"
@@ -89,8 +89,8 @@
 
     <TextView
         android:id="@+id/deleteErrorTextView"
-        android:layout_width="399dp"
-        android:layout_height="19dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:textAlignment="center"
         android:textColor="#FF0000"
         app:layout_constraintBottom_toTopOf="@+id/deleteTaskEditText"

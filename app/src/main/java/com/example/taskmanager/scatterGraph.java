@@ -37,12 +37,15 @@ public class scatterGraph extends AppCompatActivity {
     List<Entry> entries9 = new ArrayList<>();
     List<Entry> entries10 = new ArrayList<>();
 
+    static ArrayList<String> xAxisLabels = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scatter_graph);
-
         ScatterChart scatterChart = findViewById(R.id.scatter);
+        xAxisLabels.clear();
+
 
         // Generate 100 random entries with decimal values between 1.0 and 5.0 for both x and y values
       //  List<Entry> entries = new ArrayList<>();
@@ -130,7 +133,13 @@ public class scatterGraph extends AppCompatActivity {
         entries.add(new Entry(5, 5));
         entries.add(new Entry(5, 6));
 
-        float[][] occurrences = countOccurrences(entries);
+       // getData();
+        /*XAxis xaxis = scatterChart.getXAxis();
+        xaxis.setLabelCount(xAxisLabels.size(), true);
+        xaxis.setAxisMaximum((float) (xAxisLabels.size() - 1));
+        //MAYBE ADD CUSTOM VALUE FORMATTER TO MATCH LABEL POSITION WITH THE VALUE
+        xaxis.setValueFormatter(new IndexAxisValueFormatter(xAxisLabels));*/
+        countOccurrences(entries);
         //</editor-fold>
 
         //<editor-fold desc="Create Dataset">
@@ -234,52 +243,72 @@ public class scatterGraph extends AppCompatActivity {
     private void getData() {
         String xValues = graph.getType();
         String yValues = graph.getTypeY();
-        double[] xlengths = new double[taskList.get(currId).getFish().size()];
-        double[] xweights = new double[taskList.get(currId).getFish().size()];
-        String[] xbaits1 = new String[taskList.get(currId).getFish().size()];
-        int[] xbaits = new int[taskList.get(currId).getFish().size()];
-        String[] xspecies1 = new String[taskList.get(currId).getFish().size()];
-        int[] xspecies = new int[taskList.get(currId).getFish().size()];
-        Date[] xdates = new Date[taskList.get(currId).getFish().size()];
-        double[] ylengths = new double[taskList.get(currId).getFish().size()];
-        double[] yweights = new double[taskList.get(currId).getFish().size()];
-        String[] ybaits1 = new String[taskList.get(currId).getFish().size()];
-        int[] ybaits = new int[taskList.get(currId).getFish().size()];
-        String[] yspecies1 = new String[taskList.get(currId).getFish().size()];
-        int[] yspecies = new int[taskList.get(currId).getFish().size()];
+
+        String typeSpecies = graph.getTypeSpecies();
+        ArrayList<Fish> filteredFishList = new ArrayList<>();
+        ArrayList<Fish> fishList = (ArrayList<Fish>) taskList.get(currId).getFish();
+
+        // Filter the fishList based on typeSpecies
+        if (typeSpecies != null && !typeSpecies.equals("No Selection")) {
+            for (Fish fish : fishList) {
+                if (fish.getSpecies().equals(typeSpecies)) {
+                    filteredFishList.add(fish);
+                }
+            }
+        } else {
+            filteredFishList.addAll(fishList);
+        }
+        for(int i = 0; i < filteredFishList.size(); i++){
+            System.out.println("def" + filteredFishList.get(i).getLength());
+        }
+        
+        double[] xlengths = new double[filteredFishList.size()];
+        double[] xweights = new double[filteredFishList.size()];
+        String[] xbaits1 = new String[filteredFishList.size()];
+        int[] xbaits = new int[filteredFishList.size()];
+        String[] xspecies1 = new String[filteredFishList.size()];
+        int[] xspecies = new int[filteredFishList.size()];
+        Date[] xdates = new Date[filteredFishList.size()];
+        double[] ylengths = new double[filteredFishList.size()];
+        double[] yweights = new double[filteredFishList.size()];
+        String[] ybaits1 = new String[filteredFishList.size()];
+        int[] ybaits = new int[filteredFishList.size()];
+        String[] yspecies1 = new String[filteredFishList.size()];
+        int[] yspecies = new int[filteredFishList.size()];
 
         int xarray = 0;
         int yarray = 0;
         switch (xValues) {
             case "length":
-                for (int i = 0; i < taskList.get(currId).getFish().size(); i++) {
-                    xlengths[i] = ((Fish) taskList.get(currId).getFish().get(i)).getLength();
+                for (int i = 0; i < filteredFishList.size(); i++) {
+                    xlengths[i] = filteredFishList.get(i).getLength();
                 }
                 xarray = 1;
                 break;
             case "weight":
-                for (int i = 0; i < taskList.get(currId).getFish().size(); i++) {
-                    xweights[i] = ((Fish) taskList.get(currId).getFish().get(i)).getWeight();
+                for (int i = 0; i < filteredFishList.size(); i++) {
+                    xweights[i] = filteredFishList.get(i).getWeight();
                 }
                 xarray = 2;
                 break;
             case "bait":
-                for (int i = 0; i < taskList.get(currId).getFish().size(); i++) {
-                    xbaits1[i] = ((Fish) taskList.get(currId).getFish().get(i)).getBait();
+                for (int i = 0; i < filteredFishList.size(); i++) {
+                    xbaits1[i] = filteredFishList.get(i).getBait();
+                    System.out.println("before getString " + xbaits1[i]);
                 }
                 xbaits = getStringValues(xbaits1);
                 xarray = 3;
                 break;
             case "species":
-                for (int i = 0; i < taskList.get(currId).getFish().size(); i++) {
-                    xspecies1[i] = ((Fish) taskList.get(currId).getFish().get(i)).getSpecies();
+                for (int i = 0; i < filteredFishList.size(); i++) {
+                    xspecies1[i] = filteredFishList.get(i).getSpecies();
                 }
                 xspecies = getStringValues(xspecies1);
                 xarray = 4;
                 break;
             case "date":
-                for (int i = 0; i < taskList.get(currId).getFish().size(); i++) {
-                    xdates[i] = ((Fish) taskList.get(currId).getFish().get(i)).getDate();
+                for (int i = 0; i < filteredFishList.size(); i++) {
+                    xdates[i] = filteredFishList.get(i).getDate();
                 }
                 xarray = 5;
                 break;
@@ -288,27 +317,27 @@ public class scatterGraph extends AppCompatActivity {
         }
         switch (yValues) {
             case "length":
-                for (int i = 0; i < taskList.get(currId).getFish().size(); i++) {
-                    ylengths[i] = ((Fish) taskList.get(currId).getFish().get(i)).getLength();
+                for (int i = 0; i < filteredFishList.size(); i++) {
+                    ylengths[i] = filteredFishList.get(i).getLength();
                 }
                 yarray = 1;
                 break;
             case "weight":
-                for (int i = 0; i < taskList.get(currId).getFish().size(); i++) {
-                    yweights[i] = ((Fish) taskList.get(currId).getFish().get(i)).getWeight();
+                for (int i = 0; i < filteredFishList.size(); i++) {
+                    yweights[i] = filteredFishList.get(i).getWeight();
                 }
                 yarray = 2;
                 break;
             case "bait":
-                for (int i = 0; i < taskList.get(currId).getFish().size(); i++) {
-                    ybaits1[i] = ((Fish) taskList.get(currId).getFish().get(i)).getBait();
+                for (int i = 0; i < filteredFishList.size(); i++) {
+                    ybaits1[i] = filteredFishList.get(i).getBait();
                 }
                 ybaits = getStringValues(ybaits1);
                 yarray = 3;
                 break;
             case "species":
-                for (int i = 0; i < taskList.get(currId).getFish().size(); i++) {
-                    yspecies1[i] = ((Fish) taskList.get(currId).getFish().get(i)).getSpecies();
+                for (int i = 0; i < filteredFishList.size(); i++) {
+                    yspecies1[i] = filteredFishList.get(i).getSpecies();
                 }
                 yspecies = getStringValues(yspecies1);
                 yarray = 4;
@@ -316,7 +345,7 @@ public class scatterGraph extends AppCompatActivity {
             default:
                 break;
         }
-        for (int i = 0; i < taskList.get(currId).getFish().size(); i++) {
+        for (int i = 0; i < filteredFishList.size(); i++) {
             switch (xarray) {
                 case 1:
                     switch (yarray) {
@@ -394,10 +423,11 @@ public class scatterGraph extends AppCompatActivity {
     }
     public static int[] getStringValues(String[] arr){
         int uniqueCount = 0;
-        int uniquePos = 0;
         String[] unique = new String[arr.length];
-        unique[uniquePos] = arr[0];
-        uniquePos++;
+        unique[uniqueCount] = arr[0];
+        xAxisLabels.add("");
+        xAxisLabels.add(arr[0]);
+        uniqueCount++;
         boolean found = false;
         for(int i = 1; i < arr.length; i++) {
             found = false;
@@ -407,23 +437,30 @@ public class scatterGraph extends AppCompatActivity {
                     break;
                 }
             }
-            if(found){
-                unique[uniquePos] = arr[i];
-                uniquePos++;
+            if(!found){
+                unique[uniqueCount] = arr[i];
+                xAxisLabels.add(arr[i]);
+                uniqueCount++;
             }
         }
         int[] result = new int[arr.length];
         for(int i = 0; i < arr.length; i++){
-            for(int j = 0; j < unique.length; j++){
+            for(int j = 0; j < uniqueCount; j++){
                 if(arr[i].equals(unique[j])){
                     result[i] = j + 1;
                     break;
                 }
             }
         }
+        //print out unique array
+        xAxisLabels.add("");
+        for(int i = 0; i < xAxisLabels.size(); i++){
+            System.out.println(i + ": " + xAxisLabels.get(i));
+        }
         return result;
     }
-    public float[][] countOccurrences(List<Entry> entries) {
+
+    public void countOccurrences(List<Entry> entries) {
         Map<Entry, Integer> occurrencesMap = new HashMap<>();
 
         // Count occurrences of each entry
@@ -494,7 +531,6 @@ public class scatterGraph extends AppCompatActivity {
             System.out.println(entries2.get(i).getX() + " " + entries2.get(i).getY());
         }
 
-        return occurrences;
     }
     public void calcTrendline(ScatterDataSet scatterDataSet, List<IScatterDataSet> dataSets){
         // Find the highest x value in your data set

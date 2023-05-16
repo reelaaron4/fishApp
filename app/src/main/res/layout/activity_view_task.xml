@@ -36,7 +36,6 @@
             android:layout_height="48dp"
             android:text="Delete" />
     </LinearLayout>
-
     <TextView
         android:id="@+id/textView2"
         android:layout_width="126dp"
@@ -66,14 +65,20 @@
 
     <ListView
         android:id="@+id/taskListView"
-        android:layout_width="418dp"
-        android:layout_height="559dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="1.0"
+        android:scrollbarSize="15dp"
+        android:scrollbarStyle="outsideOverlay"
+        android:scrollbars="vertical"
+        android:scrollingCache="true"
+        android:smoothScrollbar="true" />
 
     <TextView
         android:id="@+id/textView"

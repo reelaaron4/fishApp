@@ -2,14 +2,14 @@ package com.example.taskmanager;
 
 import static com.example.taskmanager.create_task.taskList;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
@@ -33,11 +33,11 @@ public class edit_task extends AppCompatActivity {
         Button deleteButton = findViewById(R.id.deleteButton);
         Button viewButton = findViewById(R.id.viewButton);
 
-        EditText inputID = (EditText)findViewById(R.id.editTaskEditText);
-        EditText inputName = (EditText)findViewById(R.id.editNameEditText);
-        EditText inputDesc = (EditText)findViewById(R.id.editDescriptionEditText);
+        EditText inputID = findViewById(R.id.editTaskEditText);
+        EditText inputName = findViewById(R.id.editNameEditText);
+        EditText inputDesc = findViewById(R.id.editDescriptionEditText);
 
-        TextView error = (TextView) findViewById(R.id.editErrorTextView);
+        TextView error = findViewById(R.id.editErrorTextView);
 
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="409dp"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -18,21 +18,16 @@
         <Button
             android:id="@+id/createButton"
             style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="136dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="48dp"
             android:text="Enter Fish" />
 
         <Button
-            android:id="@+id/editButton"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="136dp"
-            android:layout_height="48dp"
-            android:text="Edit" />
-
-        <Button
             android:id="@+id/deleteButton"
             style="@android:style/Widget.DeviceDefault.Button.Colored"
-            android:layout_width="136dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="48dp"
             android:text="Graph" />
     </LinearLayout>
@@ -100,7 +95,7 @@
 
     <TextView
         android:id="@+id/completeErrorTextView"
-        android:layout_width="409dp"
+        android:layout_width="match_parent"
         android:layout_height="19dp"
         android:textAlignment="center"
         android:textColor="#FF0000"
@@ -128,7 +123,7 @@
     <Button
         android:id="@+id/viewButton"
         style="?android:attr/buttonBarButtonStyle"
-        android:layout_width="404dp"
+        android:layout_width="match_parent"
         android:layout_height="49dp"
         android:text="View"
         app:layout_constraintBottom_toTopOf="@+id/textView2"

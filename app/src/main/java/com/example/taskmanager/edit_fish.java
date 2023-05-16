@@ -19,7 +19,7 @@ import java.util.Locale;
 
 public class edit_fish extends AppCompatActivity {
 
-   // public static int currentFishId = view_fish.getCurrentFishId();
+   public static int errorCount = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,17 +38,27 @@ public class edit_fish extends AppCompatActivity {
         Button enterFishButton = findViewById(R.id.createButton);
         Button bottomEditButton = findViewById(R.id.editButton);
         TextView error = findViewById(R.id.errorTextView);
-
+        error.setText("");
 
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(species.getText().toString().isEmpty() || length.getText().toString().isEmpty() || bait.getText().toString().isEmpty()){
+                    if(errorCount == 0) {
+                        error.setText("Complete all required fields!");
+                        errorCount++;
+                    }else{
+                        error.setText("Complete all required fields!!!");
+                        errorCount--;
+                    }
+                    return;
+                }
                 String speciesF = species.getText().toString();
                 double lengthF = Double.parseDouble(length.getText().toString());
-                double weightF = Double.parseDouble(weight.getText().toString());
+                double weightF = (weight.getText().toString().isEmpty()) ? 0.0: Double.parseDouble(weight.getText().toString());
                 String baitF = bait.getText().toString();
-                double tempF = Double.parseDouble(temp.getText().toString());
-                String weatherF = weather.getText().toString();
+                double tempF = (temp.getText().toString().isEmpty()) ? 0.0: Double.parseDouble(temp.getText().toString());
+                String weatherF = (weather.getText().toString().isEmpty()) ? "": weather.getText().toString();
                 Date dateF = null;
                 try {
                     SimpleDateFormat inputDateFormat = new SimpleDateFormat("MM-dd-yyyy HH:mm", Locale.getDefault());
@@ -58,8 +68,8 @@ public class edit_fish extends AppCompatActivity {
                     String dateOutputString = outputDateFormat.format(dateInput);
                     dateF = outputDateFormat.parse(dateOutputString);
                 } catch (ParseException e) {
-                    //FIX LATER TO DISPLAY RED TEXT!!!!!!!!!!!!!!!!!!!!!!!!!!
-                    e.printStackTrace();
+                    error.setText("Complete all required fields!");
+                    return;
                 }
 
 

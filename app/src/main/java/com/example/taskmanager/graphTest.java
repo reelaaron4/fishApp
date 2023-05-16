@@ -35,7 +35,7 @@ public class graphTest<ValueFormatter> extends AppCompatActivity {
         barDataSet.setValueTextColor(Color.BLACK);
         barDataSet.setValueTextSize(16f);
         barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-        barChart.setExtraOffsets(0f, 0f, 0f, -40f);
+       // barChart.setExtraOffsets(0f, 0f, 0f, -40f);
         barChart.getXAxis().setTextSize(16f);
         barChart.getAxisLeft().setTextSize(16f);
         barChart.getAxisRight().setTextSize(16f);
@@ -57,6 +57,7 @@ public class graphTest<ValueFormatter> extends AppCompatActivity {
         barChart.setExtraRightOffset(20f);
         barChart.setBackgroundColor(Color.argb(128, 128, 128, 128));
         barChart.setGridBackgroundColor(Color.argb(0, 128, 128, 128));
+        //barChart.setExtraOffsets(0f, 0f, 0f, -25f);
 
     }
 
@@ -68,42 +69,56 @@ public class graphTest<ValueFormatter> extends AppCompatActivity {
             lengths[i] = rand.nextDouble() * 40 + 1;
         }
         calcDoubles(lengths);
-      /*  BarChart barChart = findViewById(R.id.barchart);
+       /* BarChart barChart = findViewById(R.id.barchart);
         barEntries = new ArrayList<>();
         int currId = view_task.getCurrentId();
-        int currentFish = view_fish.getCurrentFishId();
-        double[] lengths = new double[taskList.get(currId).getFish().size()];
-        double[] weights = new double[taskList.get(currId).getFish().size()];
-        String[] baits = new String[taskList.get(currId).getFish().size()];
-        String[] species = new String[taskList.get(currId).getFish().size()];
+        String typeSpecies = graph.getTypeSpecies();
         String type = graph.getType();
+
+        ArrayList<Fish> filteredFishList = new ArrayList<>();
+        ArrayList<Fish> fishList = (ArrayList<Fish>) taskList.get(currId).getFish();
+
+        // Filter the fishList based on typeSpecies
+        if (typeSpecies != null && !typeSpecies.equals("No Selection")) {
+            for (Fish fish : fishList) {
+                if (fish.getSpecies().equals(typeSpecies)) {
+                    filteredFishList.add(fish);
+                }
+            }
+        } else {
+            filteredFishList.addAll(fishList);
+        }
 
         switch(type){
             case "length":
-                for (int i = 0; i < taskList.get(currId).getFish().size(); i++) {
-                    lengths[i] = ((Fish) taskList.get(currId).getFish().get(i)).getLength();
+                double[] lengths = new double[filteredFishList.size()];
+                for (int i = 0; i < filteredFishList.size(); i++) {
+                    lengths[i] = filteredFishList.get(i).getLength();
                 }
                 calcDoubles(lengths);
                 break;
             case "weight":
-                for (int i = 0; i < taskList.get(currId).getFish().size(); i++) {
-                    weights[i] = ((Fish) taskList.get(currId).getFish().get(i)).getWeight();
+                double[] weights = new double[filteredFishList.size()];
+                for (int i = 0; i < filteredFishList.size(); i++) {
+                    weights[i] = filteredFishList.get(i).getWeight();
                 }
                 calcDoubles(weights);
                 break;
             case "bait":
-                for (int i = 0; i < taskList.get(currId).getFish().size(); i++) {
-                    baits[i] = ((Fish) taskList.get(currId).getFish().get(i)).getBait();
+                String[] baits = new String[filteredFishList.size()];
+                for (int i = 0; i < filteredFishList.size(); i++) {
+                    baits[i] = filteredFishList.get(i).getBait();
                 }
+                barChart.setExtraOffsets(0f, 0f, 0f, -35f);
                 calcStrings(baits);
                 break;
             case "species":
-                for (int i = 0; i < taskList.get(currId).getFish().size(); i++) {
-                    species[i] = ((Fish) taskList.get(currId).getFish().get(i)).getSpecies();
+                String[] species = new String[filteredFishList.size()];
+                for (int i = 0; i < filteredFishList.size(); i++) {
+                    species[i] = filteredFishList.get(i).getSpecies();
                 }
+                barChart.setExtraOffsets(0f, 0f, 0f, -35f);
                 calcStrings(species);
-                break;
-            default:
                 break;
         }*/
     }
@@ -133,7 +148,9 @@ public class graphTest<ValueFormatter> extends AppCompatActivity {
         int[] lengthCounts = new int[slots];
         for (double length : arr) {
             int groupIndex = (int) (Math.ceil(length) - 1) / range;
-            lengthCounts[groupIndex]++;
+            if(length != 0.0){
+                lengthCounts[groupIndex]++;
+            }
         }
 
         ArrayList<String> xLabels = new ArrayList<>();
@@ -164,6 +181,7 @@ public class graphTest<ValueFormatter> extends AppCompatActivity {
         yAxis2.setAxisMinimum(0f);
         xAxis.setAxisMaximum((float) (xLabels.size() - 1));
         xAxis.setValueFormatter(new IndexAxisValueFormatter(xLabels));
+        barChart.setExtraOffsets(0f, 0f, 0f, -50f);
     }
     private void calcStrings(String[] arr){
        BarChart barChart = findViewById(R.id.barchart);

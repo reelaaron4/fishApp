@@ -1,15 +1,14 @@
 package com.example.taskmanager;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class view_fish extends AppCompatActivity {
     public static int currentId = view_task.getCurrentId();
@@ -26,8 +25,6 @@ public class view_fish extends AppCompatActivity {
         Button viewButton = findViewById(R.id.viewButton);
         TextView current = findViewById(R.id.textView2);
 
-        /*fishAdapter adapter = new fishAdapter(this, create_task.taskList.getTaskAtIndex(currentId).getFish);
-        ListView listview = findViewById(R.id.fishListView);*/
         fishAdapter adapter = new fishAdapter(this, create_task.getTaskAtIndex(currentId).fishList);
         ListView listView = findViewById(R.id.fishListView);
         listView.setAdapter(adapter);
@@ -38,9 +35,16 @@ public class view_fish extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
             {
-                Object selectedObject = adapterView.getItemAtPosition(i);
+                // Get the number of items in the adapter
+                int itemCount = adapter.getCount();
 
-                currentFishId = i;
+                // Calculate the index of the selected item based on the displayed order
+                int selectedIndex = itemCount - i - 1;
+
+                // Get the selected fish from the adapter using the calculated index
+                Fish selectedFish = adapter.getItem(selectedIndex);
+
+                currentFishId = selectedIndex;
 
                 Intent switchToEditFish = new Intent(getApplicationContext(), edit_fish.class);
                 startActivity(switchToEditFish);
