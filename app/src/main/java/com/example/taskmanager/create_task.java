@@ -89,7 +89,7 @@ public class create_task extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
-                Intent switchToView = new Intent(getApplicationContext(), view_task.class);
+                Intent switchToView = new Intent(getApplicationContext(), databaseConnection.class);
                 startActivity(switchToView);
 
             }
