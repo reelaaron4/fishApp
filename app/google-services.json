@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "203963266970",
+    "project_id": "fishplot-e6e76",
+    "storage_bucket": "fishplot-e6e76.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:203963266970:android:9c7d7b20893b4aa4456c23",
+        "android_client_info": {
+          "package_name": "com.example.taskmanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "203963266970-s7ikpe79va0t1r11uhem7mrn2v5vmcns.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBG4_-CQrQd4FnA3zwY54LSXhbzlWqhcc4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "203963266970-s7ikpe79va0t1r11uhem7mrn2v5vmcns.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
