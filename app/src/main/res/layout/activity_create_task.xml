@@ -48,6 +48,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/createNameEditText"
         app:layout_constraintVertical_bias="0.13" />
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="210dp"
+        android:layout_height="48dp"
+        android:text="Save"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createTaskButton"
+        app:layout_constraintVertical_bias="0.13" />
 
     <EditText
         android:id="@+id/createNameEditText"
