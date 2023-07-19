@@ -1,8 +1,6 @@
 package com.example.taskmanager;
 
-import static com.example.taskmanager.create_task.taskList;
-
-import androidx.appcompat.app.AppCompatActivity;
+import static com.example.taskmanager.view_task.taskList;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
@@ -35,8 +35,6 @@ public class delete_task extends AppCompatActivity {
         setContentView(R.layout.activity_delete_task);
 
         Button deleteButton = findViewById(R.id.deleteTaskButton);
-        Button editButton = findViewById(R.id.editButton);
-        Button createButton = findViewById(R.id.createButton);
         Button viewButton = findViewById(R.id.viewButton);
 
         EditText inputID = (EditText)findViewById(R.id.deleteTaskEditText);
@@ -52,19 +50,19 @@ public class delete_task extends AppCompatActivity {
                 String input = inputID.getText().toString();
                 int taskId = -1;
                 if (input.isEmpty()) {
-                    error.setText("Invalid Input: Number must be between 1 and the number of tasks");
+                    error.setText("Invalid Input: Number must be a valid ID");
                     return;
                 } else {
                     try {
                         taskId = Integer.parseInt(input) - 1;
                     } catch (NumberFormatException e) {
-                        error.setText("Invalid Input: Number must be between 1 and the number of tasks");
+                        error.setText("Invalid Input: Number must be a valid ID");
                         return;
                     }
                 }
                 //validates user input to be in range of list
                 if(taskId < 0 || taskId >= taskList.size()){
-                    error.setText("Invalid Input: Number must be between 1 and the number of tasks");
+                    error.setText("Invalid Input: Number must be a valid ID");
                     return;
                 }
 
@@ -74,16 +72,6 @@ public class delete_task extends AppCompatActivity {
                 startActivity(switchToView);
             }
         });
-        editButton.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                Intent switchToEdit = new Intent(getApplicationContext(), edit_task.class);
-                startActivity(switchToEdit);
-
-            }
-        });
         viewButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -91,16 +79,6 @@ public class delete_task extends AppCompatActivity {
             {
                 Intent switchToView = new Intent(getApplicationContext(), view_task.class);
                 startActivity(switchToView);
-
-            }
-        });
-        createButton.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                Intent switchToCreate = new Intent(getApplicationContext(), create_task.class);
-                startActivity(switchToCreate);
 
             }
         });

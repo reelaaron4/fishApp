@@ -6,95 +6,64 @@
     android:layout_height="match_parent"
     tools:context="com.example.taskmanager.delete_task">
 
-    <Button
-        android:id="@+id/deleteTaskButton"
-        android:layout_width="210dp"
-        android:layout_height="48dp"
-        android:text="Delete"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/deleteTaskEditText" />
+   <LinearLayout
+       android:id="@+id/linearLayoutFull"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:orientation="vertical">
+       <LinearLayout
+           android:id="@+id/linearLayoutTop"
+           android:layout_width="match_parent"
+           android:layout_height="0dp"
+           android:orientation="vertical"
+           android:layout_weight="1">
+           <Button
+               android:id="@+id/viewButton"
+               style="?android:attr/buttonBarButtonStyle"
+               android:layout_width="match_parent"
+               android:layout_height="0dp"
+               android:text="View locations"
+               android:layout_weight="3"/>
+           <TextView
+               android:id="@+id/textViewTitle"
+               android:layout_width="match_parent"
+               android:layout_height="0dp"
+               android:text="Delete a task"
+               android:textAlignment="center"
+               android:textSize="24sp"
+               android:layout_weight="2"/>
+           <TextView
+               android:id="@+id/deleteErrorTextView"
+               android:layout_width="match_parent"
+               android:layout_height="0dp"
+               android:textAlignment="center"
+               android:textColor="#FF0000"
+               android:layout_weight="1" />
+       </LinearLayout>
+       <LinearLayout
+           android:id="@+id/linearLayoutData"
+           android:layout_width="match_parent"
+           android:layout_height="0dp"
+           android:orientation="vertical"
+           android:layout_weight="5">
+           <EditText
+               android:id="@+id/deleteTaskEditText"
+               android:layout_width="match_parent"
+               android:layout_height="0dp"
+               android:ems="10"
+               android:hint="Enter Task Number"
+               android:inputType="number"
+               android:textAlignment="center"
+               android:layout_weight="1"/>
+           <Button
+               android:id="@+id/deleteTaskButton"
+               android:layout_width="match_parent"
+               android:layout_height="0dp"
+               android:text="Delete"
+               android:layout_weight="1"/>
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="155dp"
-        android:layout_height="36dp"
-        android:text="Delete a task"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/deleteTaskEditText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.68" />
+       </LinearLayout>
+   </LinearLayout>
 
-    <Button
-        android:id="@+id/viewButton"
-        style="?android:attr/buttonBarButtonStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="View locations"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.428"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <EditText
-        android:id="@+id/deleteTaskEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="324dp"
-        android:ems="10"
-        android:hint="Enter task number"
-        android:inputType="number"
-        android:minHeight="48dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="409dp"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <Button
-            android:id="@+id/createButton"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="136dp"
-            android:layout_height="48dp"
-            android:text="Create" />
-
-        <Button
-            android:id="@+id/editButton"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="136dp"
-            android:layout_height="48dp"
-            android:text="Edit" />
-
-        <Button
-            android:id="@+id/deleteButton"
-            style="@android:style/Widget.DeviceDefault.Button.Colored"
-            android:layout_width="136dp"
-            android:layout_height="48dp"
-            android:text="Delete" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/deleteErrorTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:textColor="#FF0000"
-        app:layout_constraintBottom_toTopOf="@+id/deleteTaskEditText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

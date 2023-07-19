@@ -1,9 +1,8 @@
 package com.example.taskmanager;
 
-import static com.example.taskmanager.create_task.taskList;
+import static com.example.taskmanager.view_task.taskList;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Task
 {
@@ -64,7 +63,7 @@ public class Task
 
     public void setFishList(Fish fish){fishList.add(fish);}
 
-    public List getFish(){
+    public ArrayList<Fish> getFish(){
         return fishList;
     }
 

@@ -1,6 +1,6 @@
 package com.example.taskmanager;
 
-import static com.example.taskmanager.create_task.taskList;
+import static com.example.taskmanager.view_task.taskList;
 
 import android.graphics.Color;
 import android.os.Bundle;

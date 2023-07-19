@@ -29,7 +29,7 @@
         app:layout_constraintTop_toTopOf="@+id/fish_species" />
 
     <TextView
-        android:id="@+id/fish_weather"
+        android:id="@+id/fish_misc"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:textSize="18sp"

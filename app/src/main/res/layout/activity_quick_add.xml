@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".quickAdd">
+
+    <LinearLayout
+        android:id="@+id/linearLayoutFull"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/linearLayoutTop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/quickAddButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Quick Add"
+                app:layout_constraintBottom_toBottomOf="@id/linearLayoutTop"
+                app:layout_constraintEnd_toEndOf="@id/linearLayoutTop"
+                app:layout_constraintStart_toStartOf="@id/linearLayoutTop"
+                app:layout_constraintTop_toTopOf="@id/linearLayoutTop" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayoutBottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+
+            <Button
+                android:id="@+id/viewFishButton"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="View fish"
+                app:layout_constraintBottom_toBottomOf="@id/linearLayoutBottom"
+                app:layout_constraintEnd_toStartOf="@id/fullEntryButton"
+                app:layout_constraintStart_toStartOf="@id/linearLayoutBottom"
+                app:layout_constraintTop_toTopOf="@id/linearLayoutBottom" />
+            <Button
+                android:id="@+id/fullEntryButton"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Full Entry"
+                android:layout_weight="1"
+                app:layout_constraintBottom_toBottomOf="@id/linearLayoutBottom"
+                app:layout_constraintEnd_toEndOf="@id/linearLayoutBottom"
+                app:layout_constraintStart_toEndOf="@id/viewFishButton"
+                app:layout_constraintTop_toTopOf="@id/linearLayoutBottom" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

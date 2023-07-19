@@ -1,6 +1,6 @@
 package com.example.taskmanager;
 
-import static com.example.taskmanager.create_task.taskList;
+import static com.example.taskmanager.view_task.taskList;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,25 +20,33 @@ import java.util.Locale;
 public class edit_fish extends AppCompatActivity {
 
    public static int errorCount = 0;
+   private static int currId;
+   private static int currentFish;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_fish);
-
+        currId = view_task.getCurrentId();
+        currentFish = view_fish.getCurrentFishId();
         EditText species = findViewById(R.id.editFishSpecies);
         EditText length = findViewById(R.id.editFishLength);
         EditText weight = findViewById(R.id.editFishWeight);
         EditText bait = findViewById(R.id.editFishBait);
         EditText temp = findViewById(R.id.editFishTemp);
-        EditText weather = findViewById(R.id.editFishWeather);
+        EditText misc = findViewById(R.id.editFishMisc);
         EditText date = findViewById(R.id.editFishDate);
         Button editButton = findViewById(R.id.editFishButton);
         Button viewButton = findViewById(R.id.viewButton);
-        Button deleteButton = findViewById(R.id.deleteButton);
-        Button enterFishButton = findViewById(R.id.createButton);
-        Button bottomEditButton = findViewById(R.id.editButton);
+        Button deleteButton = findViewById(R.id.deleteFishButton);
         TextView error = findViewById(R.id.errorTextView);
         error.setText("");
+        species.setText(taskList.get(currId).getFish().get(currentFish).getSpecies());
+        length.setText(String.valueOf(taskList.get(currId).getFish().get(currentFish).getLength()));
+        weight.setText(String.valueOf(taskList.get(currId).getFish().get(currentFish).getWeight()));
+        bait.setText(taskList.get(currId).getFish().get(currentFish).getBait());
+        temp.setText(String.valueOf(taskList.get(currId).getFish().get(currentFish).getTemp()));
+        misc.setText(taskList.get(currId).getFish().get(currentFish).getMisc());
+        date.setText(taskList.get(currId).getFish().get(currentFish).getDate().toString());
 
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,7 +66,7 @@ public class edit_fish extends AppCompatActivity {
                 double weightF = (weight.getText().toString().isEmpty()) ? 0.0: Double.parseDouble(weight.getText().toString());
                 String baitF = bait.getText().toString();
                 double tempF = (temp.getText().toString().isEmpty()) ? 0.0: Double.parseDouble(temp.getText().toString());
-                String weatherF = (weather.getText().toString().isEmpty()) ? "": weather.getText().toString();
+                String miscF = (misc.getText().toString().isEmpty()) ? "": misc.getText().toString();
                 Date dateF = null;
                 try {
                     SimpleDateFormat inputDateFormat = new SimpleDateFormat("MM-dd-yyyy HH:mm", Locale.getDefault());
@@ -72,21 +80,13 @@ public class edit_fish extends AppCompatActivity {
                     return;
                 }
 
-
-
-                //  FIND WAY TO MAKE ENTERING DATE EASY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-                int currId = view_task.getCurrentId();
-                int currentFish = view_fish.getCurrentFishId();
                 ((Fish) taskList.get(currId).getFish().get(currentFish)).setSpecies(speciesF);
                 ((Fish) taskList.get(currId).getFish().get(currentFish)).setLength(lengthF);
                 ((Fish) taskList.get(currId).getFish().get(currentFish)).setBait(baitF);
                 ((Fish) taskList.get(currId).getFish().get(currentFish)).setWeight(weightF);
                 ((Fish) taskList.get(currId).getFish().get(currentFish)).setTemp(tempF);
-                ((Fish) taskList.get(currId).getFish().get(currentFish)).setWeather(weatherF);
+                ((Fish) taskList.get(currId).getFish().get(currentFish)).setMisc(miscF);
                 ((Fish) taskList.get(currId).getFish().get(currentFish)).setDate(dateF);
-
-
 
                 //switch to view so user knows action succeeded
                 Intent switchToFish = new Intent(getApplicationContext(), view_fish.class);
@@ -124,20 +124,6 @@ public class edit_fish extends AppCompatActivity {
                 Intent switchToView = new Intent(getApplicationContext(), view_fish.class);
                 startActivity(switchToView);
 
-            }
-        });
-        enterFishButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent switchToEnter = new Intent(getApplicationContext(), complete_task.class);
-                startActivity(switchToEnter);
-            }
-        });
-        bottomEditButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent switchToEdit = new Intent(getApplicationContext(), edit_fish.class);
-                startActivity(switchToEdit);
             }
         });
     }

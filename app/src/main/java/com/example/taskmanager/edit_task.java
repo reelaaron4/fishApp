@@ -1,6 +1,6 @@
 package com.example.taskmanager;
 
-import static com.example.taskmanager.create_task.taskList;
+import static com.example.taskmanager.view_task.taskList;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,8 +29,6 @@ public class edit_task extends AppCompatActivity {
         setContentView(R.layout.activity_edit_task);
 
         Button editButton = findViewById(R.id.editTaskButton);
-        Button createButton = findViewById(R.id.createButton);
-        Button deleteButton = findViewById(R.id.deleteButton);
         Button viewButton = findViewById(R.id.viewButton);
 
         EditText inputID = findViewById(R.id.editTaskEditText);
@@ -45,13 +43,13 @@ public class edit_task extends AppCompatActivity {
                 String input = inputID.getText().toString();
                 int taskId = 0;
                 if (input.isEmpty()) {
-                    error.setText("Invalid Input: Number must be between 1 and the number of tasks");
+                    error.setText("Invalid Input: Number must be a valid ID");
                     return;
                 } else {
                     try {
                         taskId = Integer.parseInt(input);
                     } catch (NumberFormatException e) {
-                        error.setText("Invalid Input: Number must be between 1 and the number of tasks");
+                        error.setText("Invalid Input: Number must be a valid ID");
                         return;
                     }
                 }
@@ -60,7 +58,7 @@ public class edit_task extends AppCompatActivity {
                 String description = inputDesc.getText().toString();
                 //validates user input to be in range of list
                 if(taskId < 1 || taskId > taskList.size()){
-                    error.setText("Invalid Input: Number must be between 1 and the number of tasks");
+                    error.setText("Invalid Input: Number must be a valid ID");
                     return;
                 }
 
@@ -70,16 +68,6 @@ public class edit_task extends AppCompatActivity {
                 startActivity(switchToView);
             }
         });
-        deleteButton.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                Intent switchToDelete = new Intent(getApplicationContext(), delete_task.class);
-                startActivity(switchToDelete);
-
-            }
-        });
         viewButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -87,17 +75,6 @@ public class edit_task extends AppCompatActivity {
             {
                 Intent switchToView = new Intent(getApplicationContext(), view_task.class);
                 startActivity(switchToView);
-
-            }
-        });
-
-        createButton.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                Intent switchToCreate = new Intent(getApplicationContext(), create_task.class);
-                startActivity(switchToCreate);
 
             }
         });

@@ -7,186 +7,254 @@
     tools:context="com.example.taskmanager.complete_task">
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="409dp"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/linearLayoutFull"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/createButton"
-            style="@android:style/Widget.DeviceDefault.Button.Colored"
-            android:layout_width="136dp"
-            android:layout_height="48dp"
-            android:text="Enter Fish" />
+        <LinearLayout
+            android:id="@+id/linearLayoutTop"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@id/linearLayoutData"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/editButton"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="136dp"
-            android:layout_height="48dp"
-            android:text="Edit" />
+            <Button
+                android:id="@+id/viewButton"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:text="View Fish"
+                android:layout_weight="3"
+                app:layout_constraintBottom_toTopOf="@+id/textViewTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.428"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+            <TextView
+                android:id="@+id/textViewTitle"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:text="Enter a Fish"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:layout_weight="2"
+                app:layout_constraintBottom_toTopOf="@+id/addFishSpecies"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.59" />
+            <TextView
+                android:id="@+id/completeErrorTextView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:textColor="#FF0000" />
+        </LinearLayout>
 
-        <Button
-            android:id="@+id/deleteButton"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="136dp"
-            android:layout_height="48dp"
-            android:text="Delete" />
+        <LinearLayout
+            android:id="@+id/linearLayoutData"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@id/linearLayoutOpen"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/linearLayoutTop">
+
+            <LinearLayout
+                android:id="@+id/linearlayoutSpecies"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="horizontal"
+                android:layout_weight="1">
+
+                <Spinner
+                    android:id="@+id/addFishSpecies"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:ems="15"
+                    android:hint="*Species"
+                    android:textAlignment="center"/>
+
+                <Button
+                    android:id="@+id/addNewSpecies"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="new" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearlayoutData2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="5"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/addFishLength"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="*Length"
+                    android:inputType="numberDecimal"
+                    android:textAlignment="center" />
+
+                <EditText
+                    android:id="@+id/addFishBait"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="*Bait"
+                    android:textAlignment="center" />
+                <EditText
+                    android:id="@+id/addFishWeight"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="Weight"
+                    android:inputType="numberDecimal"
+                    android:textAlignment="center" />
+
+                <EditText
+                    android:id="@+id/addFishMisc"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="Misc"
+                    android:textAlignment="center" />
+
+                <EditText
+                    android:id="@+id/addFishTemp"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="Temperature"
+                    android:inputType="numberDecimal"
+                    android:textAlignment="center" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayoutOpen"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@id/linearLayoutButtons"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/linearLayoutData">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2">
+                <Button
+                    android:id="@+id/enterFishButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="Enter fish"
+                    android:layout_weight="1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/viewFishButton"/>
+
+                <Button
+                    android:id="@+id/viewFishButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="View data"
+                    android:layout_weight="1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/enterFishButton"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayoutButtons"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/linearLayoutOpen">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/createButton"
+                    style="@android:style/Widget.DeviceDefault.Button.Colored"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Enter Fish" />
+
+                <Button
+                    android:id="@+id/saveButton"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Save / Files" />
+
+                <Button
+                    android:id="@+id/deleteButton"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Delete" />
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 
-    <Button
-        android:id="@+id/enterFishButton"
-        android:layout_width="180dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="45dp"
-        android:text="Enter fish"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addFishWeather"
-        app:layout_constraintVertical_bias="0.344" />
-
-    <Button
-        android:id="@+id/viewFishButton"
-        android:layout_width="180dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="45dp"
-
-        android:text="View data"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/enterFishButton"
-        app:layout_constraintTop_toBottomOf="@+id/addFishWeather"
-        app:layout_constraintVertical_bias="0.345" />
-
-    <EditText
-        android:id="@+id/addFishSpecies"
-        android:layout_width="210dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="184dp"
-        android:ems="10"
-        android:hint="*Species"
-        android:minHeight="48dp"
-        app:layout_constraintEnd_toEndOf="@+id/textView2"
-        app:layout_constraintHorizontal_bias="0.427"
-        app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/addFishLength"
-        android:layout_width="210dp"
-        android:layout_height="48dp"
-        android:ems="10"
-        android:hint="*Length"
-        android:inputType="numberDecimal"
-        android:minHeight="48dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
-        app:layout_constraintEnd_toEndOf="@+id/addFishSpecies"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/addFishSpecies"
-        app:layout_constraintTop_toBottomOf="@+id/addFishSpecies"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <EditText
-        android:id="@+id/addFishBait"
-        android:layout_width="210dp"
-        android:layout_height="48dp"
-        android:ems="10"
-        android:hint="*Bait"
-        android:minHeight="48dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
-        app:layout_constraintEnd_toEndOf="@+id/addFishWeight"
-        app:layout_constraintHorizontal_bias="0.278"
-        app:layout_constraintStart_toStartOf="@+id/addFishWeight"
-        app:layout_constraintTop_toBottomOf="@+id/addFishWeight"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <EditText
-        android:id="@+id/addFishWeather"
-        android:layout_width="210dp"
-        android:layout_height="48dp"
-        android:ems="10"
-        android:hint="Weather"
-        android:minHeight="48dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
-        app:layout_constraintEnd_toEndOf="@+id/addFishTemp"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/addFishTemp"
-        app:layout_constraintTop_toBottomOf="@+id/addFishTemp"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <EditText
-        android:id="@+id/addFishWeight"
-        android:layout_width="210dp"
-        android:layout_height="48dp"
-        android:ems="10"
-        android:hint="Weight"
-        android:inputType="numberDecimal"
-        android:minHeight="48dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
-        app:layout_constraintEnd_toEndOf="@+id/addFishLength"
-        app:layout_constraintHorizontal_bias="0.373"
-        app:layout_constraintStart_toStartOf="@+id/addFishLength"
-        app:layout_constraintTop_toBottomOf="@+id/addFishLength"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <EditText
-        android:id="@+id/addFishTemp"
-        android:layout_width="210dp"
-        android:layout_height="48dp"
-        android:ems="10"
-        android:hint="Temperature"
-        android:inputType="numberDecimal"
-        android:minHeight="48dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
-        app:layout_constraintEnd_toEndOf="@+id/addFishBait"
-        app:layout_constraintHorizontal_bias="0.278"
-        app:layout_constraintStart_toStartOf="@+id/addFishBait"
-        app:layout_constraintTop_toBottomOf="@+id/addFishBait"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/completeErrorTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:textColor="#FF0000"
-        app:layout_constraintBottom_toTopOf="@+id/addFishSpecies"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Enter a Fish"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/addFishSpecies"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.59" />
-
-    <Button
-        android:id="@+id/viewButton"
-        style="?android:attr/buttonBarButtonStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="View Fish"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.428"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,6 @@
 package com.example.taskmanager;
 
-import static com.example.taskmanager.create_task.taskList;
+import static com.example.taskmanager.view_task.taskList;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,10 +10,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 public class graph extends AppCompatActivity {
 
@@ -23,16 +27,30 @@ public class graph extends AppCompatActivity {
     public static String typeSpecies = null;
     public static int currentId = view_task.getCurrentId();
     public static ArrayList<String> speciesList = new ArrayList<String>();
+    public static String speciesSelected = null;
+    public static int startMonth;
+    public static int startYear;
+    public static int endMonth;
+    public static int endYear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph);
         EditText range = findViewById(R.id.range);
+        EditText startDateEditText = findViewById(R.id.startDate);
+        EditText endDateEditText = findViewById(R.id.endDate);
         Button createGraph = findViewById(R.id.createGraph);
-        Button createButton = findViewById(R.id.createButton);
         Button viewButton = findViewById(R.id.viewButton);
+        Button createTable = findViewById(R.id.createTable);
+        TextView error = findViewById(R.id.graphErrorTextView);
 
+        Spinner speciesSpinner = findViewById(R.id.speciesSpinner);
+        List<String> fishNames = new ArrayList<>(view_task.fishNames);
+        fishNames.add(0, "No Selection"); // Add "No Selection" as the first item
+        ArrayAdapter<String> speciesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, fishNames);
+        speciesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        speciesSpinner.setAdapter(speciesAdapter);
 
 
         String[] xaxisOptions = {"length", "weight", "bait", "species", "date"};
@@ -96,7 +114,9 @@ public class graph extends AppCompatActivity {
                     rangeValue = Integer.parseInt(range.getText().toString());
                     setRange(rangeValue);
                 }catch (NumberFormatException e){
+                    error.setText("Please enter a valid range. Defaulting to 5.");
                     setRange(5);
+                    return;
                 }
                 if(typeY == "No Selection" || typeY == null){
                     Intent switchToGraphView = new Intent(getApplicationContext(), graphTest.class);
@@ -118,13 +138,67 @@ public class graph extends AppCompatActivity {
 
             }
         });
-        createButton.setOnClickListener(new View.OnClickListener()
-        {
+        createTable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
             {
-                Intent switchToCreate = new Intent(getApplicationContext(), complete_task.class);
-                startActivity(switchToCreate);
+                Calendar calendar = Calendar.getInstance();
+                SimpleDateFormat dateFormatMonth = new SimpleDateFormat("MM");
+                SimpleDateFormat dateFormatYear = new SimpleDateFormat("yyyy");
+                String start = startDateEditText.getText().toString();
+                String end = endDateEditText.getText().toString();
+                String datePattern = "\\d{2}/\\d{4}";
+
+                if (!start.isEmpty() || !end.isEmpty()) {
+                    if (start.matches(datePattern) && end.matches(datePattern)) {
+                        int startMonthTemp = Integer.parseInt(start.substring(0, 2));
+                        int startYearTemp = Integer.parseInt(start.substring(3));
+                        int endMonthTemp = Integer.parseInt(end.substring(0, 2));
+                        int endYearTemp = Integer.parseInt(end.substring(3));
+
+                        if (startMonthTemp >= 1 && startMonthTemp <= 12 && endMonthTemp >= 1 && endMonthTemp <= 12) {
+                            if (startYearTemp > endYearTemp) {
+                                error.setText("Please enter a valid date range.");
+                                return;
+                            }else if (startYearTemp == endYearTemp) {
+                                if (startMonthTemp > endMonthTemp) {
+                                    error.setText("Please enter a valid date range.");
+                                    return;
+                                }
+                            }
+                            startMonth = startMonthTemp;
+                            startYear = startYearTemp;
+                            endMonth = endMonthTemp;
+                            endYear = endYearTemp;
+                        }else{
+                            error.setText("Please enter a valid month (1-12).");
+                            return;
+                        }
+                    }else{
+                        error.setText("Please enter a valid date.");
+                        return;
+                    }
+                }
+
+                if (start.isEmpty() && end.isEmpty()) {
+                    startMonth = 1;
+                    startYear = 1800;
+                    endMonth =  Integer.parseInt(dateFormatMonth.format(calendar.getTime()));
+                    endYear =  Integer.parseInt(dateFormatYear.format(calendar.getTime()));
+                }
+                Intent switchToTable = new Intent(getApplicationContext(), viewTable.class);
+                startActivity(switchToTable);
+
+            }
+        });
+        speciesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                speciesSelected = adapterView.getItemAtPosition(i).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
         });
