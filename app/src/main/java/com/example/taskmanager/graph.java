@@ -114,7 +114,7 @@ public class graph extends AppCompatActivity {
                     rangeValue = Integer.parseInt(range.getText().toString());
                     setRange(rangeValue);
                 }catch (NumberFormatException e){
-                    error.setText("Please enter a valid range. Defaulting to 5.");
+                    error.setText("Please enter a valid range.");
                     setRange(5);
                     return;
                 }

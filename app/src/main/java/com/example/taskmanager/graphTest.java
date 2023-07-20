@@ -15,7 +15,6 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class graphTest<ValueFormatter> extends AppCompatActivity {
     ArrayList<BarEntry> barEntries;
@@ -62,21 +61,21 @@ public class graphTest<ValueFormatter> extends AppCompatActivity {
     }
 
     private void getData() {
-        barEntries = new ArrayList<>();
+        /*barEntries = new ArrayList<>();
         double[] lengths = new double[100];
         Random rand = new Random();
         for (int i = 0; i < 100; i++) {
             lengths[i] = rand.nextDouble() * 40 + 1;
         }
-        calcDoubles(lengths);
-       /* BarChart barChart = findViewById(R.id.barchart);
+        calcDoubles(lengths);*/
+        BarChart barChart = findViewById(R.id.barchart);
         barEntries = new ArrayList<>();
         int currId = view_task.getCurrentId();
         String typeSpecies = graph.getTypeSpecies();
         String type = graph.getType();
 
         ArrayList<Fish> filteredFishList = new ArrayList<>();
-        ArrayList<Fish> fishList = (ArrayList<Fish>) taskList.get(currId).getFish();
+        ArrayList<Fish> fishList = (ArrayList<Fish>) view_task.taskList.get(currId).getFish();
 
         // Filter the fishList based on typeSpecies
         if (typeSpecies != null && !typeSpecies.equals("No Selection")) {
@@ -120,7 +119,7 @@ public class graphTest<ValueFormatter> extends AppCompatActivity {
                 barChart.setExtraOffsets(0f, 0f, 0f, -35f);
                 calcStrings(species);
                 break;
-        }*/
+        }
     }
     private void calcDoubles(double[] arr){
         BarChart barChart = findViewById(R.id.barchart);

@@ -40,7 +40,12 @@ public class view_fish extends AppCompatActivity {
         Button viewButton = findViewById(R.id.viewButton);
         TextView current = findViewById(R.id.textViewTitle);
 
-        fishAdapter adapter = new fishAdapter(this, view_task.getTaskAtIndex(currentId).fishList);
+        ArrayList sortedList = new ArrayList<Fish>();
+        sortedList = sortListSpecies(speciesSort, view_task.getTaskAtIndex(currentId).fishList);
+        sortedList = sortListLength(lengthSort, sortedList);
+        sortedList = sortListDate(startDate, endDate, sortedList);
+
+        fishAdapter adapter = new fishAdapter(this, sortedList);
         ListView listView = findViewById(R.id.fishListView);
         listView.setAdapter(adapter);
         current.setText(currentName);
@@ -203,13 +208,13 @@ public class view_fish extends AppCompatActivity {
         newList.addAll(list);
         for (int i = 0; i < newList.size() - 1; i++) {
            for(int j = 0; j < newList.size() - i - 1; j++){
-               if(length == "Ascending"){
+               if(length == "Descending"){
                    if(newList.get(j).getLength() > newList.get(j + 1).getLength()){
                        Fish temp = newList.get(j);
                        newList.set(j, newList.get(j + 1));
                        newList.set(j + 1, temp);
                    }
-               }else if(length == "Descending"){
+               }else if(length == "Ascending"){
                    if(newList.get(j).getLength() < newList.get(j + 1).getLength()){
                        Fish temp = newList.get(j);
                        newList.set(j, newList.get(j + 1));
@@ -221,6 +226,9 @@ public class view_fish extends AppCompatActivity {
         return newList;
     }
     private static ArrayList<Fish> sortListDate(String start, String end, ArrayList<Fish> list){
+        if(start == "" || end == ""){
+            return list;
+        }
         int startMonthTemp = Integer.parseInt(start.substring(0, 2));
         int startYearTemp = Integer.parseInt(start.substring(3));
         int endMonthTemp = Integer.parseInt(end.substring(0, 2));

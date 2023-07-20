@@ -1,11 +1,8 @@
 package com.example.taskmanager;
 
-import static com.example.taskmanager.graph.endMonth;
-import static com.example.taskmanager.graph.endYear;
-import static com.example.taskmanager.graph.startMonth;
-import static com.example.taskmanager.graph.startYear;
 import static com.example.taskmanager.view_task.taskList;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,7 +17,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 public class sortList extends AppCompatActivity {
 
@@ -86,6 +82,8 @@ public class sortList extends AppCompatActivity {
                     view_fish.setStartDate("01/1800");
                     view_fish.setEndDate(dateFormatMonth.format(calendar.getTime()) + "/" + dateFormatYear.format(calendar.getTime()));
                 }
+                Intent switchToView = new Intent(getApplicationContext(), view_fish.class);
+                startActivity(switchToView);
             }
         });
         speciesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -116,14 +114,5 @@ public class sortList extends AppCompatActivity {
             }
         }
         return species;
-    }
-    private boolean isWithinDateRange(Date date) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        int month = calendar.get(Calendar.MONTH) + 1;
-        int year = calendar.get(Calendar.YEAR);
-        return (year > startYear && year < endYear) ||
-                (year == startYear && month >= startMonth) ||
-                (year == endYear && month <= endMonth);
     }
 }
