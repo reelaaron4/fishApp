@@ -20,7 +20,7 @@
             android:id="@+id/linearLayoutTop"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="7"
             android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@id/linearLayoutData"
             app:layout_constraintEnd_toEndOf="parent"
@@ -62,12 +62,11 @@
                 android:textAlignment="center"
                 android:textColor="#FF0000" />
         </LinearLayout>
-
         <LinearLayout
             android:id="@+id/linearLayoutData"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="4"
+            android:layout_weight="30"
             android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@id/linearLayoutOpen"
             app:layout_constraintEnd_toEndOf="parent"
@@ -155,24 +154,17 @@
             </LinearLayout>
 
         </LinearLayout>
-
         <LinearLayout
             android:id="@+id/linearLayoutOpen"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="5"
             android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@id/linearLayoutButtons"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/linearLayoutData">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
-
-            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -199,61 +191,8 @@
                     app:layout_constraintStart_toEndOf="@+id/enterFishButton"
                     app:layout_constraintTop_toTopOf="parent" />
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
-
-            </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/linearLayoutButtons"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/linearLayoutOpen">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-                <Button
-                    android:id="@+id/createButton"
-                    style="@android:style/Widget.DeviceDefault.Button.Colored"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="Enter Fish" />
-
-                <Button
-                    android:id="@+id/saveButton"
-                    style="?android:attr/buttonBarButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="Save / Files" />
-
-                <Button
-                    android:id="@+id/deleteButton"
-                    style="?android:attr/buttonBarButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="Delete" />
-            </LinearLayout>
-        </LinearLayout>
     </LinearLayout>
 
 

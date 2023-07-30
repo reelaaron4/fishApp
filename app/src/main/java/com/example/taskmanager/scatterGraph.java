@@ -14,6 +14,7 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.ScatterData;
 import com.github.mikephil.charting.data.ScatterDataSet;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IScatterDataSet;
 
 import java.util.ArrayList;
@@ -58,89 +59,13 @@ public class scatterGraph extends AppCompatActivity {
             System.out.println("(" + xValue + ", " + yValue + ")");
         }
 
-        //<editor-fold desc="Add elements">
-        entries.add(new Entry(8, 5));
-        entries.add(new Entry(1, 2));
-        entries.add(new Entry(9, 5));
-        entries.add(new Entry(4, 1));
-        entries.add(new Entry(3, 9));
-        entries.add(new Entry(1, 1));
-        entries.add(new Entry(2, 7));
-        entries.add(new Entry(5, 2));
-        entries.add(new Entry(9, 5));
-        entries.add(new Entry(1, 6));
-        entries.add(new Entry(4, 9));
-        entries.add(new Entry(9, 7));
-        entries.add(new Entry(8, 5));
-        entries.add(new Entry(1, 7));
-        entries.add(new Entry(9, 3));
-        entries.add(new Entry(7, 3));
-        entries.add(new Entry(7, 2));
-        entries.add(new Entry(8, 6));
-        entries.add(new Entry(6, 6));
-        entries.add(new Entry(1, 3));
-        entries.add(new Entry(5, 9));
-        entries.add(new Entry(5, 5));
-        entries.add(new Entry(2, 6));
-        entries.add(new Entry(4, 7));
-        entries.add(new Entry(5, 2));
-        entries.add(new Entry(5, 6));
-        entries.add(new Entry(5, 5));
-        entries.add(new Entry(9, 3));
-        entries.add(new Entry(4, 7));
-        entries.add(new Entry(6, 3));
-        entries.add(new Entry(4, 9));
-        entries.add(new Entry(8, 6));
-        entries.add(new Entry(8, 1));
-        entries.add(new Entry(1, 3));
-        entries.add(new Entry(5, 4));
-        entries.add(new Entry(2, 7));
-        entries.add(new Entry(7, 4));
-        entries.add(new Entry(8, 5));
-        entries.add(new Entry(7, 5));
-        entries.add(new Entry(6, 8));
-        entries.add(new Entry(9, 1));
-        entries.add(new Entry(6, 4));
-        entries.add(new Entry(7, 4));
-        entries.add(new Entry(9, 1));
-        entries.add(new Entry(6, 4));
-        entries.add(new Entry(1, 6));
-        entries.add(new Entry(2, 1));
-        entries.add(new Entry(5, 2));
-        entries.add(new Entry(3, 5));
-        entries.add(new Entry(9, 6));
-        entries.add(new Entry(5, 2));
-        entries.add(new Entry(7, 5));
-        entries.add(new Entry(7, 8));
-        entries.add(new Entry(7, 6));
-        entries.add(new Entry(9, 1));
-        entries.add(new Entry(1, 7));
-        entries.add(new Entry(3, 9));
-        entries.add(new Entry(6, 6));
-        entries.add(new Entry(1, 2));
-        entries.add(new Entry(7, 7));
-        entries.add(new Entry(4, 6));
-        entries.add(new Entry(9, 7));
-        entries.add(new Entry(2, 7));
-        entries.add(new Entry(9, 5));
-        entries.add(new Entry(5, 2));
-        entries.add(new Entry(6, 8));
-        entries.add(new Entry(5, 2));
-        entries.add(new Entry(7, 4));
-        entries.add(new Entry(8, 1));
-        entries.add(new Entry(2, 6));
-        entries.add(new Entry(7, 2));
-        entries.add(new Entry(5, 5));
-        entries.add(new Entry(5, 6));
-
-       // getData();
-        /*XAxis xaxis = scatterChart.getXAxis();
+        getData();
+        XAxis xaxis = scatterChart.getXAxis();
         xaxis.setLabelCount(xAxisLabels.size(), true);
         xaxis.setAxisMaximum((float) (xAxisLabels.size() - 1));
         //MAYBE ADD CUSTOM VALUE FORMATTER TO MATCH LABEL POSITION WITH THE VALUE
-        xaxis.setValueFormatter(new IndexAxisValueFormatter(xAxisLabels));*/
+        xaxis.setValueFormatter(new IndexAxisValueFormatter(xAxisLabels));
         countOccurrences(entries);
-        //</editor-fold>
 
         //<editor-fold desc="Create Dataset">
         ScatterDataSet scatterDataSet = new ScatterDataSet(entries, "");
@@ -241,10 +166,10 @@ public class scatterGraph extends AppCompatActivity {
     }
 
     private void getData() {
-        String xValues = graph.getType();
-        String yValues = graph.getTypeY();
+        String xValues = graph.getBarSelection();
+        String yValues = graph.getScatterX();
 
-        String typeSpecies = graph.getTypeSpecies();
+        String typeSpecies = graph.getSpeciesGraph();
         ArrayList<Fish> filteredFishList = new ArrayList<>();
         ArrayList<Fish> fishList = (ArrayList<Fish>) taskList.get(currId).getFish();
 

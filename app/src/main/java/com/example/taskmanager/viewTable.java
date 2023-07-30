@@ -1,9 +1,4 @@
 package com.example.taskmanager;
-
-import static com.example.taskmanager.graph.endMonth;
-import static com.example.taskmanager.graph.endYear;
-import static com.example.taskmanager.graph.startMonth;
-import static com.example.taskmanager.graph.startYear;
 import static com.example.taskmanager.view_task.taskList;
 
 import android.os.Bundle;
@@ -18,6 +13,10 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class viewTable extends AppCompatActivity {
+    private static int startMonth;
+    private static int startYear;
+    private static int endMonth;
+    private static int endYear;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,15 +24,19 @@ public class viewTable extends AppCompatActivity {
 
         TableLayout table = findViewById(R.id.tableLayout);
 
+        startMonth = graph.getStartMonthTable();
+        startYear = graph.getStartYearTable();
+        endMonth = graph.getEndMonthTable();
+        endYear = graph.getEndYearTable();
         int currId = view_task.getCurrentId();
         int x = 0;
         String[] titles = {"Species", "Number of Fish", "Avg Length", "Size Range"};
         ArrayList<String> speciesArray = findSpecies(taskList.get(currId).getFish());
         int columnCount = 4;
         int rowCount = speciesArray.size() + 1;
-        String species = graph.speciesSelected;
+        String species = graph.getSpeciesTable();
 
-        if(graph.speciesSelected == null || graph.speciesSelected == "No Selection"){
+        if(species == null || species == "No Selection"){
             for (int i = 0; i < rowCount; i++) {
                 TableRow row = new TableRow(this);
                 row.setLayoutParams(new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT, 1f));

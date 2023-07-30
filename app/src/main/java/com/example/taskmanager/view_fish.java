@@ -135,6 +135,58 @@ public class view_fish extends AppCompatActivity {
 
             }
         });
+        //POTENTIAL SAVING SYSTEM TO TRY AND PREVENT DATA LOSS
+        /*saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                JSONArray locationArray = new JSONArray();
+                JSONArray speciesArray = new JSONArray();
+                String tempFileName = "FishDataTemp.json";
+                String fileName = "FishData.json";
+
+                for (Task task : view_task.taskList) {
+                    // ... (same as the original code)
+
+                    locationArray.put(location);
+                }
+                for (String species : view_task.fishNames) {
+                    // ... (same as the original code)
+
+                    speciesArray.put(speciesObject);
+                }
+
+                JSONObject resultObject = new JSONObject();
+                try {
+                    resultObject.put("locations", locationArray);
+                    resultObject.put("species", speciesArray);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    return; // Exit the saving process on JSON creation error
+                }
+
+                try {
+                    // Write data to a temporary file
+                    FileOutputStream tempFos = openFileOutput(tempFileName, Context.MODE_PRIVATE);
+                    tempFos.write(resultObject.toString().getBytes());
+                    tempFos.close();
+
+                    // If data is successfully written to the temporary file, replace the original file
+                    File tempFile = new File(getFilesDir(), tempFileName);
+                    File originalFile = new File(getFilesDir(), fileName);
+                    if (tempFile.renameTo(originalFile)) {
+                        // Success: The data was saved and renamed atomically
+                        // You can optionally delete the temporary file here
+                    } else {
+                        // Error: The rename operation failed, so data might be corrupted
+                        // Implement backup or error handling here
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    // Error: There was an issue with saving the data
+                    // Implement backup or error handling here
+                }
+            }
+        });*/
 
         saveButton.setOnLongClickListener(new View.OnLongClickListener() {
             @Override

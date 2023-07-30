@@ -28,8 +28,8 @@ public class addSpecies extends AppCompatActivity {
         Button viewButton = findViewById(R.id.viewButton);
 
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, view_task.fishNames);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_dropdown_item, view_task.fishNames);
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         speciesSpinner.setAdapter(adapter);
 
         speciesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

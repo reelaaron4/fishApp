@@ -14,27 +14,47 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+
 import java.util.ArrayList;
 
 public class graphTest<ValueFormatter> extends AppCompatActivity {
     ArrayList<BarEntry> barEntries;
-    int z = 0;
+    int rangeMidpoint = 0;
+    String barSelection, speciesGraph;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph_test);
 
+        barSelection = graph.getBarSelection();
+
         BarChart barChart = findViewById(R.id.barchart);
         getData();
-        BarDataSet barDataSet = new BarDataSet(barEntries, "Fish Lengths");
+        BarDataSet barDataSet = new BarDataSet(barEntries, "Fish Data");
+        switch(barSelection){
+            case "Length":
+                barDataSet = new BarDataSet(barEntries, "Fish Lengths");
+                break;
+            case "Weight":
+                barDataSet = new BarDataSet(barEntries, "Fish Weight");
+                break;
+            case "Bait":
+                barDataSet = new BarDataSet(barEntries, "Baits");
+                break;
+            case "Species":
+                barDataSet = new BarDataSet(barEntries, "Species");
+                break;
+        }
         BarData barData = new BarData(barDataSet);
         barChart.setData(barData);
+        barData.setBarWidth(0.85f);
 
         barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
         barDataSet.setValueTextColor(Color.BLACK);
         barDataSet.setValueTextSize(16f);
+
         barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-       // barChart.setExtraOffsets(0f, 0f, 0f, -40f);
         barChart.getXAxis().setTextSize(16f);
         barChart.getAxisLeft().setTextSize(16f);
         barChart.getAxisRight().setTextSize(16f);
@@ -42,37 +62,24 @@ public class graphTest<ValueFormatter> extends AppCompatActivity {
         barChart.getAxisLeft().setGridLineWidth(1f);
         barChart.getDescription().setEnabled(false);
 
-
-
         // Set the padding on the left and right sides of the chart
         barChart.setFitBars(true);
         barChart.setDrawGridBackground(true);
         barChart.setDrawBorders(false);
         barChart.setTouchEnabled(true);
         barChart.setDragEnabled(true);
-        barChart.setScaleEnabled(true);
-        barChart.setPinchZoom(false);
-        barChart.setExtraLeftOffset(20f);
-        barChart.setExtraRightOffset(20f);
+       // barChart.setScaleEnabled(true);
+       // barChart.setPinchZoom(true);
         barChart.setBackgroundColor(Color.argb(128, 128, 128, 128));
         barChart.setGridBackgroundColor(Color.argb(0, 128, 128, 128));
-        //barChart.setExtraOffsets(0f, 0f, 0f, -25f);
-
+        barChart.setVisibleXRangeMaximum(10);
     }
 
     private void getData() {
-        /*barEntries = new ArrayList<>();
-        double[] lengths = new double[100];
-        Random rand = new Random();
-        for (int i = 0; i < 100; i++) {
-            lengths[i] = rand.nextDouble() * 40 + 1;
-        }
-        calcDoubles(lengths);*/
         BarChart barChart = findViewById(R.id.barchart);
         barEntries = new ArrayList<>();
         int currId = view_task.getCurrentId();
-        String typeSpecies = graph.getTypeSpecies();
-        String type = graph.getType();
+        String typeSpecies = graph.getSpeciesGraph();
 
         ArrayList<Fish> filteredFishList = new ArrayList<>();
         ArrayList<Fish> fishList = (ArrayList<Fish>) view_task.taskList.get(currId).getFish();
@@ -88,36 +95,38 @@ public class graphTest<ValueFormatter> extends AppCompatActivity {
             filteredFishList.addAll(fishList);
         }
 
-        switch(type){
-            case "length":
+        switch(barSelection){
+            case "Length":
                 double[] lengths = new double[filteredFishList.size()];
                 for (int i = 0; i < filteredFishList.size(); i++) {
                     lengths[i] = filteredFishList.get(i).getLength();
                 }
                 calcDoubles(lengths);
+                barChart.setViewPortOffsets(dpToPx(40), dpToPx(10), dpToPx(40), dpToPx(50));
                 break;
-            case "weight":
+            case "Weight":
                 double[] weights = new double[filteredFishList.size()];
                 for (int i = 0; i < filteredFishList.size(); i++) {
                     weights[i] = filteredFishList.get(i).getWeight();
                 }
                 calcDoubles(weights);
+                barChart.setViewPortOffsets(dpToPx(40), dpToPx(10), dpToPx(40), dpToPx(50));
                 break;
-            case "bait":
+            case "Bait":
                 String[] baits = new String[filteredFishList.size()];
                 for (int i = 0; i < filteredFishList.size(); i++) {
                     baits[i] = filteredFishList.get(i).getBait();
                 }
-                barChart.setExtraOffsets(0f, 0f, 0f, -35f);
                 calcStrings(baits);
+                barChart.setViewPortOffsets(dpToPx(40), dpToPx(10), dpToPx(40), dpToPx(70));
                 break;
-            case "species":
+            case "Species":
                 String[] species = new String[filteredFishList.size()];
                 for (int i = 0; i < filteredFishList.size(); i++) {
                     species[i] = filteredFishList.get(i).getSpecies();
                 }
-                barChart.setExtraOffsets(0f, 0f, 0f, -35f);
                 calcStrings(species);
+                barChart.setViewPortOffsets(dpToPx(40), dpToPx(10), dpToPx(40), dpToPx(70));
                 break;
         }
     }
@@ -139,9 +148,9 @@ public class graphTest<ValueFormatter> extends AppCompatActivity {
         int maxMultiple = (int) Math.ceil(max / (double) range) * range;
         int slots = (int) Math.ceil(maxMultiple / range);
         if(range % 2 == 0){
-            z = range / 2;
+            rangeMidpoint = range / 2;
         }else{
-            z = range / 2 + 1;
+            rangeMidpoint = range / 2 + 1;
         }
 
         int[] lengthCounts = new int[slots];
@@ -173,14 +182,13 @@ public class graphTest<ValueFormatter> extends AppCompatActivity {
         YAxis yAxis2 = barChart.getAxisRight();
         xAxis.setDrawLabels(true);
         xAxis.setTextSize(8f);
-        xAxis.setLabelRotationAngle(45f);
+        xAxis.setLabelRotationAngle(30f);
         xAxis.setLabelCount(xLabels.size(), true);
         xAxis.setAxisMinimum(0f);
         yAxis.setAxisMinimum(0f);
         yAxis2.setAxisMinimum(0f);
         xAxis.setAxisMaximum((float) (xLabels.size() - 1));
         xAxis.setValueFormatter(new IndexAxisValueFormatter(xLabels));
-        barChart.setExtraOffsets(0f, 0f, 0f, -50f);
     }
     private void calcStrings(String[] arr){
        BarChart barChart = findViewById(R.id.barchart);
@@ -203,12 +211,10 @@ public class graphTest<ValueFormatter> extends AppCompatActivity {
         }
         XAxis xAxis = barChart.getXAxis();
         xAxis.setDrawLabels(true);
-        xAxis.setTextSize(8f);
-        xAxis.setLabelRotationAngle(45f);
+        xAxis.setLabelRotationAngle(30f);
         xAxis.setLabelCount(xLabels.size(), true);
-        xAxis.setAxisMinimum(0f);
         xAxis.setAxisMaximum((float) (xLabels.size() - 1));
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(xLabels));
+        xAxis.setValueFormatter(new customXAxisLabelFormatter(xLabels));
     }
     public static String[][] countOccurrences(String[] arr) {
         // Create a 2D array to store the count of each string
@@ -239,7 +245,6 @@ public class graphTest<ValueFormatter> extends AppCompatActivity {
                 countArray[countIndex][1] = "1";
             }
         }
-
         // Convert the countArray to a 2D string array and return it
         String[][] result = new String[countIndex + 1][2];
         for (int i = 0; i <= countIndex; i++) {
@@ -248,5 +253,8 @@ public class graphTest<ValueFormatter> extends AppCompatActivity {
         }
         return result;
     }
-
+    private int dpToPx(int dp) {
+        float density = getResources().getDisplayMetrics().density;
+        return Math.round(dp * density);
+    }
 }

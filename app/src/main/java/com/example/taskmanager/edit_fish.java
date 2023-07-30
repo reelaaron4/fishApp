@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -46,7 +45,8 @@ public class edit_fish extends AppCompatActivity {
         bait.setText(taskList.get(currId).getFish().get(currentFish).getBait());
         temp.setText(String.valueOf(taskList.get(currId).getFish().get(currentFish).getTemp()));
         misc.setText(taskList.get(currId).getFish().get(currentFish).getMisc());
-        date.setText(taskList.get(currId).getFish().get(currentFish).getDate().toString());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d, yyyy h:mm a\n", Locale.getDefault());
+        date.setText(dateFormat.format(taskList.get(currId).getFish().get(currentFish).getDate()));
 
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,16 +68,11 @@ public class edit_fish extends AppCompatActivity {
                 double tempF = (temp.getText().toString().isEmpty()) ? 0.0: Double.parseDouble(temp.getText().toString());
                 String miscF = (misc.getText().toString().isEmpty()) ? "": misc.getText().toString();
                 Date dateF = null;
-                try {
-                    SimpleDateFormat inputDateFormat = new SimpleDateFormat("MM-dd-yyyy HH:mm", Locale.getDefault());
-                    SimpleDateFormat outputDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-                    String dateInputString = date.getText().toString();
-                    Date dateInput = inputDateFormat.parse(dateInputString);
-                    String dateOutputString = outputDateFormat.format(dateInput);
-                    dateF = outputDateFormat.parse(dateOutputString);
-                } catch (ParseException e) {
-                    error.setText("Complete all required fields!");
-                    return;
+                try{
+                    dateF = (date.getText().toString().isEmpty()) ? taskList.get(currId).getFish().get(currentFish).getDate() : dateFormat.parse(date.getText().toString());
+                }catch(Exception e){
+                    error.setText("Invalid date format!");
+                    dateF = taskList.get(currId).getFish().get(currentFish).getDate();
                 }
 
                 ((Fish) taskList.get(currId).getFish().get(currentFish)).setSpecies(speciesF);
