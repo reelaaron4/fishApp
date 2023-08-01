@@ -11,11 +11,11 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
-
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class graphTest<ValueFormatter> extends AppCompatActivity {
     ArrayList<BarEntry> barEntries;
@@ -68,11 +68,12 @@ public class graphTest<ValueFormatter> extends AppCompatActivity {
         barChart.setDrawBorders(false);
         barChart.setTouchEnabled(true);
         barChart.setDragEnabled(true);
-       // barChart.setScaleEnabled(true);
-       // barChart.setPinchZoom(true);
+        barChart.setScaleEnabled(true);
+        barChart.setPinchZoom(true);
         barChart.setBackgroundColor(Color.argb(128, 128, 128, 128));
         barChart.setGridBackgroundColor(Color.argb(0, 128, 128, 128));
-        barChart.setVisibleXRangeMaximum(10);
+        barChart.setVisibleXRangeMinimum(1);
+        barChart.setVisibleXRangeMaximum(24);
     }
 
     private void getData() {
@@ -128,6 +129,14 @@ public class graphTest<ValueFormatter> extends AppCompatActivity {
                 calcStrings(species);
                 barChart.setViewPortOffsets(dpToPx(40), dpToPx(10), dpToPx(40), dpToPx(70));
                 break;
+            case "Date":
+                Date[] dates = new Date[filteredFishList.size()];
+                for (int i = 0; i < filteredFishList.size(); i++) {
+                    dates[i] = filteredFishList.get(i).getDate();
+                }
+                calcDate(dates);
+                barChart.setViewPortOffsets(dpToPx(40), dpToPx(10), dpToPx(40), dpToPx(70));
+                break;
         }
     }
     private void calcDoubles(double[] arr){
@@ -180,15 +189,17 @@ public class graphTest<ValueFormatter> extends AppCompatActivity {
         XAxis xAxis = barChart.getXAxis();
         YAxis yAxis = barChart.getAxisLeft();
         YAxis yAxis2 = barChart.getAxisRight();
+        xAxis.setValueFormatter(new customXAxisLabelFormatter(xLabels));
+       // xAxis.setValueFormatter(new IndexAxisValueFormatter(xLabels));
         xAxis.setDrawLabels(true);
         xAxis.setTextSize(8f);
         xAxis.setLabelRotationAngle(30f);
-        xAxis.setLabelCount(xLabels.size(), true);
+        xAxis.setLabelCount(xLabels.size()-1);
         xAxis.setAxisMinimum(0f);
         yAxis.setAxisMinimum(0f);
         yAxis2.setAxisMinimum(0f);
-        xAxis.setAxisMaximum((float) (xLabels.size() - 1));
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(xLabels));
+        xAxis.setAxisMaximum((float) (xLabels.size()-1));
+        xAxis.setCenterAxisLabels(false);
     }
     private void calcStrings(String[] arr){
        BarChart barChart = findViewById(R.id.barchart);
@@ -215,6 +226,67 @@ public class graphTest<ValueFormatter> extends AppCompatActivity {
         xAxis.setLabelCount(xLabels.size(), true);
         xAxis.setAxisMaximum((float) (xLabels.size() - 1));
         xAxis.setValueFormatter(new customXAxisLabelFormatter(xLabels));
+    }
+    private void calcDate(Date[] arr){
+        int startMonth = graph.getStartMonthGraph();
+        int endMonth = graph.getEndMonthGraph();
+        int startYear = graph.getStartYearGraph();
+        int endYear = graph.getEndYearGraph();
+        Date[] dates = new Date[arr.length];
+        int datesIndex = 0;
+        for(int i = 0; i < arr.length; i++){
+            if(isWithinDateRange(arr[i])){
+                dates[datesIndex] = arr[i];
+                datesIndex++;
+            }
+        }
+        //default date range is 1 month
+        int slots = (endYear - startYear) * 12 - (startMonth - endMonth) + 1;
+        int[] dateCounts = new int[slots];
+        for (Date date : dates) {
+            if(date != null){
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(date);
+                int month = calendar.get(Calendar.MONTH) + 1;
+                int year = calendar.get(Calendar.YEAR);
+
+                int groupIndex = (startYear - year) * 12 - (startMonth - month);
+                if(groupIndex >= 0 && groupIndex < slots){
+                    dateCounts[groupIndex]++;
+                }
+            }
+        }
+        ArrayList<String> xLabels = new ArrayList<>();
+        for (int i = -1; i < slots + 1; i++) {
+            if (i == -1 || i == slots) {
+                xLabels.add("");
+            } else {
+                String label = Integer.toString(i);
+                xLabels.add(label);
+            }
+        }
+        for (int i = 0; i < dateCounts.length; i++) {
+            if (dateCounts[i] > 0) {
+                barEntries.add(new BarEntry(i + 1, dateCounts[i]));
+            }
+        }
+        BarChart barChart = findViewById(R.id.barchart);
+        XAxis xAxis = barChart.getXAxis();
+        YAxis yAxis = barChart.getAxisLeft();
+        YAxis yAxis2 = barChart.getAxisRight();
+        xAxis.setValueFormatter(new customXAxisLabelFormatter(xLabels));
+        // xAxis.setValueFormatter(new IndexAxisValueFormatter(xLabels));
+        xAxis.setDrawLabels(true);
+        xAxis.setTextSize(8f);
+        xAxis.setLabelRotationAngle(30f);
+        xAxis.setLabelCount(xLabels.size()-1);
+        xAxis.setAxisMinimum(0f);
+        yAxis.setAxisMinimum(0f);
+        yAxis2.setAxisMinimum(0f);
+        xAxis.setAxisMaximum((float) (xLabels.size()-1));
+        xAxis.setCenterAxisLabels(false);
+
+
     }
     public static String[][] countOccurrences(String[] arr) {
         // Create a 2D array to store the count of each string
@@ -256,5 +328,18 @@ public class graphTest<ValueFormatter> extends AppCompatActivity {
     private int dpToPx(int dp) {
         float density = getResources().getDisplayMetrics().density;
         return Math.round(dp * density);
+    }
+    private boolean isWithinDateRange(Date date) {
+        int startMonth = graph.getStartMonthGraph();
+        int endMonth = graph.getEndMonthGraph();
+        int startYear = graph.getStartYearGraph();
+        int endYear = graph.getEndYearGraph();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        int month = calendar.get(Calendar.MONTH) + 1;
+        int year = calendar.get(Calendar.YEAR);
+        return (year > startYear && year < endYear) ||
+                (year == startYear && month >= startMonth) ||
+                (year == endYear && month <= endMonth);
     }
 }

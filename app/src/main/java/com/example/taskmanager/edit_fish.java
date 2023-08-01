@@ -45,7 +45,7 @@ public class edit_fish extends AppCompatActivity {
         bait.setText(taskList.get(currId).getFish().get(currentFish).getBait());
         temp.setText(String.valueOf(taskList.get(currId).getFish().get(currentFish).getTemp()));
         misc.setText(taskList.get(currId).getFish().get(currentFish).getMisc());
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d, yyyy h:mm a\n", Locale.getDefault());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM d, yyyy h:mm a\n", Locale.getDefault());
         date.setText(dateFormat.format(taskList.get(currId).getFish().get(currentFish).getDate()));
 
         editButton.setOnClickListener(new View.OnClickListener() {
