@@ -54,6 +54,8 @@ public class graph extends AppCompatActivity {
         EditText startDateEditTextGraph = findViewById(R.id.startDateGraph);
         EditText endDateEditTextGraph = findViewById(R.id.endDateGraph);
 
+        error.setText("");
+
         Spinner speciesSpinnerTable = findViewById(R.id.speciesSpinnerTable);
         List<String> fishNames = new ArrayList<>(view_task.fishNames);
         fishNames.add(0, "No Selection"); // Add "No Selection" as the first item
@@ -195,8 +197,13 @@ public class graph extends AppCompatActivity {
                     }
                 }
                 if(scatterX == "No Selection" || scatterX == null){
-                    Intent switchToGraphView = new Intent(getApplicationContext(), graphTest.class);
-                    startActivity(switchToGraphView);
+                    if(barSelection == "Date"){
+                        Intent switchToScatter = new Intent(getApplicationContext(), dateGraph.class);
+                        startActivity(switchToScatter);
+                    }else {
+                        Intent switchToGraphView = new Intent(getApplicationContext(), graphTest.class);
+                        startActivity(switchToGraphView);
+                    }
                 }else{
                     Intent switchToScatter = new Intent(getApplicationContext(), scatterGraph.class);
                     startActivity(switchToScatter);
