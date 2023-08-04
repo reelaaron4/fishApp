@@ -11,8 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
-        <LinearLayout
-            android:id="@+id/linearLayoutGraph"
+        <FrameLayout
+            android:id="@+id/frameLayoutGraph"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="15"
@@ -23,8 +23,28 @@
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/barchart"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:clickable="false"/>
+            <LinearLayout
+                android:id="@+id/linearLayoutNavButtons"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/buttonBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_gravity="top"/>
+                <Button
+                    android:id="@+id/buttonForward"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_gravity="top"/>
+            </LinearLayout>
+        </FrameLayout>
         <LinearLayout
             android:id="@+id/linearLayoutButtons"
             android:layout_width="0dp"

@@ -39,6 +39,9 @@ public class graph extends AppCompatActivity {
     private static int endMonthGraph;
     private static int endYearGraph;
 
+    private static int dateRangeSelection = 2;
+    private static int maxVisible = 15;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -315,4 +318,10 @@ public class graph extends AppCompatActivity {
     public static int getStartYearGraph(){return startYearGraph;}
     public static int getEndMonthGraph(){return endMonthGraph;}
     public static int getEndYearGraph(){return endYearGraph;}
+
+    public static int getDateRangeSelection(){return dateRangeSelection;}
+    public static void setDateRangeSelection(int range){dateRangeSelection = range;}
+
+    public static int getMaxVisible(){return maxVisible;}
+    public static void setMaxVisible(int range){maxVisible = range;}
 }

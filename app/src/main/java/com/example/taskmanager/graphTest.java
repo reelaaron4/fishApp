@@ -1,5 +1,6 @@
 package com.example.taskmanager;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -25,17 +26,27 @@ public class graphTest<ValueFormatter> extends AppCompatActivity {
     private String barSelection, speciesGraph;
     private int dateRangeSelection = 2;
     private int[] dateRange = {12, 3, 1, 3, 30};
+    private int range = 1;
+    private int maxVisible = 15;
+    private int slots;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph_test);
 
-        barSelection = graph.getBarSelection();
+        range = graph.getRange();
+        maxVisible = graph.getMaxVisible();
 
+        barSelection = graph.getBarSelection();
         BarChart barChart = findViewById(R.id.barchart);
         Button increaseRange = findViewById(R.id.buttonBig);
         Button decreaseRange = findViewById(R.id.buttonSmall);
+        Button back = findViewById(R.id.buttonBack);
+        Button forward = findViewById(R.id.buttonForward);
+
+        back.setBackgroundColor(Color.TRANSPARENT);
+        forward.setBackgroundColor(Color.TRANSPARENT);
 
         getData();
         BarDataSet barDataSet = new BarDataSet(barEntries, "Fish Data");
@@ -73,38 +84,48 @@ public class graphTest<ValueFormatter> extends AppCompatActivity {
         barChart.setFitBars(true);
         barChart.setDrawGridBackground(true);
         barChart.setDrawBorders(false);
-        barChart.setTouchEnabled(true);
-        barChart.setDragEnabled(true);
+        barChart.setTouchEnabled(false);
+        barChart.setDragEnabled(false);
         barChart.setScaleEnabled(true);
         barChart.setPinchZoom(true);
         barChart.setBackgroundColor(Color.argb(128, 128, 128, 128));
         barChart.setGridBackgroundColor(Color.argb(0, 128, 128, 128));
         barChart.setVisibleXRangeMinimum(1);
-        barChart.setVisibleXRangeMaximum(24);
+        barChart.setVisibleXRangeMaximum(maxVisible);
 
         increaseRange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dateRangeSelection++;
-                if (dateRangeSelection > 4) {
-                    dateRangeSelection = 4;
-                }
-                getData();
-                barChart.invalidate();
-                System.out.println(dateRangeSelection);
+                maxVisible++;
+                maxVisible = (maxVisible > slots) ? slots : maxVisible;
+                maxVisible = (maxVisible > 25) ? 25 : maxVisible;
+                graph.setMaxVisible(maxVisible);
+                Intent switchToGraph = new Intent(getApplicationContext(), graphTest.class);
+                startActivity(switchToGraph);
             }
         });
 
         decreaseRange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dateRangeSelection--;
-                if (dateRangeSelection < 0) {
-                    dateRangeSelection = 0;
-                }
-                getData();
-                barChart.invalidate();
-                System.out.println(dateRangeSelection);
+                maxVisible--;
+                maxVisible = (maxVisible < 1) ? 1 : maxVisible;
+                graph.setMaxVisible(maxVisible);
+                Intent switchToGraph = new Intent(getApplicationContext(), graphTest.class);
+                startActivity(switchToGraph);
+
+            }
+        });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                barChart.moveViewToX((barChart.getLowestVisibleX() - 1));
+            }
+        });
+        forward.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                barChart.moveViewToX((barChart.getLowestVisibleX() + 1));
             }
         });
     }
@@ -162,14 +183,6 @@ public class graphTest<ValueFormatter> extends AppCompatActivity {
                 calcStrings(species);
                 barChart.setViewPortOffsets(dpToPx(40), dpToPx(10), dpToPx(40), dpToPx(70));
                 break;
-            case "Date":
-                Date[] dates = new Date[filteredFishList.size()];
-                for (int i = 0; i < filteredFishList.size(); i++) {
-                    dates[i] = filteredFishList.get(i).getDate();
-                }
-                calcDate(dates);
-                barChart.setViewPortOffsets(dpToPx(40), dpToPx(10), dpToPx(40), dpToPx(70));
-                break;
         }
     }
     private void calcDoubles(double[] arr){
@@ -180,15 +193,9 @@ public class graphTest<ValueFormatter> extends AppCompatActivity {
                 max = (int) Math.ceil(arr[i]);
             }
         }
-        int range = 0;
-        try {
-            range = graph.getRange();
-        }catch (Exception e){
-            range = 5;
-        }
 
         int maxMultiple = (int) Math.ceil(max / (double) range) * range;
-        int slots = (int) Math.ceil(maxMultiple / range);
+        slots = (int) Math.ceil(maxMultiple / range);
         if(range % 2 == 0){
             rangeMidpoint = range / 2;
         }else{
@@ -204,19 +211,15 @@ public class graphTest<ValueFormatter> extends AppCompatActivity {
         }
 
         ArrayList<String> xLabels = new ArrayList<>();
-        for (int i = -1; i < slots + 1; i++) {
-            if (i == -1 || i == slots) {
-                xLabels.add("");
-            } else {
-                int start = i * range + 1;
-                int end = Math.min((i + 1) * range, maxMultiple);
-                String label = start + "-" + end;
-                xLabels.add(label);
-            }
+        for (int i = 0; i < slots; i++) {
+            int start = i * range + 1;
+            int end = Math.min((i + 1) * range, maxMultiple);
+            String label = start + "-" + end;
+            xLabels.add(label);
         }
         for (int i = 0; i < lengthCounts.length; i++) {
             if (lengthCounts[i] > 0) {
-                barEntries.add(new BarEntry(i + 1, lengthCounts[i]));
+                barEntries.add(new BarEntry(i + 0.5f, lengthCounts[i]));
             }
         }
         XAxis xAxis = barChart.getXAxis();
@@ -227,25 +230,26 @@ public class graphTest<ValueFormatter> extends AppCompatActivity {
         xAxis.setDrawLabels(true);
         xAxis.setTextSize(8f);
         xAxis.setLabelRotationAngle(30f);
-        xAxis.setLabelCount(xLabels.size()-1);
+       // xAxis.setLabelCount(xLabels.size()-1);
+        if(slots < maxVisible){
+            xAxis.setLabelCount(slots);
+        }else {
+            xAxis.setLabelCount(maxVisible + 1, true);
+        }
         xAxis.setAxisMinimum(0f);
         yAxis.setAxisMinimum(0f);
         yAxis2.setAxisMinimum(0f);
-        xAxis.setAxisMaximum((float) (xLabels.size()-1));
-        xAxis.setCenterAxisLabels(false);
+        xAxis.setAxisMaximum((float) (xLabels.size()));
+        xAxis.setCenterAxisLabels(true);
     }
     private void calcStrings(String[] arr){
        BarChart barChart = findViewById(R.id.barchart);
        String[][] counts = countOccurrences(arr);
-       int slots = counts.length;
+       slots = counts.length;
        ArrayList<String> xLabels = new ArrayList<>();
-        for (int i = -1; i < slots + 1; i++) {
-            if (i == -1 || i == slots) {
-                xLabels.add("");
-            } else {
+        for (int i = 0; i < slots; i++) {
                 String label = counts[i][0];
                 xLabels.add(label);
-            }
         }
         for (int i = 0; i < counts.length; i++) {
             int count = Integer.parseInt(counts[i][1]);
@@ -259,212 +263,6 @@ public class graphTest<ValueFormatter> extends AppCompatActivity {
         xAxis.setLabelCount(xLabels.size(), true);
         xAxis.setAxisMaximum((float) (xLabels.size() - 1));
         xAxis.setValueFormatter(new customXAxisLabelFormatter(xLabels));
-    }
-    private void calcDate(Date[] arr){
-        int startMonth = graph.getStartMonthGraph();
-        int endMonth = graph.getEndMonthGraph();
-        int startYear = graph.getStartYearGraph();
-        int endYear = graph.getEndYearGraph();
-        Date[] dates = new Date[arr.length];
-        int datesIndex = 0;
-        for(int i = 0; i < arr.length; i++){
-            if(isWithinDateRange(arr[i])){
-                dates[datesIndex] = arr[i];
-                datesIndex++;
-            }
-        }
-        //default date range is 1 month
-        int slots = (endYear - startYear) * 12 - (startMonth - endMonth);
-        if(dateRangeSelection < 3) {
-            slots /= dateRange[dateRangeSelection];
-            slots++;
-        }else{
-            slots *= dateRange[dateRangeSelection];
-            if(dateRangeSelection == 3){
-                slots +=4;
-            }else{
-                slots+=30;
-            }
-        }
-        System.out.println("slots " + slots);
-        int[] dateCounts = new int[slots];
-        for (Date date : dates) {
-            if(date != null){
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(date);
-                int month = calendar.get(Calendar.MONTH) + 1;
-                int year = calendar.get(Calendar.YEAR);
-                int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-                int groupIndex = (year - startYear) * 12 - (startMonth - month);
-                if(dateRangeSelection < 3) {
-                    groupIndex /= dateRange[dateRangeSelection];
-                }else{
-                    groupIndex *= dateRange[dateRangeSelection];
-                    if(dateRangeSelection == 3) {
-                        int week = (day - 1) / 10;
-                        switch(week){
-                            case 0:
-                                groupIndex += 0;
-                                break;
-                            case 1:
-                                groupIndex += 1;
-                                break;
-                            default:
-                                groupIndex += 2;
-                                break;
-                        }
-                    }else{
-                        groupIndex += day;
-                    }
-
-                }
-                if(groupIndex >= 0 && groupIndex < slots){
-                    dateCounts[groupIndex]++;
-                }
-            }
-        }
-        ArrayList<String> xLabels = new ArrayList<>();
-        int monthCount = startMonth;
-        int yearCount = startYear % 100;
-        int weekCountStart = 1;
-        int weekCountEnd = 10;
-        int dayCount = 1;
-        String label = "";
-        for (int i = -1; i < slots + 1; i++) {
-            if (i == -1 || i == slots) {
-                xLabels.add("");
-            } else {
-                boolean m31 = monthCount == 1 || monthCount == 3 || monthCount == 5 || monthCount == 7 || monthCount == 8 || monthCount == 10 || monthCount == 12;
-                boolean m30 = monthCount == 4 || monthCount == 6 || monthCount == 9 || monthCount == 11;
-                boolean leapYear = yearCount % 4 == 0 && yearCount % 100 != 0 || yearCount % 400 == 0;
-                switch(dateRangeSelection) {
-                    case 0:
-                        label = yearCount + "";
-                        yearCount++;
-                        xLabels.add(label);
-                        break;
-                    case 1:
-                        label = monthCount + "/" + yearCount;
-                        if(monthCount + 3 < 13){
-                            label += " - " + (monthCount + 3) + "/" + yearCount;
-                        }else{
-                            label += " - " + (monthCount + 3 - 12) + "/" + (yearCount + 1);
-                            yearCount++;
-                        }
-                        monthCount += 3;
-                        xLabels.add(label);
-                        break;
-                    case 2:
-                        label = monthCount + "/" + yearCount;
-                        monthCount++;
-                        if (monthCount > 12) {
-                            monthCount = 1;
-                            yearCount++;
-                        }
-                        xLabels.add(label);
-                        break;
-                    case 3:
-                        label = monthCount + "/" + weekCountStart + "/" + yearCount;
-                        weekCountStart += 10;
-                        if (weekCountStart > 21) {
-                            weekCountStart = 1;
-                        }
-                        label += " - " + monthCount + "/" + weekCountEnd + "/" + yearCount;
-                        if(weekCountStart == 1){
-                            monthCount++;
-                            if (monthCount > 12) {
-                                monthCount = 1;
-                                yearCount++;
-                            }
-                        }
-                        weekCountEnd += 10;
-                        if (weekCountStart == 21) {
-                            if(m31){
-                                weekCountEnd = 31;
-                            }else if(m30){
-                                weekCountEnd = 30;
-                            }else{
-                                if(leapYear){
-                                    weekCountEnd = 29;
-                                }else{
-                                    weekCountEnd = 28;
-                                }
-                            }
-                        }else if(weekCountStart == 1){
-                            weekCountEnd = 10;
-                        }
-                        xLabels.add(label);
-                        break;
-                    case 4:
-                        label = monthCount + "/" + dayCount + "/" + yearCount;
-                        dayCount++;
-                        if(m31){
-                            if(dayCount > 31){
-                                dayCount = 1;
-                                monthCount++;
-                                if(monthCount > 12){
-                                    monthCount = 1;
-                                    yearCount++;
-                                }
-                            }
-                        }else if(m30){
-                            if(dayCount > 30){
-                                dayCount = 1;
-                                monthCount++;
-                                if(monthCount > 12){
-                                    monthCount = 1;
-                                    yearCount++;
-                                }
-                            }
-                        }else{
-                            if(leapYear){
-                                if(dayCount > 29){
-                                    dayCount = 1;
-                                    monthCount++;
-                                    if(monthCount > 12){
-                                        monthCount = 1;
-                                        yearCount++;
-                                    }
-                                }
-                            }else{
-                                if(dayCount > 28){
-                                    dayCount = 1;
-                                    monthCount++;
-                                    if(monthCount > 12){
-                                        monthCount = 1;
-                                        yearCount++;
-                                    }
-                                }
-                            }
-                        }
-                        xLabels.add(label);
-                        break;
-                }
-            }
-        }
-        for (int i = 0; i < dateCounts.length; i++) {
-            if (dateCounts[i] > 0) {
-                barEntries.add(new BarEntry(i + 1, dateCounts[i]));
-            }
-        }
-        BarChart barChart = findViewById(R.id.barchart);
-        XAxis xAxis = barChart.getXAxis();
-        YAxis yAxis = barChart.getAxisLeft();
-        YAxis yAxis2 = barChart.getAxisRight();
-        xAxis.setValueFormatter(new customXAxisLabelFormatter(xLabels));
-        // xAxis.setValueFormatter(new IndexAxisValueFormatter(xLabels));
-        xAxis.setDrawLabels(true);
-        xAxis.setTextSize(8f);
-        xAxis.setLabelRotationAngle(30f);
-        xAxis.setLabelCount(xLabels.size()-1);
-        xAxis.setAxisMinimum(0f);
-        yAxis.setAxisMinimum(0f);
-        yAxis2.setAxisMinimum(0f);
-        xAxis.setAxisMaximum((float) (xLabels.size()-1));
-        xAxis.setCenterAxisLabels(false);
-
-
     }
     public static String[][] countOccurrences(String[] arr) {
         // Create a 2D array to store the count of each string

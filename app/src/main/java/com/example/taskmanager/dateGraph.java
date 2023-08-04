@@ -24,6 +24,7 @@ public class dateGraph extends AppCompatActivity {
     ArrayList<BarEntry> barEntries;
     private int rangeMidpoint = 0;
     private String barSelection, speciesGraph;
+    //private int dateRangeSelection = graph.getDateRangeSelection();
     private int dateRangeSelection = 2;
     private int[] dateRange = {12, 3, 1, 3, 30};
 
@@ -72,49 +73,47 @@ public class dateGraph extends AppCompatActivity {
         barChart.setBackgroundColor(Color.argb(128, 128, 128, 128));
         barChart.setGridBackgroundColor(Color.argb(0, 128, 128, 128));
         barChart.setVisibleXRangeMinimum(1);
-        barChart.setVisibleXRangeMaximum(6);
+        barChart.setVisibleXRangeMaximum(5);
+        barChart.invalidate();
+        barChart.moveViewToX((float) (barChart.getHighestVisibleX() - 0.5));
 
         increaseRange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dateRangeSelection++;
+                graph.setDateRangeSelection(dateRangeSelection++);
                 if (dateRangeSelection > 4) {
                     dateRangeSelection = 4;
                 }
                 getData();
                 barChart.invalidate();
                 barChart.setVisibleXRangeMinimum(1);
-                barChart.setVisibleXRangeMaximum(6);
-                System.out.println(dateRangeSelection);
+                barChart.setVisibleXRangeMaximum(5);
             }
         });
 
         decreaseRange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dateRangeSelection--;
+                graph.setDateRangeSelection(dateRangeSelection--);
                 if (dateRangeSelection < 0) {
                     dateRangeSelection = 0;
                 }
                 getData();
                 barChart.invalidate();
                 barChart.setVisibleXRangeMinimum(1);
-                barChart.setVisibleXRangeMaximum(6);
-                System.out.println(dateRangeSelection);
+                barChart.setVisibleXRangeMaximum(5);
             }
         });
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                barChart.moveViewToX(barChart.getLowestVisibleX() - 1);
-                System.out.println("BACK BUTTON");
+                barChart.moveViewToX((barChart.getLowestVisibleX() - 1));
             }
         });
         forward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                barChart.moveViewToX(barChart.getHighestVisibleX() + 1);
-                System.out.println("FORWARD BUTTON");
+                barChart.moveViewToX((barChart.getLowestVisibleX() + 1));
             }
         });
     }
@@ -122,6 +121,7 @@ public class dateGraph extends AppCompatActivity {
     private void getData() {
         BarChart barChart = findViewById(R.id.barchart);
         barEntries = new ArrayList<>();
+        barEntries.clear();
         int currId = view_task.getCurrentId();
         String typeSpecies = graph.getSpeciesGraph();
 
@@ -171,7 +171,6 @@ public class dateGraph extends AppCompatActivity {
                 slots+=30;
             }
         }
-        System.out.println("slots " + slots);
         int[] dateCounts = new int[slots];
         for (Date date : dates) {
             if(date != null){
@@ -209,6 +208,8 @@ public class dateGraph extends AppCompatActivity {
                 }
             }
         }
+        //X axis labels
+        //region
         ArrayList<String> xLabels = new ArrayList<>();
         int monthCount = startMonth;
         int yearCount = startYear % 100;
@@ -328,27 +329,46 @@ public class dateGraph extends AppCompatActivity {
                 }
             }
         }
-        for (int i = 0; i < dateCounts.length; i++) {
-            if (dateCounts[i] > 0) {
-                barEntries.add(new BarEntry(i + 1, dateCounts[i]));
+        //endregion
+        ArrayList<Integer> sortedBarValues = new ArrayList<>();
+        ArrayList<String> sortedLabels = new ArrayList<>();
+        sortedBarValues.clear();
+        sortedLabels.clear();
+        //sortedLabels.add("");
+        for(int i = 0; i < dateCounts.length; i++){
+            if(dateCounts[i] > 0){
+                sortedBarValues.add(dateCounts[i]);
+                sortedLabels.add(xLabels.get(i+1));
             }
+        }
+       // sortedLabels.add("");
+        for (int i = 0; i < sortedBarValues.size(); i++) {
+            barEntries.add(new BarEntry(i + 0.5f, sortedBarValues.get(i)));
+        }
+        for(String entries : sortedLabels){
+            System.out.println(entries);
         }
         BarChart barChart = findViewById(R.id.barchart);
         XAxis xAxis = barChart.getXAxis();
         YAxis yAxis = barChart.getAxisLeft();
         YAxis yAxis2 = barChart.getAxisRight();
         //xAxis.setValueFormatter(new customXAxisLabelFormatter(xLabels));
-         xAxis.setValueFormatter(new IndexAxisValueFormatter(xLabels));
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(sortedLabels));
         xAxis.setDrawLabels(true);
         xAxis.setTextSize(8f);
         xAxis.setLabelRotationAngle(30f);
         //xAxis.setLabelCount(xLabels.size()-1);
-        xAxis.setLabelCount(7, true);
+        if(barEntries.size() < 6){
+            xAxis.setLabelCount(barEntries.size(), true);
+        }else{
+            xAxis.setLabelCount(6, true);
+        }
+        System.out.println(barEntries.size());
         xAxis.setAxisMinimum(0f);
         yAxis.setAxisMinimum(0f);
         yAxis2.setAxisMinimum(0f);
-        xAxis.setAxisMaximum((float) (xLabels.size()-1));
-        xAxis.setCenterAxisLabels(false);
+        xAxis.setAxisMaximum((float) (sortedLabels.size()-1));
+        xAxis.setCenterAxisLabels(true);
 
 
     }
