@@ -44,6 +44,7 @@ public class graphTest<ValueFormatter> extends AppCompatActivity {
         Button decreaseRange = findViewById(R.id.buttonSmall);
         Button back = findViewById(R.id.buttonBack);
         Button forward = findViewById(R.id.buttonForward);
+        Button exit = findViewById(R.id.buttonExit);
 
         back.setBackgroundColor(Color.TRANSPARENT);
         forward.setBackgroundColor(Color.TRANSPARENT);
@@ -86,12 +87,13 @@ public class graphTest<ValueFormatter> extends AppCompatActivity {
         barChart.setDrawBorders(false);
         barChart.setTouchEnabled(false);
         barChart.setDragEnabled(false);
-        barChart.setScaleEnabled(true);
-        barChart.setPinchZoom(true);
+        barChart.setScaleEnabled(false);
+        barChart.setPinchZoom(false);
         barChart.setBackgroundColor(Color.argb(128, 128, 128, 128));
         barChart.setGridBackgroundColor(Color.argb(0, 128, 128, 128));
         barChart.setVisibleXRangeMinimum(1);
         barChart.setVisibleXRangeMaximum(maxVisible);
+
 
         increaseRange.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,7 +106,6 @@ public class graphTest<ValueFormatter> extends AppCompatActivity {
                 startActivity(switchToGraph);
             }
         });
-
         decreaseRange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -128,6 +129,15 @@ public class graphTest<ValueFormatter> extends AppCompatActivity {
                 barChart.moveViewToX((barChart.getLowestVisibleX() + 1));
             }
         });
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                graph.setMaxVisible(15);
+                Intent switchToGraph = new Intent(getApplicationContext(), graph.class);
+                startActivity(switchToGraph);
+            }
+        });
+        back.performClick();
     }
 
     private void getData() {
@@ -231,6 +241,7 @@ public class graphTest<ValueFormatter> extends AppCompatActivity {
         xAxis.setTextSize(8f);
         xAxis.setLabelRotationAngle(30f);
        // xAxis.setLabelCount(xLabels.size()-1);
+        maxVisible = (maxVisible > slots) ? slots : maxVisible;
         if(slots < maxVisible){
             xAxis.setLabelCount(slots);
         }else {
@@ -254,15 +265,28 @@ public class graphTest<ValueFormatter> extends AppCompatActivity {
         for (int i = 0; i < counts.length; i++) {
             int count = Integer.parseInt(counts[i][1]);
             if (count > 0) {
-                barEntries.add(new BarEntry(i + 1, count));
+                barEntries.add(new BarEntry(i + 0.5f, count));
             }
         }
         XAxis xAxis = barChart.getXAxis();
-        xAxis.setDrawLabels(true);
-        xAxis.setLabelRotationAngle(30f);
-        xAxis.setLabelCount(xLabels.size(), true);
-        xAxis.setAxisMaximum((float) (xLabels.size() - 1));
+        YAxis yAxis = barChart.getAxisLeft();
+        YAxis yAxis2 = barChart.getAxisRight();
         xAxis.setValueFormatter(new customXAxisLabelFormatter(xLabels));
+        //xAxis.setValueFormatter(new IndexAxisValueFormatter(xLabels));
+        xAxis.setDrawLabels(true);
+        xAxis.setTextSize(8f);
+        xAxis.setLabelRotationAngle(30f);
+        // xAxis.setLabelCount(xLabels.size()-1);
+        if(slots < maxVisible){
+            xAxis.setLabelCount(slots);
+        }else {
+            xAxis.setLabelCount(maxVisible + 1, true);
+        }
+        xAxis.setAxisMinimum(0f);
+        yAxis.setAxisMinimum(0f);
+        yAxis2.setAxisMinimum(0f);
+        xAxis.setAxisMaximum((float) (xLabels.size()));
+        xAxis.setCenterAxisLabels(true);
     }
     public static String[][] countOccurrences(String[] arr) {
         // Create a 2D array to store the count of each string

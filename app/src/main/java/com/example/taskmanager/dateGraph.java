@@ -1,5 +1,6 @@
 package com.example.taskmanager;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -22,9 +23,6 @@ import java.util.Date;
 
 public class dateGraph extends AppCompatActivity {
     ArrayList<BarEntry> barEntries;
-    private int rangeMidpoint = 0;
-    private String barSelection, speciesGraph;
-    //private int dateRangeSelection = graph.getDateRangeSelection();
     private int dateRangeSelection = 2;
     private int[] dateRange = {12, 3, 1, 3, 30};
 
@@ -33,13 +31,14 @@ public class dateGraph extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_date_graph);
 
-        barSelection = graph.getBarSelection();
+        dateRangeSelection = graph.getDateRangeSelection();
 
         BarChart barChart = findViewById(R.id.barchart);
         Button increaseRange = findViewById(R.id.buttonBig);
         Button decreaseRange = findViewById(R.id.buttonSmall);
         Button back = findViewById(R.id.buttonBack);
         Button forward = findViewById(R.id.buttonForward);
+        Button exit = findViewById(R.id.buttonExit);
 
         back.setBackgroundColor(Color.TRANSPARENT);
         forward.setBackgroundColor(Color.TRANSPARENT);
@@ -74,34 +73,30 @@ public class dateGraph extends AppCompatActivity {
         barChart.setGridBackgroundColor(Color.argb(0, 128, 128, 128));
         barChart.setVisibleXRangeMinimum(1);
         barChart.setVisibleXRangeMaximum(5);
-        barChart.invalidate();
-        barChart.moveViewToX((float) (barChart.getHighestVisibleX() - 0.5));
+
 
         increaseRange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                graph.setDateRangeSelection(dateRangeSelection++);
+                dateRangeSelection++;
                 if (dateRangeSelection > 4) {
                     dateRangeSelection = 4;
                 }
-                getData();
-                barChart.invalidate();
-                barChart.setVisibleXRangeMinimum(1);
-                barChart.setVisibleXRangeMaximum(5);
+                graph.setDateRangeSelection(dateRangeSelection);
+                Intent switchToDateGraph = new Intent(getApplicationContext(), dateGraph.class);
+                startActivity(switchToDateGraph);
             }
         });
-
         decreaseRange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                graph.setDateRangeSelection(dateRangeSelection--);
+                dateRangeSelection--;
                 if (dateRangeSelection < 0) {
                     dateRangeSelection = 0;
                 }
-                getData();
-                barChart.invalidate();
-                barChart.setVisibleXRangeMinimum(1);
-                barChart.setVisibleXRangeMaximum(5);
+                graph.setDateRangeSelection(dateRangeSelection);
+                Intent switchToDateGraph = new Intent(getApplicationContext(), dateGraph.class);
+                startActivity(switchToDateGraph);
             }
         });
         back.setOnClickListener(new View.OnClickListener() {
@@ -116,6 +111,15 @@ public class dateGraph extends AppCompatActivity {
                 barChart.moveViewToX((barChart.getLowestVisibleX() + 1));
             }
         });
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                graph.setMaxVisible(15);
+                Intent switchToGraph = new Intent(getApplicationContext(), graph.class);
+                startActivity(switchToGraph);
+            }
+        });
+        back.performClick();
     }
 
     private void getData() {
