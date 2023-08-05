@@ -14,9 +14,10 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -44,7 +45,7 @@ public class dateGraph extends AppCompatActivity {
         forward.setBackgroundColor(Color.TRANSPARENT);
 
         getData();
-        BarDataSet barDataSet = new BarDataSet(barEntries, "Fish Data");
+        BarDataSet barDataSet = new BarDataSet(barEntries, "");
         BarData barData = new BarData(barDataSet);
         barChart.setData(barData);
         barData.setBarWidth(0.85f);
@@ -72,7 +73,7 @@ public class dateGraph extends AppCompatActivity {
         barChart.setBackgroundColor(Color.argb(128, 128, 128, 128));
         barChart.setGridBackgroundColor(Color.argb(0, 128, 128, 128));
         barChart.setVisibleXRangeMinimum(1);
-        barChart.setVisibleXRangeMaximum(5);
+        barChart.setVisibleXRangeMaximum(10);
 
 
         increaseRange.setOnClickListener(new View.OnClickListener() {
@@ -114,7 +115,7 @@ public class dateGraph extends AppCompatActivity {
         exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                graph.setMaxVisible(15);
+                graph.setDateRangeSelection(2);
                 Intent switchToGraph = new Intent(getApplicationContext(), graph.class);
                 startActivity(switchToGraph);
             }
@@ -167,14 +168,13 @@ public class dateGraph extends AppCompatActivity {
         if(dateRangeSelection < 3) {
             slots /= dateRange[dateRangeSelection];
             slots++;
-        }else{
+        }else if(dateRangeSelection == 3) {
             slots *= dateRange[dateRangeSelection];
-            if(dateRangeSelection == 3){
-                slots +=4;
-            }else{
-                slots+=30;
-            }
+            slots += 4;
+        }else{
+            slots = findDaysBetween(startMonth, startYear, endMonth, endYear);
         }
+
         int[] dateCounts = new int[slots];
         for (Date date : dates) {
             if(date != null){
@@ -187,25 +187,23 @@ public class dateGraph extends AppCompatActivity {
                 int groupIndex = (year - startYear) * 12 - (startMonth - month);
                 if(dateRangeSelection < 3) {
                     groupIndex /= dateRange[dateRangeSelection];
-                }else{
+                }else if (dateRangeSelection == 3) {
                     groupIndex *= dateRange[dateRangeSelection];
-                    if(dateRangeSelection == 3) {
-                        int week = (day - 1) / 10;
-                        switch(week){
-                            case 0:
-                                groupIndex += 0;
-                                break;
-                            case 1:
-                                groupIndex += 1;
-                                break;
-                            default:
-                                groupIndex += 2;
-                                break;
-                        }
-                    }else{
-                        groupIndex += day;
-                    }
+                    int week = (day - 1) / 10;
+                    switch (week) {
+                        case 0:
+                            groupIndex += 0;
+                            break;
+                        case 1:
+                            groupIndex += 1;
+                            break;
+                        default:
+                            groupIndex += 2;
+                            break;
 
+                    }
+                }else{
+                    groupIndex = findDaysBetween(startMonth, startYear, month, year, day);
                 }
                 if(groupIndex >= 0 && groupIndex < slots){
                     dateCounts[groupIndex]++;
@@ -216,7 +214,8 @@ public class dateGraph extends AppCompatActivity {
         //region
         ArrayList<String> xLabels = new ArrayList<>();
         int monthCount = startMonth;
-        int yearCount = startYear % 100;
+        System.out.println("BEFORE: " + monthCount);
+        int yearCount = startYear;
         int weekCountStart = 1;
         int weekCountEnd = 10;
         int dayCount = 1;
@@ -230,23 +229,24 @@ public class dateGraph extends AppCompatActivity {
                 boolean leapYear = yearCount % 4 == 0 && yearCount % 100 != 0 || yearCount % 400 == 0;
                 switch(dateRangeSelection) {
                     case 0:
-                        label = yearCount + "";
+                        label = yearCount % 100 + "";
                         yearCount++;
                         xLabels.add(label);
                         break;
                     case 1:
-                        label = monthCount + "/" + yearCount;
+                        label = monthCount + "/" + yearCount % 100;
                         if(monthCount + 3 < 13){
-                            label += " - " + (monthCount + 3) + "/" + yearCount;
+                            label += " - " + (monthCount + 3) + "/" + yearCount % 100;
                         }else{
-                            label += " - " + (monthCount + 3 - 12) + "/" + (yearCount + 1);
+                            label += " - " + (monthCount + 3 - 12) + "/" + ((yearCount + 1) % 100);
+                            monthCount -= 12;
                             yearCount++;
                         }
                         monthCount += 3;
                         xLabels.add(label);
                         break;
                     case 2:
-                        label = monthCount + "/" + yearCount;
+                        label = monthCount + "/" + yearCount % 100;
                         monthCount++;
                         if (monthCount > 12) {
                             monthCount = 1;
@@ -255,12 +255,12 @@ public class dateGraph extends AppCompatActivity {
                         xLabels.add(label);
                         break;
                     case 3:
-                        label = monthCount + "/" + weekCountStart + "/" + yearCount;
+                        label = monthCount + "/" + weekCountStart + "/" + yearCount % 100;
                         weekCountStart += 10;
                         if (weekCountStart > 21) {
                             weekCountStart = 1;
                         }
-                        label += " - " + monthCount + "/" + weekCountEnd + "/" + yearCount;
+                        label += " - " + monthCount + "/" + weekCountEnd + "/" + yearCount % 100;
                         if(weekCountStart == 1){
                             monthCount++;
                             if (monthCount > 12) {
@@ -287,7 +287,7 @@ public class dateGraph extends AppCompatActivity {
                         xLabels.add(label);
                         break;
                     case 4:
-                        label = monthCount + "/" + dayCount + "/" + yearCount;
+                        label = monthCount + "/" + dayCount + "/" + yearCount % 100;
                         dayCount++;
                         if(m31){
                             if(dayCount > 31){
@@ -338,42 +338,35 @@ public class dateGraph extends AppCompatActivity {
         ArrayList<String> sortedLabels = new ArrayList<>();
         sortedBarValues.clear();
         sortedLabels.clear();
-        //sortedLabels.add("");
-        for(int i = 0; i < dateCounts.length; i++){
-            if(dateCounts[i] > 0){
+        for(int i = 0; i < dateCounts.length; i++) {
+            if (dateCounts[i] > 0) {
                 sortedBarValues.add(dateCounts[i]);
-                sortedLabels.add(xLabels.get(i+1));
+                sortedLabels.add(xLabels.get(i + 1));
             }
         }
-       // sortedLabels.add("");
         for (int i = 0; i < sortedBarValues.size(); i++) {
             barEntries.add(new BarEntry(i + 0.5f, sortedBarValues.get(i)));
-        }
-        for(String entries : sortedLabels){
-            System.out.println(entries);
         }
         BarChart barChart = findViewById(R.id.barchart);
         XAxis xAxis = barChart.getXAxis();
         YAxis yAxis = barChart.getAxisLeft();
         YAxis yAxis2 = barChart.getAxisRight();
-        //xAxis.setValueFormatter(new customXAxisLabelFormatter(xLabels));
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(sortedLabels));
+        xAxis.setValueFormatter(new customXAxisLabelFormatter(sortedLabels));
+        //xAxis.setValueFormatter(new IndexAxisValueFormatter(sortedLabels));
         xAxis.setDrawLabels(true);
         xAxis.setTextSize(8f);
         xAxis.setLabelRotationAngle(30f);
         //xAxis.setLabelCount(xLabels.size()-1);
-        if(barEntries.size() < 6){
-            xAxis.setLabelCount(barEntries.size(), true);
+        if(barEntries.size() < 10){
+            xAxis.setLabelCount(barEntries.size());
         }else{
-            xAxis.setLabelCount(6, true);
+            xAxis.setLabelCount(10);
         }
-        System.out.println(barEntries.size());
         xAxis.setAxisMinimum(0f);
         yAxis.setAxisMinimum(0f);
         yAxis2.setAxisMinimum(0f);
-        xAxis.setAxisMaximum((float) (sortedLabels.size()-1));
+        xAxis.setAxisMaximum((float) (sortedLabels.size()));
         xAxis.setCenterAxisLabels(true);
-
 
     }
     private int dpToPx(int dp) {
@@ -392,5 +385,32 @@ public class dateGraph extends AppCompatActivity {
         return (year > startYear && year < endYear) ||
                 (year == startYear && month >= startMonth) ||
                 (year == endYear && month <= endMonth);
+    }
+    private int findDaysBetween(int startMonth, int startYear, int endMonth, int endYear){
+        if (startMonth == endMonth && startYear == endYear) {
+            return 1; // Return 1 to account for the single day
+        }
+        int lastDay = 0;
+        LocalDate startDate = LocalDate.of(startYear, startMonth, 1);
+        if(endMonth == 1 || endMonth == 3 || endMonth == 5 || endMonth == 7 || endMonth == 8 || endMonth == 10 || endMonth == 12){
+            lastDay = 31;
+        }else if(endMonth == 4 || endMonth == 6 || endMonth == 9 || endMonth == 11){
+            lastDay = 30;
+        }else{
+            if(endYear % 4 == 0 && endYear % 100 != 0 || endYear % 400 == 0){
+                lastDay = 29;
+            }else{
+                lastDay = 28;
+            }
+        }
+        LocalDate endDate = LocalDate.of(endYear, endMonth, lastDay);
+        int daysBetween = (int) ChronoUnit.DAYS.between(startDate, endDate);
+        return daysBetween;
+    }
+    private int findDaysBetween(int startMonth, int startYear, int endMonth, int endYear, int endDay){
+        LocalDate startDate = LocalDate.of(startYear, startMonth, 1);
+        LocalDate endDate = LocalDate.of(endYear, endMonth, endDay);
+        int daysBetween = (int) ChronoUnit.DAYS.between(startDate, endDate);
+        return daysBetween;
     }
 }

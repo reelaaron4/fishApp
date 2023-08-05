@@ -277,6 +277,7 @@ public class graphTest<ValueFormatter> extends AppCompatActivity {
         xAxis.setTextSize(8f);
         xAxis.setLabelRotationAngle(30f);
         // xAxis.setLabelCount(xLabels.size()-1);
+        maxVisible = (maxVisible > slots) ? slots : maxVisible;
         if(slots < maxVisible){
             xAxis.setLabelCount(slots);
         }else {
