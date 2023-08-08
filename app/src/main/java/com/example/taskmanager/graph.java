@@ -30,6 +30,7 @@ public class graph extends AppCompatActivity {
     private static int currentId = view_task.getCurrentId();
     private static ArrayList<String> speciesList = new ArrayList<String>();
     private static String speciesTable = null;
+    private static String baitTable = null;
     private static int startMonthTable;
     private static int startYearTable;
     private static int endMonthTable;
@@ -66,17 +67,14 @@ public class graph extends AppCompatActivity {
         speciesAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         speciesSpinnerTable.setAdapter(speciesAdapter);
 
+        Spinner baitSpinnerTable = findViewById(R.id.baitSpinnerTable);
+        baitSpinnerTable.setAdapter(speciesAdapter);
+
         String[] barOptions = {"No Selection","Length", "Weight", "Bait", "Species", "Date"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_dropdown_item, barOptions);
         adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         Spinner dropDownBar = findViewById(R.id.dropDownBar);
         dropDownBar.setAdapter(adapter);
-
-        String[] scatterOptions = {"No Selection","Length - Weight", "Length - Bait", "Date - Length", "Date - Weight", "Date - Bait", "Date - Species"};
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, R.layout.spinner_dropdown_item, scatterOptions);
-        adapter2.setDropDownViewResource(R.layout.spinner_dropdown_item);
-        Spinner dropDownScatter = findViewById(R.id.dropDownScatter);
-        dropDownScatter.setAdapter(adapter2);
 
         speciesList.clear();
         speciesList.add("No Selection");
@@ -96,7 +94,6 @@ public class graph extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = parent.getItemAtPosition(position).toString();
                 barSelection = selectedItem;
-                dropDownScatter.setSelection(0);
                 if(selectedItem == "Date") {
                     dateLayout.setVisibility(View.VISIBLE);
                     range.setVisibility(View.GONE);
@@ -108,26 +105,6 @@ public class graph extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 barSelection = "No Selection";
-            }
-        });
-        dropDownScatter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItem = parent.getItemAtPosition(position).toString();
-                if(selectedItem != "No Selection") {
-                    String[] split = selectedItem.split(" - ");
-                    scatterX = split[0];
-                    scatterY = split[1];
-                    dropDownBar.setSelection(0);
-                }else{
-                    scatterX = null;
-                    scatterY = null;
-                }
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                scatterX = null;
-                scatterY = null;
             }
         });
         speciesSpinnerGraph.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -281,6 +258,25 @@ public class graph extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 speciesTable = adapterView.getItemAtPosition(i).toString();
+                if(i != 0) {
+                    baitSpinnerTable.setSelection(0);
+                    baitTable = null;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        baitSpinnerTable.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                baitTable = adapterView.getItemAtPosition(i).toString();
+                if(i != 0) {
+                    speciesSpinnerTable.setSelection(0);
+                    speciesTable = null;
+                }
             }
 
             @Override
@@ -308,8 +304,10 @@ public class graph extends AppCompatActivity {
     public static String getBarSelection(){return barSelection;}
     public static int getRange(){return range;}
     public static String getScatterX(){return scatterX;}
+    public static String getScatterY(){return scatterY;}
     public static String getSpeciesGraph(){return speciesGraph;}
     public static String getSpeciesTable(){return speciesTable;}
+    public static String getBaitTable(){return baitTable;}
     public static int getStartMonthTable(){return startMonthTable;}
     public static int getStartYearTable(){return startYearTable;}
     public static int getEndMonthTable(){return endMonthTable;}

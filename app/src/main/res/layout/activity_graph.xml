@@ -20,7 +20,7 @@
             android:id="@+id/linearLayoutTop"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1.6"
+            android:layout_weight="2"
             android:orientation="vertical">
             <Button
                 android:id="@+id/viewButton"
@@ -127,27 +127,6 @@
                     android:inputType="number"
                     android:hint="End Date\nmm/yyyy"/>
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:textAlignment="center"
-                    android:text="Scatter Graph (X-Y)"
-                    android:autoSizeTextType="uniform"
-                    android:autoSizeMinTextSize="10sp"
-                    android:autoSizeMaxTextSize="24sp"
-                    android:gravity="center"/>
-                <Spinner
-                    android:id="@+id/dropDownScatter"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="3"/>
-            </LinearLayout>
             <Button
                 android:id="@+id/createGraph"
                 android:layout_width="match_parent"
@@ -159,8 +138,27 @@
             android:id="@+id/linearLayoutTable"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3"
+            android:layout_weight="5"
             android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:text="Select to compare baits"
+                    android:textSize="18sp"
+                    android:gravity="center"/>
+                <Spinner
+                    android:id="@+id/baitSpinnerTable"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"/>
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"

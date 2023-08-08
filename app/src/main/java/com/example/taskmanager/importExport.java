@@ -28,7 +28,7 @@ public class importExport extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_import_export);
 
-        Button viewButton = findViewById(R.id.viewButton);
+        Button viewButton = findViewById(R.id.viewFish);
         Button importButton = findViewById(R.id.importButton);
         Button exportButton = findViewById(R.id.exportButton);
         error = findViewById(R.id.importError);
@@ -82,8 +82,13 @@ public class importExport extends AppCompatActivity {
                 }
             }
         });
-
-
+        viewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(importExport.this, view_fish.class);
+                startActivity(intent);
+            }
+        });
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

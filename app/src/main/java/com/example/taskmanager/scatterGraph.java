@@ -166,8 +166,8 @@ public class scatterGraph extends AppCompatActivity {
     }
 
     private void getData() {
-        String xValues = graph.getBarSelection();
-        String yValues = graph.getScatterX();
+        String xValues = graph.getScatterX();
+        String yValues = graph.getScatterY();
 
         String typeSpecies = graph.getSpeciesGraph();
         ArrayList<Fish> filteredFishList = new ArrayList<>();
@@ -204,63 +204,42 @@ public class scatterGraph extends AppCompatActivity {
         int xarray = 0;
         int yarray = 0;
         switch (xValues) {
-            case "length":
+            case "Length":
                 for (int i = 0; i < filteredFishList.size(); i++) {
                     xlengths[i] = filteredFishList.get(i).getLength();
                 }
                 xarray = 1;
                 break;
-            case "weight":
-                for (int i = 0; i < filteredFishList.size(); i++) {
-                    xweights[i] = filteredFishList.get(i).getWeight();
-                }
-                xarray = 2;
-                break;
-            case "bait":
-                for (int i = 0; i < filteredFishList.size(); i++) {
-                    xbaits1[i] = filteredFishList.get(i).getBait();
-                    System.out.println("before getString " + xbaits1[i]);
-                }
-                xbaits = getStringValues(xbaits1);
-                xarray = 3;
-                break;
-            case "species":
-                for (int i = 0; i < filteredFishList.size(); i++) {
-                    xspecies1[i] = filteredFishList.get(i).getSpecies();
-                }
-                xspecies = getStringValues(xspecies1);
-                xarray = 4;
-                break;
-            case "date":
+            case "Date":
                 for (int i = 0; i < filteredFishList.size(); i++) {
                     xdates[i] = filteredFishList.get(i).getDate();
                 }
-                xarray = 5;
+                xarray = 2;
                 break;
             default:
                 break;
         }
         switch (yValues) {
-            case "length":
+            case "Length":
                 for (int i = 0; i < filteredFishList.size(); i++) {
                     ylengths[i] = filteredFishList.get(i).getLength();
                 }
                 yarray = 1;
                 break;
-            case "weight":
+            case "Weight":
                 for (int i = 0; i < filteredFishList.size(); i++) {
                     yweights[i] = filteredFishList.get(i).getWeight();
                 }
                 yarray = 2;
                 break;
-            case "bait":
+            case "Bait":
                 for (int i = 0; i < filteredFishList.size(); i++) {
                     ybaits1[i] = filteredFishList.get(i).getBait();
                 }
                 ybaits = getStringValues(ybaits1);
                 yarray = 3;
                 break;
-            case "species":
+            case "Species":
                 for (int i = 0; i < filteredFishList.size(); i++) {
                     yspecies1[i] = filteredFishList.get(i).getSpecies();
                 }
@@ -274,22 +253,17 @@ public class scatterGraph extends AppCompatActivity {
             switch (xarray) {
                 case 1:
                     switch (yarray) {
-                        case 1:
-                            entries.add(new Entry((float) xlengths[i], (float) ylengths[i]));
-                            break;
                         case 2:
                             entries.add(new Entry((float) xlengths[i], (float) yweights[i]));
                             break;
                         case 3:
                             entries.add(new Entry((float) xlengths[i], (float) ybaits[i]));
                             break;
-                        case 4:
-                            entries.add(new Entry((float) xlengths[i], (float) yspecies[i]));
-                            break;
                         default:
                             break;
                     }
                     break;
+                    //NEED TO FIGURE OUT DATE
                 case 2:
                     switch (yarray) {
                         case 1:
@@ -308,41 +282,6 @@ public class scatterGraph extends AppCompatActivity {
                             break;
                     }
                     break;
-                case 3:
-                    switch (yarray) {
-                        case 1:
-                            entries.add(new Entry((float) xbaits[i], (float) ylengths[i]));
-                            break;
-                        case 2:
-                            entries.add(new Entry((float) xbaits[i], (float) yweights[i]));
-                            break;
-                        case 3:
-                            entries.add(new Entry((float) xbaits[i], (float) ybaits[i]));
-                            break;
-                        case 4:
-                            entries.add(new Entry((float) xbaits[i], (float) yspecies[i]));
-                            break;
-                        default:
-                            break;
-                    }
-                    break;
-                case 4:
-                    switch (yarray) {
-                        case 1:
-                            entries.add(new Entry((float) xspecies[i], (float) ylengths[i]));
-                            break;
-                        case 2:
-                            entries.add(new Entry((float) xspecies[i], (float) yweights[i]));
-                            break;
-                        case 3:
-                            entries.add(new Entry((float) xspecies[i], (float) ybaits[i]));
-                            break;
-                        case 4:
-                            entries.add(new Entry((float) xspecies[i], (float) yspecies[i]));
-                            break;
-                        default:
-                            break;
-                    }
             }
         }
     }
