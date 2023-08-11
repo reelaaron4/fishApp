@@ -28,14 +28,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:text="View Fish"
-                android:layout_weight="3" />
+                android:layout_weight="3"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="10dp"
+                android:autoSizeMaxTextSize="18dp"/>
             <TextView
                 android:id="@+id/textViewTitle"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:text="Enter Graph Data"
                 android:textAlignment="center"
-                android:textSize="24sp"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="14dp"
+                android:autoSizeMaxTextSize="24dp"
                 android:layout_weight="2"/>
             <TextView
                 android:id="@+id/graphErrorTextView"
@@ -43,7 +48,10 @@
                 android:layout_height="0dp"
                 android:textAlignment="center"
                 android:textColor="#FF0000"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="8dp"
+                android:autoSizeMaxTextSize="14dp"/>
 
         </LinearLayout>
         <LinearLayout
@@ -58,6 +66,7 @@
                 android:layout_weight="1"
                 android:orientation="horizontal">
                 <TextView
+                    android:id="@+id/speciesTextViewGraph"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -79,6 +88,7 @@
                 android:layout_weight="1"
                 android:orientation="horizontal">
                 <TextView
+                    android:id="@+id/dropDownTextView"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -146,12 +156,15 @@
                 android:layout_weight="1"
                 android:orientation="horizontal">
                 <TextView
+                    android:id="@+id/baitTextViewTable"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:textAlignment="center"
                     android:text="Select to compare baits"
-                    android:textSize="18sp"
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="10dp"
+                    android:autoSizeMaxTextSize="18dp"
                     android:gravity="center"/>
                 <Spinner
                     android:id="@+id/baitSpinnerTable"
@@ -165,12 +178,15 @@
                 android:layout_weight="1"
                 android:orientation="horizontal">
                 <TextView
+                    android:id="@+id/textViewSpeciesTable"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:textAlignment="center"
                     android:text="Select to compare all locations"
-                    android:textSize="18sp"
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="10dp"
+                    android:autoSizeMaxTextSize="18dp"
                     android:gravity="center"/>
                 <Spinner
                     android:id="@+id/speciesSpinnerTable"
@@ -184,13 +200,16 @@
                 android:layout_weight="1"
                 android:orientation="horizontal">
                 <TextView
+                    android:id="@+id/startDateTextView"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
                     android:textAlignment="center"
                     android:gravity="center"
                     android:text="default: all time"
-                    android:textSize="18sp"/>
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="10dp"
+                    android:autoSizeMaxTextSize="18dp"/>
                 <EditText
                     android:id="@+id/startDate"
                     android:layout_width="0dp"

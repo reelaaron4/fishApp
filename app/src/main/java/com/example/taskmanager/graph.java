@@ -4,6 +4,7 @@ import static com.example.taskmanager.view_task.taskList;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -57,7 +58,8 @@ public class graph extends AppCompatActivity {
         LinearLayout dateLayout = findViewById(R.id.linearLayoutDate);
         EditText startDateEditTextGraph = findViewById(R.id.startDateGraph);
         EditText endDateEditTextGraph = findViewById(R.id.endDateGraph);
-
+        TextView textViewSpeciesTable = findViewById(R.id.textViewSpeciesTable);
+        textViewSpeciesTable.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16);
         error.setText("");
 
         Spinner speciesSpinnerTable = findViewById(R.id.speciesSpinnerTable);

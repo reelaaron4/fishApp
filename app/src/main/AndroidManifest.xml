@@ -20,7 +20,7 @@
         <activity
             android:name=".dateGraph"
             android:exported="false"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".sortList"
             android:exported="false"
