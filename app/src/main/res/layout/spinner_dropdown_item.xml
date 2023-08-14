@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:text="Custom TextView"
-    android:textSize="18sp"
+    android:textSize="18dp"
     android:padding="12dp"
-    android:gravity="center_vertical"
+    android:textAlignment="center"
     android:textColor="@color/black"/>

@@ -22,7 +22,10 @@
             android:layout_weight="1"
             android:textColor="#FF0000"
             android:textAlignment="center"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:autoSizeTextType="uniform"
+            android:autoSizeMinTextSize="8dp"
+            android:autoSizeMaxTextSize="12dp"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -34,7 +37,10 @@
                 android:layout_weight="1"
                 android:text="Species"
                 android:textAlignment="center"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="10dp"
+                android:autoSizeMaxTextSize="18dp"/>
             <Spinner
                 android:id="@+id/speciesSpinner"
                 android:layout_width="0dp"
@@ -52,14 +58,20 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:textAlignment="center"
-                android:hint="Start Date\nmm/yyyy"/>
+                android:hint="Start Date\nmm/yyyy"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="10dp"
+                android:autoSizeMaxTextSize="18dp"/>
             <EditText
                 android:id="@+id/endDate"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:textAlignment="center"
-                android:hint="End Date\nmm/yyyy"/>
+                android:hint="End Date\nmm/yyyy"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="10dp"
+                android:autoSizeMaxTextSize="18dp"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -72,7 +84,10 @@
                 android:layout_weight="1"
                 android:text="Length"
                 android:textAlignment="center"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="10dp"
+                android:autoSizeMaxTextSize="18dp"/>
             <Spinner
                 android:id="@+id/lengthSpinner"
                 android:layout_width="0dp"
@@ -84,7 +99,10 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"
-            android:text="Sort"/>
+            android:text="Sort"
+            android:autoSizeTextType="uniform"
+            android:autoSizeMinTextSize="10dp"
+            android:autoSizeMaxTextSize="18dp"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

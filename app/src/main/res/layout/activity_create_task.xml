@@ -33,12 +33,9 @@
                 android:layout_height="0dp"
                 android:text="View Locations"
                 android:layout_weight="3"
-                app:layout_constraintBottom_toTopOf="@+id/textView2"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.428"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="10dp"
+                android:autoSizeMaxTextSize="18dp" />
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="match_parent"
@@ -47,11 +44,9 @@
                 android:textAlignment="center"
                 android:textSize="24sp"
                 android:layout_weight="2"
-                app:layout_constraintBottom_toTopOf="@+id/createNameEditText"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.5" />
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="16dp"
+                android:autoSizeMaxTextSize="24dp"/>
             <TextView
                 android:id="@+id/createErrorTextView"
                 android:layout_width="match_parent"
@@ -59,9 +54,9 @@
                 android:textAlignment="center"
                 android:textColor="#FF0000"
                 android:layout_weight="1"
-                app:layout_constraintBottom_toTopOf="@+id/createNameEditText"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="8dp"
+                android:autoSizeMaxTextSize="12dp" />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/linearLayoutData"
@@ -82,7 +77,9 @@
                     android:hint="Enter Location Name"
                     android:inputType="textPersonName"
                     android:textAlignment="center"
-                    android:textSize="20dp"/>
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="10dp"
+                    android:autoSizeMaxTextSize="18dp"/>
                 <EditText
                     android:id="@+id/createDescriptionEditText"
                     android:layout_width="match_parent"
@@ -91,14 +88,18 @@
                     android:hint="Enter Location Description"
                     android:inputType="textPersonName"
                     android:textAlignment="center"
-                    android:textSize="20dp"/>
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="10dp"
+                    android:autoSizeMaxTextSize="18dp"/>
                 <Button
                     android:id="@+id/createTaskButton"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:text="Create Location"
                     android:layout_weight="1"
-                    android:textSize="15dp"/>
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="10dp"
+                    android:autoSizeMaxTextSize="18dp"/>
         </LinearLayout>
     </LinearLayout>
 

@@ -10,87 +10,95 @@
         android:id="@+id/fish_temp"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
+        android:textSize="18dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/fish_length"
-        app:layout_constraintTop_toBottomOf="@+id/fish_weight" />
+        app:layout_constraintTop_toBottomOf="@+id/fish_weight"
+        />
 
     <TextView
         android:id="@+id/fish_weight"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
+        android:textSize="18dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/fish_species"
-        app:layout_constraintTop_toTopOf="@+id/fish_species" />
+        app:layout_constraintTop_toTopOf="@+id/fish_species"
+        />
 
     <TextView
         android:id="@+id/fish_misc"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
+        android:textSize="18dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/fish_bait"
-        app:layout_constraintTop_toBottomOf="@+id/fish_temp" />
+        app:layout_constraintTop_toBottomOf="@+id/fish_temp"
+        />
 
     <TextView
         android:id="@+id/fish_length"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
+        android:textSize="18dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/fish_id"
-        app:layout_constraintTop_toBottomOf="@+id/fish_species" />
+        app:layout_constraintTop_toBottomOf="@+id/fish_species"
+        />
 
     <TextView
         android:id="@+id/fish_bait"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
+        android:textSize="18dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/fish_length"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/fish_length"
-        app:layout_constraintTop_toBottomOf="@+id/fish_length" />
+        app:layout_constraintTop_toBottomOf="@+id/fish_length"
+        />
 
     <TextView
         android:id="@+id/fish_species"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
+        android:textSize="18dp"
         android:layout_marginTop="4dp"
-        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/fish_bait"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
     <TextView
         android:id="@+id/fish_date"
         android:layout_width="360dp"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
+        android:textSize="18dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/fish_id"
-        app:layout_constraintTop_toBottomOf="@+id/fish_bait" />
+        app:layout_constraintTop_toBottomOf="@+id/fish_bait"
+        />
 
     <TextView
         android:id="@+id/fish_id"
         android:layout_width="30dp"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
+        android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -28,7 +28,10 @@
                 app:layout_constraintBottom_toBottomOf="@id/linearLayoutTop"
                 app:layout_constraintEnd_toEndOf="@id/linearLayoutTop"
                 app:layout_constraintStart_toStartOf="@id/linearLayoutTop"
-                app:layout_constraintTop_toTopOf="@id/linearLayoutTop" />
+                app:layout_constraintTop_toTopOf="@id/linearLayoutTop"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="10dp"
+                android:autoSizeMaxTextSize="30dp"/>
 
         </LinearLayout>
 
@@ -49,7 +52,10 @@
                 app:layout_constraintBottom_toBottomOf="@id/linearLayoutBottom"
                 app:layout_constraintEnd_toStartOf="@id/fullEntryButton"
                 app:layout_constraintStart_toStartOf="@id/linearLayoutBottom"
-                app:layout_constraintTop_toTopOf="@id/linearLayoutBottom" />
+                app:layout_constraintTop_toTopOf="@id/linearLayoutBottom"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="10dp"
+                android:autoSizeMaxTextSize="25dp"/>
             <Button
                 android:id="@+id/fullEntryButton"
                 android:layout_width="wrap_content"
@@ -59,7 +65,10 @@
                 app:layout_constraintBottom_toBottomOf="@id/linearLayoutBottom"
                 app:layout_constraintEnd_toEndOf="@id/linearLayoutBottom"
                 app:layout_constraintStart_toEndOf="@id/viewFishButton"
-                app:layout_constraintTop_toTopOf="@id/linearLayoutBottom" />
+                app:layout_constraintTop_toTopOf="@id/linearLayoutBottom"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="10dp"
+                android:autoSizeMaxTextSize="25dp"/>
 
         </LinearLayout>
 

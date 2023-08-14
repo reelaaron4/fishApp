@@ -49,9 +49,7 @@ public class complete_task extends AppCompatActivity {
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_dropdown_item, view_task.fishNames);
         adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
-
         species.setAdapter(adapter);
-
         species.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {

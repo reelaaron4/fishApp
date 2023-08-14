@@ -34,33 +34,30 @@
                 android:layout_height="0dp"
                 android:text="View Fish"
                 android:layout_weight="3"
-                app:layout_constraintBottom_toTopOf="@+id/textViewTitle"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.428"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="10dp"
+                android:autoSizeMaxTextSize="18dp"/>
             <TextView
                 android:id="@+id/textViewTitle"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:text="Enter a Fish"
                 android:textAlignment="center"
-                android:textSize="24sp"
                 android:layout_weight="2"
-                app:layout_constraintBottom_toTopOf="@+id/addFishSpecies"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.59" />
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="16dp"
+                android:autoSizeMaxTextSize="24dp"
+                android:gravity="center"/>
             <TextView
                 android:id="@+id/completeErrorTextView"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:textAlignment="center"
-                android:textColor="#FF0000" />
+                android:textColor="#FF0000"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="8dp"
+                android:autoSizeMaxTextSize="12dp"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/linearLayoutData"
@@ -94,7 +91,10 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="new" />
+                    android:text="new"
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="10dp"
+                    android:autoSizeMaxTextSize="18dp"/>
             </LinearLayout>
 
             <LinearLayout
@@ -112,7 +112,10 @@
                     android:ems="10"
                     android:hint="*Length"
                     android:inputType="numberDecimal"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="10dp"
+                    android:autoSizeMaxTextSize="18dp"/>
 
                 <EditText
                     android:id="@+id/addFishBait"
@@ -121,7 +124,10 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="*Bait"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="10dp"
+                    android:autoSizeMaxTextSize="18dp"/>
                 <EditText
                     android:id="@+id/addFishWeight"
                     android:layout_width="match_parent"
@@ -130,7 +136,10 @@
                     android:ems="10"
                     android:hint="Weight"
                     android:inputType="numberDecimal"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="10dp"
+                    android:autoSizeMaxTextSize="18dp"/>
 
                 <EditText
                     android:id="@+id/addFishMisc"
@@ -139,7 +148,10 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="Misc"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="10dp"
+                    android:autoSizeMaxTextSize="18dp"/>
 
                 <EditText
                     android:id="@+id/addFishTemp"
@@ -149,7 +161,10 @@
                     android:ems="10"
                     android:hint="Temperature"
                     android:inputType="numberDecimal"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="10dp"
+                    android:autoSizeMaxTextSize="18dp"/>
 
             </LinearLayout>
 
@@ -170,26 +185,23 @@
                 android:layout_height="0dp"
                 android:layout_weight="2">
                 <Button
-                    android:id="@+id/enterFishButton"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:text="Enter fish"
-                    android:layout_weight="1"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/viewFishButton"/>
-
-                <Button
                     android:id="@+id/viewFishButton"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:text="View data"
                     android:layout_weight="1"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/enterFishButton"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="10dp"
+                    android:autoSizeMaxTextSize="18dp"/>
+                <Button
+                    android:id="@+id/enterFishButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="Enter fish"
+                    android:layout_weight="1"
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="10dp"
+                    android:autoSizeMaxTextSize="18dp"/>
             </LinearLayout>
         </LinearLayout>
 

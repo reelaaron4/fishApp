@@ -120,14 +120,7 @@ public class view_task extends AppCompatActivity {
             }
         }
 
-
-
-
-
-
-        Button editButton = findViewById(R.id.editButton);
         Button createButton = findViewById(R.id.createButton);
-        Button deleteButton = findViewById(R.id.deleteButton);
         Button viewButton = findViewById(R.id.viewButton);
         tasksAdapter adapter = new tasksAdapter(this, taskList);
 
@@ -161,27 +154,30 @@ public class view_task extends AppCompatActivity {
             }
         });
 
-        editButton.setOnClickListener(new View.OnClickListener()
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
         {
             @Override
-            public void onClick(View view)
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l)
             {
-                Intent switchToEdit = new Intent(getApplicationContext(), edit_task.class);
-                startActivity(switchToEdit);
+                // Get the number of items in the adapter
+                int itemCount = adapter.getCount();
 
+                // Calculate the index of the selected item based on the displayed order
+                int selectedIndex = itemCount - i - 1;
+
+                // Get the selected task from the adapter using the calculated index
+                Task selectedTask = adapter.getItem(selectedIndex);
+
+                // Extract the name and id attributes from the selected task
+                currentName = selectedTask.getName();
+                currentId = selectedTask.getId();
+
+                Intent switchToEditLocation = new Intent(getApplicationContext(), edit_task.class);
+                startActivity(switchToEditLocation);
+                return true;
             }
         });
 
-        deleteButton.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                Intent switchToDelete = new Intent(getApplicationContext(), delete_task.class);
-                startActivity(switchToDelete);
-
-            }
-        });
         createButton.setOnClickListener(new View.OnClickListener()
         {
             @Override

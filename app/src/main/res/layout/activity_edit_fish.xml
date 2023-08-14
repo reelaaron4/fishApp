@@ -29,14 +29,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:text="View Fish"
-                android:layout_weight="3" />
+                android:layout_weight="3"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="10dp"
+                android:autoSizeMaxTextSize="18dp"/>
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:text="Enter Fish Details"
                 android:textAlignment="center"
-                android:textSize="20sp"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="16dp"
+                android:autoSizeMaxTextSize="24dp"
                 android:layout_weight="2"/>
             <TextView
                 android:id="@+id/errorTextView"
@@ -44,7 +49,10 @@
                 android:layout_height="0dp"
                 android:textAlignment="center"
                 android:textColor="#FF0000"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="8dp"
+                android:autoSizeMaxTextSize="12dp"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/linearLayoutData"
@@ -52,14 +60,17 @@
             android:layout_height="0dp"
             android:layout_weight="5"
             android:orientation="vertical">
-            <EditText
+            <Spinner
                 android:id="@+id/editFishSpecies"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:ems="10"
                 android:hint="*Species"
                 android:layout_weight="1"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="10dp"
+                android:autoSizeMaxTextSize="18dp"/>
             <EditText
                 android:id="@+id/editFishLength"
                 android:layout_width="match_parent"
@@ -68,7 +79,10 @@
                 android:hint="*Length"
                 android:inputType="numberDecimal"
                 android:layout_weight="1"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="10dp"
+                android:autoSizeMaxTextSize="18dp"/>
             <EditText
                 android:id="@+id/editFishWeight"
                 android:layout_width="match_parent"
@@ -77,7 +91,10 @@
                 android:hint="Weight"
                 android:inputType="numberDecimal"
                 android:layout_weight="1"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="10dp"
+                android:autoSizeMaxTextSize="18dp"/>
             <EditText
                 android:id="@+id/editFishBait"
                 android:layout_width="match_parent"
@@ -85,7 +102,10 @@
                 android:ems="10"
                 android:hint="*Bait"
                 android:layout_weight="1"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="10dp"
+                android:autoSizeMaxTextSize="18dp"/>
             <EditText
                 android:id="@+id/editFishTemp"
                 android:layout_width="match_parent"
@@ -94,7 +114,10 @@
                 android:hint="Temperature"
                 android:inputType="numberDecimal"
                 android:layout_weight="1"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="10dp"
+                android:autoSizeMaxTextSize="18dp"/>
             <EditText
                 android:id="@+id/editFishMisc"
                 android:layout_width="match_parent"
@@ -102,7 +125,10 @@
                 android:ems="10"
                 android:hint="Misc"
                 android:layout_weight="1"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="10dp"
+                android:autoSizeMaxTextSize="18dp"/>
             <EditText
                 android:id="@+id/editFishDate"
                 android:layout_width="match_parent"
@@ -111,7 +137,10 @@
                 android:hint="MM-DD-YYYY HH:MM"
                 android:inputType="datetime"
                 android:layout_weight="1"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="10dp"
+                android:autoSizeMaxTextSize="18dp"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -122,13 +151,19 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:text="Delete Fish"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1"
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="10dp"
+                    android:autoSizeMaxTextSize="18dp"/>
                 <Button
                     android:id="@+id/editFishButton"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:text="Edit Fish"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1"
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="10dp"
+                    android:autoSizeMaxTextSize="18dp"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

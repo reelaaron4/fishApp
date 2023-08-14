@@ -34,10 +34,9 @@
                 android:layout_height="0dp"
                 android:text="Location List"
                 android:layout_weight="3"
-                app:layout_constraintBottom_toTopOf="@+id/textViewTitle"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="10dp"
+                android:autoSizeMaxTextSize="18dp"/>
             <TextView
                 android:id="@+id/textViewTitle"
                 android:layout_width="match_parent"
@@ -46,12 +45,9 @@
                 android:textAlignment="center"
                 android:textSize="20sp"
                 android:layout_weight="2"
-                app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.086" />
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="16dp"
+                android:autoSizeMaxTextSize="24dp"/>
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
@@ -59,10 +55,9 @@
                 android:text="Tap fish to edit"
                 android:textAlignment="center"
                 android:layout_weight="1"
-                app:layout_constraintBottom_toTopOf="@+id/linearLayoutData"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="10dp"
+                android:autoSizeMaxTextSize="18dp"/>
         </LinearLayout>
         <LinearLayout
         android:id="@+id/linearlayoutData"
@@ -102,7 +97,10 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Entry Menu" />
+                android:text="Entry Menu"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="10dp"
+                android:autoSizeMaxTextSize="18dp"/>
 
             <Button
                 android:id="@+id/saveButton"
@@ -110,7 +108,10 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Save / Files" />
+                android:text="Save / Files"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="10dp"
+                android:autoSizeMaxTextSize="18dp"/>
 
             <Button
                 android:id="@+id/graphButton"
@@ -118,7 +119,10 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Charts / Sort" />
+                android:text="Charts / Sort"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="10dp"
+                android:autoSizeMaxTextSize="18dp"/>
         </LinearLayout>
     </LinearLayout>
 

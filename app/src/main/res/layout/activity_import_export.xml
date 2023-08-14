@@ -19,26 +19,38 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:text="View Fish"
-            android:layout_weight="6"/>
+            android:layout_weight="6"
+            android:autoSizeTextType="uniform"
+            android:autoSizeMinTextSize="10dp"
+            android:autoSizeMaxTextSize="18dp"/>
         <TextView
             android:id="@+id/importError"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2"
             android:textColor="#FF0000"
-            android:textAlignment="center"/>
+            android:textAlignment="center"
+            android:autoSizeTextType="uniform"
+            android:autoSizeMinTextSize="8dp"
+            android:autoSizeMaxTextSize="12dp"/>
         <Button
             android:id="@+id/importButton"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:text="Import"
-            android:layout_weight="32"/>
+            android:layout_weight="32"
+            android:autoSizeTextType="uniform"
+            android:autoSizeMinTextSize="10dp"
+            android:autoSizeMaxTextSize="18dp"/>
         <Button
             android:id="@+id/exportButton"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:text="Export"
-            android:layout_weight="32"/>
+            android:layout_weight="32"
+            android:autoSizeTextType="uniform"
+            android:autoSizeMinTextSize="10dp"
+            android:autoSizeMaxTextSize="18dp"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

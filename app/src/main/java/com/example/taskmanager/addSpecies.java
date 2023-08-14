@@ -53,6 +53,7 @@ public class addSpecies extends AppCompatActivity {
                     error.setText("Please enter a species name!");
                     return;
                 }
+                sortFishNames();
                 Intent switchToFish = new Intent(getApplicationContext(), complete_task.class);
                 startActivity(switchToFish);
             }
@@ -71,6 +72,7 @@ public class addSpecies extends AppCompatActivity {
                     error.setText("Please select a species to delete!");
                     return;
                 }
+                sortFishNames();
                 Intent switchToFish = new Intent(getApplicationContext(), complete_task.class);
                 startActivity(switchToFish);
             }
@@ -83,5 +85,15 @@ public class addSpecies extends AppCompatActivity {
             }
         });
     }
-
+    private void sortFishNames(){
+        for(int i = 0; i < view_task.fishNames.size(); i++){
+            for(int j = 0; j < view_task.fishNames.size(); j++){
+                if(view_task.fishNames.get(i).compareTo(view_task.fishNames.get(j)) < 0){
+                    String temp = view_task.fishNames.get(i);
+                    view_task.fishNames.set(i, view_task.fishNames.get(j));
+                    view_task.fishNames.set(j, temp);
+                }
+            }
+        }
+    }
 }

@@ -41,19 +41,22 @@ public class fishAdapter extends ArrayAdapter<Fish> {
         if (fish.getMisc() != null) {
             fishMisc.setText(fish.getMisc());
         } else {
-            fishMisc.setVisibility(View.GONE);
+            //fishMisc.setVisibility(View.INVISIBLE);
+            fishMisc.setText("");
         }
 
         if (fish.getWeight() > 0.0) {
             fishWeight.setText(String.format(Locale.getDefault(), "%.1f lbs", fish.getWeight()));
         } else {
-            fishWeight.setVisibility(View.GONE);
+            //fishWeight.setVisibility(View.INVISIBLE);
+            fishWeight.setText("");
         }
 
         if (fish.getTemp() > 0.0) {
             fishTemp.setText(String.format(Locale.getDefault(), "%.1f °F", fish.getTemp()));
         } else {
-            fishTemp.setVisibility(View.GONE);
+            //fishTemp.setVisibility(View.INVISIBLE);
+            fishTemp.setText("");
         }
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d, yyyy h:mm a\n", Locale.getDefault());

@@ -2,13 +2,18 @@ package com.example.taskmanager;
 
 import static com.example.taskmanager.view_task.taskList;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.text.SimpleDateFormat;
@@ -21,13 +26,14 @@ public class edit_fish extends AppCompatActivity {
    public static int errorCount = 0;
    private static int currId;
    private static int currentFish;
+   private static String speciesSelected = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_fish);
         currId = view_task.getCurrentId();
         currentFish = view_fish.getCurrentFishId();
-        EditText species = findViewById(R.id.editFishSpecies);
+        Spinner species = findViewById(R.id.editFishSpecies);
         EditText length = findViewById(R.id.editFishLength);
         EditText weight = findViewById(R.id.editFishWeight);
         EditText bait = findViewById(R.id.editFishBait);
@@ -39,7 +45,25 @@ public class edit_fish extends AppCompatActivity {
         Button deleteButton = findViewById(R.id.deleteFishButton);
         TextView error = findViewById(R.id.errorTextView);
         error.setText("");
-        species.setText(taskList.get(currId).getFish().get(currentFish).getSpecies());
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_dropdown_item, view_task.fishNames);
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        species.setAdapter(adapter);
+        for(String speciesTemp : view_task.fishNames){
+            if(speciesTemp.equals(taskList.get(currId).getFish().get(currentFish).getSpecies())){
+                species.setSelection(view_task.fishNames.indexOf(speciesTemp));
+                break;
+            }
+        }
+        species.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                speciesSelected = adapterView.getItemAtPosition(i).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
         length.setText(String.valueOf(taskList.get(currId).getFish().get(currentFish).getLength()));
         weight.setText(String.valueOf(taskList.get(currId).getFish().get(currentFish).getWeight()));
         bait.setText(taskList.get(currId).getFish().get(currentFish).getBait());
@@ -51,17 +75,7 @@ public class edit_fish extends AppCompatActivity {
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(species.getText().toString().isEmpty() || length.getText().toString().isEmpty() || bait.getText().toString().isEmpty()){
-                    if(errorCount == 0) {
-                        error.setText("Complete all required fields!");
-                        errorCount++;
-                    }else{
-                        error.setText("Complete all required fields!!!");
-                        errorCount--;
-                    }
-                    return;
-                }
-                String speciesF = species.getText().toString();
+                String speciesF = speciesSelected;
                 double lengthF = Double.parseDouble(length.getText().toString());
                 double weightF = (weight.getText().toString().isEmpty()) ? 0.0: Double.parseDouble(weight.getText().toString());
                 String baitF = bait.getText().toString();
@@ -103,21 +117,43 @@ public class edit_fish extends AppCompatActivity {
                 int currId = view_task.getCurrentId();
                 int currentFish = view_fish.getCurrentFishId();
                 fishAdapter adapter = new fishAdapter(view.getContext(), (ArrayList<Fish>) taskList.get(currId).getFish());
-                // Remove the fish with the given id from the list
-                taskList.get(currId).getFish().remove(currentFish);
 
-                // Update the id of all the fish in the list
-                for (int i = currentFish; i < taskList.get(currId).getFish().size(); i++) {
-                    Fish currentFish2 = (Fish) taskList.get(currId).getFish().get(i);
-                    currentFish2.setId(i);
-                }
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(edit_fish.this);
+                builder1.setMessage("Are you sure you want to delete?");
+                builder1.setCancelable(true);
 
-                // Notify the adapter that the data set has changed
-                adapter.notifyDataSetChanged();
+                builder1.setPositiveButton(
+                        "Delete",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // Remove the fish with the given id from the list
+                                taskList.get(currId).getFish().remove(currentFish);
 
+                                // Update the id of all the fish in the list
+                                for (int i = currentFish; i < taskList.get(currId).getFish().size(); i++) {
+                                    Fish currentFish2 = (Fish) taskList.get(currId).getFish().get(i);
+                                    currentFish2.setId(i);
+                                }
 
-                Intent switchToView = new Intent(getApplicationContext(), view_fish.class);
-                startActivity(switchToView);
+                                // Notify the adapter that the data set has changed
+                                adapter.notifyDataSetChanged();
+                                dialog.cancel();
+                                Intent switchToView = new Intent(getApplicationContext(), view_fish.class);
+                                startActivity(switchToView);
+                            }
+                        });
+
+                builder1.setNegativeButton(
+                        "No",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                deleteButton.setEnabled(true);
+                                dialog.cancel();
+                            }
+                        });
+
+                AlertDialog alert11 = builder1.create();
+                alert11.show();
 
             }
         });

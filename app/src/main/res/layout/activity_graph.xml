@@ -39,8 +39,9 @@
                 android:text="Enter Graph Data"
                 android:textAlignment="center"
                 android:autoSizeTextType="uniform"
-                android:autoSizeMinTextSize="14dp"
+                android:autoSizeMinTextSize="16dp"
                 android:autoSizeMaxTextSize="24dp"
+                android:gravity="center"
                 android:layout_weight="2"/>
             <TextView
                 android:id="@+id/graphErrorTextView"
@@ -51,7 +52,7 @@
                 android:layout_weight="1"
                 android:autoSizeTextType="uniform"
                 android:autoSizeMinTextSize="8dp"
-                android:autoSizeMaxTextSize="14dp"/>
+                android:autoSizeMaxTextSize="12dp"/>
 
         </LinearLayout>
         <LinearLayout
@@ -73,8 +74,8 @@
                     android:textAlignment="center"
                     android:text="Species"
                     android:autoSizeTextType="uniform"
-                    android:autoSizeMinTextSize="10sp"
-                    android:autoSizeMaxTextSize="24sp"
+                    android:autoSizeMinTextSize="10dp"
+                    android:autoSizeMaxTextSize="18dp"
                     android:gravity="center"/>
                 <Spinner
                     android:id="@+id/speciesSpinnerGraph"
@@ -95,8 +96,8 @@
                     android:textAlignment="center"
                     android:text="Bar Graph"
                     android:autoSizeTextType="uniform"
-                    android:autoSizeMinTextSize="10sp"
-                    android:autoSizeMaxTextSize="24sp"
+                    android:autoSizeMinTextSize="10dp"
+                    android:autoSizeMaxTextSize="18dp"
                     android:gravity="center"/>
                 <Spinner
                     android:id="@+id/dropDownBar"
@@ -112,7 +113,10 @@
                 android:hint="Range"
                 android:inputType="number"
                 android:layout_weight="1"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="10dp"
+                android:autoSizeMaxTextSize="18dp"/>
             <LinearLayout
                 android:id="@+id/linearLayoutDate"
                 android:layout_width="match_parent"
@@ -142,7 +146,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:text="Create Graph"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="10dp"
+                android:autoSizeMaxTextSize="18dp"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/linearLayoutTable"
@@ -217,7 +224,10 @@
                     android:layout_weight="3"
                     android:textAlignment="center"
                     android:inputType="number"
-                    android:hint="Start Date\nmm/yyyy"/>
+                    android:hint="Start Date\nmm/yyyy"
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="10dp"
+                    android:autoSizeMaxTextSize="18dp"/>
                 <EditText
                     android:id="@+id/endDate"
                     android:layout_width="0dp"
@@ -225,14 +235,20 @@
                     android:layout_weight="3"
                     android:textAlignment="center"
                     android:inputType="number"
-                    android:hint="End Date\nmm/yyyy"/>
+                    android:hint="End Date\nmm/yyyy"
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="10dp"
+                    android:autoSizeMaxTextSize="18dp"/>
             </LinearLayout>
             <Button
                 android:id="@+id/createTable"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:text="Create Table"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="10dp"
+                android:autoSizeMaxTextSize="18dp"/>
         </LinearLayout>
     </LinearLayout>
 
