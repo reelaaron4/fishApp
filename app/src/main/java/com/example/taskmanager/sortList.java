@@ -26,11 +26,13 @@ public class sortList extends AppCompatActivity {
         setContentView(R.layout.activity_sort_list);
         Spinner speciesSpinner = findViewById(R.id.speciesSpinner);
         Spinner lengthSpinner = findViewById(R.id.lengthSpinner);
+        Spinner miscSpinner = findViewById(R.id.miscSpinner);
         EditText startDateEditText = findViewById(R.id.startDate);
         EditText endDateEditText = findViewById(R.id.endDate);
         Button sortButton = findViewById(R.id.sortButton);
         TextView error = findViewById(R.id.sortErrorTextView);
         int currId = view_task.getCurrentId();
+
         ArrayList<String> speciesList = findSpecies(taskList.get(currId).getFish());
         ArrayAdapter<String> speciesAdapter = new ArrayAdapter<>(this, R.layout.spinner_dropdown_item, speciesList);
         speciesSpinner.setAdapter(speciesAdapter);
@@ -38,6 +40,10 @@ public class sortList extends AppCompatActivity {
         String[] lengthList = {"No Selection", "Ascending", "Descending"};
         ArrayAdapter<String> lengthAdapter = new ArrayAdapter<>(this, R.layout.spinner_dropdown_item, lengthList);
         lengthSpinner.setAdapter(lengthAdapter);
+
+        ArrayList<String> miscList = findMisc(taskList.get(currId).getFish());
+        ArrayAdapter<String> miscAdapter = new ArrayAdapter<>(this, R.layout.spinner_dropdown_item, miscList);
+        miscSpinner.setAdapter(miscAdapter);
 
         sortButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,6 +110,15 @@ public class sortList extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
+        miscSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l){
+                view_fish.setMiscSort(miscSpinner.getSelectedItem().toString());
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
     }
     private ArrayList<String> findSpecies(ArrayList<Fish> list) {
         ArrayList<String> species = new ArrayList<>();
@@ -114,5 +129,23 @@ public class sortList extends AppCompatActivity {
             }
         }
         return species;
+    }
+    private ArrayList<String> findMisc(ArrayList<Fish> list) {
+        ArrayList<String> misc = new ArrayList<>();
+        misc.add("No Selection");
+        for (int i = 0; i < list.size(); i++) {
+            if (!misc.contains(list.get(i).getMisc())) {
+                misc.add(list.get(i).getMisc());
+            }
+            if(!misc.contains(list.get(i).getMisc2())){
+                misc.add(list.get(i).getMisc2());
+            }
+        }
+        for(int i = 0; i < misc.size(); i++){
+            if(misc.get(i).equals("")){
+                misc.remove(i);
+            }
+        }
+        return misc;
     }
 }

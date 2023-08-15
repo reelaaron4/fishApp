@@ -28,6 +28,7 @@ public class fishAdapter extends ArrayAdapter<Fish> {
         TextView fishLength = convertView.findViewById(R.id.fish_length);
         TextView fishBait = convertView.findViewById(R.id.fish_bait);
         TextView fishMisc = convertView.findViewById(R.id.fish_misc);
+        TextView fishMisc2 = convertView.findViewById(R.id.fish_misc2);
         TextView fishWeight = convertView.findViewById(R.id.fish_weight);
         TextView fishTemp = convertView.findViewById(R.id.fish_temp);
         TextView fishDate = convertView.findViewById(R.id.fish_date);
@@ -43,6 +44,13 @@ public class fishAdapter extends ArrayAdapter<Fish> {
         } else {
             //fishMisc.setVisibility(View.INVISIBLE);
             fishMisc.setText("");
+        }
+
+        if (fish.getMisc2() != null) {
+            fishMisc2.setText(fish.getMisc2());
+        } else {
+            //fishMisc.setVisibility(View.INVISIBLE);
+            fishMisc2.setText("");
         }
 
         if (fish.getWeight() > 0.0) {

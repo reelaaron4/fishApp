@@ -37,6 +37,7 @@ public class complete_task extends AppCompatActivity {
         EditText bait = findViewById(R.id.addFishBait);
         EditText temp = findViewById(R.id.addFishTemp);
         EditText misc = findViewById(R.id.addFishMisc);
+        EditText misc2 = findViewById(R.id.addFishMisc2);
 
         TextView location = findViewById(R.id.textViewTitle);
 
@@ -83,10 +84,11 @@ public class complete_task extends AppCompatActivity {
                 String baitF = bait.getText().toString();
                 double tempF = (temp.getText().toString().isEmpty()) ? 0.0: Double.parseDouble(temp.getText().toString());
                 String miscF = (misc.getText().toString().isEmpty()) ? "": misc.getText().toString();
+                String miscF2 = (misc2.getText().toString().isEmpty()) ? "": misc2.getText().toString();
                 Date dateF = new Date();
                 int idF = (taskList.get(currId).getFish().size());
 
-                Fish fishTemp = new Fish(speciesF, lengthF, baitF, miscF, weightF, tempF, dateF, idF);
+                Fish fishTemp = new Fish(speciesF, lengthF, baitF, miscF, miscF2, weightF, tempF, dateF, idF);
                 fishTemp.setTaskID(currId);
                 taskList.get(currId).setFishList(fishTemp);
                 //switch to view so user knows action succeeded

@@ -20,7 +20,7 @@
             android:id="@+id/linearLayoutTop"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="7"
+            android:layout_weight="8"
             android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@id/linearLayoutData"
             app:layout_constraintEnd_toEndOf="parent"
@@ -63,7 +63,7 @@
             android:id="@+id/linearLayoutData"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="30"
+            android:layout_weight="35"
             android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@id/linearLayoutOpen"
             app:layout_constraintEnd_toEndOf="parent"
@@ -75,7 +75,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:orientation="horizontal"
-                android:layout_weight="1">
+                android:layout_weight="5">
 
                 <Spinner
                     android:id="@+id/addFishSpecies"
@@ -101,7 +101,7 @@
                 android:id="@+id/linearlayoutData2"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="5"
+                android:layout_weight="30"
                 android:orientation="vertical">
 
                 <EditText
@@ -147,7 +147,19 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:hint="Misc"
+                    android:hint="Misc 1"
+                    android:textAlignment="center"
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="10dp"
+                    android:autoSizeMaxTextSize="18dp"/>
+
+                <EditText
+                    android:id="@+id/addFishMisc2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="Misc 2"
                     android:textAlignment="center"
                     android:autoSizeTextType="uniform"
                     android:autoSizeMinTextSize="10dp"
@@ -167,7 +179,6 @@
                     android:autoSizeMaxTextSize="18dp"/>
 
             </LinearLayout>
-
         </LinearLayout>
         <LinearLayout
             android:id="@+id/linearLayoutOpen"

@@ -15,6 +15,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ public class view_fish extends AppCompatActivity {
     private static String lengthSort = "No Selection";
     private static String startDate = "";
     private static String endDate = "";
+    private static String miscSort = "No Selection";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,11 +41,11 @@ public class view_fish extends AppCompatActivity {
         Button graphButton = findViewById(R.id.graphButton);
         Button viewButton = findViewById(R.id.viewButton);
         TextView current = findViewById(R.id.textViewTitle);
-
-        ArrayList sortedList = new ArrayList<Fish>();
+        ArrayList<Fish> sortedList = new ArrayList<>();
         sortedList = sortListSpecies(speciesSort, view_task.getTaskAtIndex(currentId).fishList);
         sortedList = sortListLength(lengthSort, sortedList);
         sortedList = sortListDate(startDate, endDate, sortedList);
+        sortedList = sortListMisc(miscSort, sortedList);
 
         fishAdapter adapter = new fishAdapter(this, sortedList);
         ListView listView = findViewById(R.id.fishListView);
@@ -64,7 +66,7 @@ public class view_fish extends AppCompatActivity {
                 // Get the selected fish from the adapter using the calculated index
                 Fish selectedFish = adapter.getItem(selectedIndex);
 
-                currentFishId = selectedIndex;
+                currentFishId = selectedFish.getId();
 
                 Intent switchToEditFish = new Intent(getApplicationContext(), edit_fish.class);
                 startActivity(switchToEditFish);
@@ -95,6 +97,7 @@ public class view_fish extends AppCompatActivity {
                             fishObject.put("weight", fish.getWeight());
                             fishObject.put("bait", fish.getBait());
                             fishObject.put("misc", fish.getMisc());
+                            fishObject.put("misc2", fish.getMisc2());
                             fishObject.put("temp", fish.getTemp());
                             fishObject.put("date", fish.getDate());
                             fishObject.put("id", fish.getId());
@@ -125,68 +128,27 @@ public class view_fish extends AppCompatActivity {
                 }
 
                 String fileName = "FishData.json";
+                String fileTemp = "FishDataTemp.json";
                 try {
-                    FileOutputStream fos = openFileOutput(fileName, Context.MODE_PRIVATE);
-                    fos.write(resultObject.toString().getBytes());
-                    fos.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        });
-        //POTENTIAL SAVING SYSTEM TO TRY AND PREVENT DATA LOSS
-        /*saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                JSONArray locationArray = new JSONArray();
-                JSONArray speciesArray = new JSONArray();
-                String tempFileName = "FishDataTemp.json";
-                String fileName = "FishData.json";
-
-                for (Task task : view_task.taskList) {
-                    // ... (same as the original code)
-
-                    locationArray.put(location);
-                }
-                for (String species : view_task.fishNames) {
-                    // ... (same as the original code)
-
-                    speciesArray.put(speciesObject);
-                }
-
-                JSONObject resultObject = new JSONObject();
-                try {
-                    resultObject.put("locations", locationArray);
-                    resultObject.put("species", speciesArray);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    return; // Exit the saving process on JSON creation error
-                }
-
-                try {
-                    // Write data to a temporary file
-                    FileOutputStream tempFos = openFileOutput(tempFileName, Context.MODE_PRIVATE);
+                    // Step 1: Write data to the temporary file
+                    FileOutputStream tempFos = openFileOutput(fileTemp, Context.MODE_PRIVATE);
                     tempFos.write(resultObject.toString().getBytes());
                     tempFos.close();
 
-                    // If data is successfully written to the temporary file, replace the original file
-                    File tempFile = new File(getFilesDir(), tempFileName);
+                    // Step 2: Perform atomic file replacement
+                    File tempFile = new File(getFilesDir(), fileTemp);
                     File originalFile = new File(getFilesDir(), fileName);
+
                     if (tempFile.renameTo(originalFile)) {
                         // Success: The data was saved and renamed atomically
-                        // You can optionally delete the temporary file here
                     } else {
-                        // Error: The rename operation failed, so data might be corrupted
-                        // Implement backup or error handling here
+                        System.out.println("FAILED TO SAVE");
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
-                    // Error: There was an issue with saving the data
-                    // Implement backup or error handling here
                 }
             }
-        });*/
+        });
 
         saveButton.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -241,6 +203,7 @@ public class view_fish extends AppCompatActivity {
     public static void setLengthSort(String length){lengthSort = length;}
     public static void setStartDate(String start){startDate = start;}
     public static void setEndDate(String end){endDate = end;}
+    public static void setMiscSort(String misc){miscSort = misc;}
 
     private static ArrayList<Fish> sortListSpecies(String species, ArrayList<Fish> list){
         ArrayList<Fish> newList = new ArrayList<>();
@@ -287,12 +250,27 @@ public class view_fish extends AppCompatActivity {
         int endYearTemp = Integer.parseInt(end.substring(3));
         ArrayList<Fish> newList = new ArrayList<>();
         for(Fish fish : list){
-            if (isWithinDateRange(fish.getDate(), startMonthTemp, startYearTemp, endMonthTemp, endYearTemp)) {
+            if(isWithinDateRange(fish.getDate(), startMonthTemp, startYearTemp, endMonthTemp, endYearTemp)) {
                newList.add(fish);
             }
         }
 
         return newList;
+    }
+    private static ArrayList<Fish> sortListMisc(String misc, ArrayList<Fish> list){
+        ArrayList<Fish> newList = new ArrayList<>();
+        if(!misc.equals("No Selection")) {
+            for (Fish fish : list) {
+                if(fish.getMisc().equals(misc)) {
+                    newList.add(fish);
+                }else if(fish.getMisc2().equals(misc)){
+                    newList.add(fish);
+                }
+            }
+            return newList;
+        }else{
+            return list;
+        }
     }
     private static boolean isWithinDateRange(Date date, int startMonth, int startYear, int endMonth, int endYear){
         Calendar calendar = Calendar.getInstance();

@@ -28,7 +28,7 @@ public class quickAdd extends AppCompatActivity {
                 Date date = new Date();
                 int currId = view_task.getCurrentId();
                 int idF = (taskList.get(currId).getFish().size());
-                Fish fishTemp = new Fish("", 0.0, "", "", 0.0, 0.0, date, idF);
+                Fish fishTemp = new Fish("", 0.0, "", "", "", 0.0, 0.0, date, idF);
                 taskList.get(currId).setFishList(fishTemp);
 
                 Intent intent = new Intent(quickAdd.this, quickAdd.class);

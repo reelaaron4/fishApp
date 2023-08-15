@@ -83,6 +83,12 @@ public class view_task extends AppCompatActivity {
                         String bait = fishObject.getString("bait");
                         String tempS = fishObject.getString("temp");
                         String misc = fishObject.getString("misc");
+                        String misc2 = "";
+                        try{
+                            misc2 = fishObject.getString("misc2");
+                        }catch (JSONException e){
+                            misc2 = "";
+                        }
                         String dateS = fishObject.getString("date");
                         String idS = fishObject.getString("id");
 
@@ -95,7 +101,6 @@ public class view_task extends AppCompatActivity {
                         Date date = null;
                         try {
                             date = dateFormat.parse(dateS);
-                            System.out.println(date);
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
@@ -103,7 +108,7 @@ public class view_task extends AppCompatActivity {
                         //Date date = new Date();
 
 
-                        Fish fish = new Fish(species, length, bait, misc, weight, temp, date, id);
+                        Fish fish = new Fish(species, length, bait, misc, misc2, weight, temp, date, id);
                         task.setFishList(fish);
                     }
 
