@@ -53,6 +53,10 @@ public class edit_task extends AppCompatActivity {
                 }
 
                 editTask(taskList, taskId, name, description);
+
+                //flag auto save
+                view_task.setShouldSave(true);
+
                 //switch to view so user knows action succeeded
                 Intent switchToView = new Intent(getApplicationContext(), view_task.class);
                 startActivity(switchToView);

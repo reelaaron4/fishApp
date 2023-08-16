@@ -26,7 +26,6 @@ public class complete_task extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_complete_task);
-
         Button fishButton = findViewById(R.id.enterFishButton);
         Button viewFishButton = findViewById(R.id.viewFishButton);
         Button viewButton = findViewById(R.id.viewButton);
@@ -91,6 +90,10 @@ public class complete_task extends AppCompatActivity {
                 Fish fishTemp = new Fish(speciesF, lengthF, baitF, miscF, miscF2, weightF, tempF, dateF, idF);
                 fishTemp.setTaskID(currId);
                 taskList.get(currId).setFishList(fishTemp);
+
+                //flag autoSave
+                view_fish.setShouldSave(true);
+
                 //switch to view so user knows action succeeded
                 Intent switchToFish = new Intent(getApplicationContext(), view_fish.class);
                 startActivity(switchToFish);

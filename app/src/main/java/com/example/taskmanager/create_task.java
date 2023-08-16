@@ -35,6 +35,10 @@ public class create_task extends AppCompatActivity {
                     return;
                 }
                 view_task.createTask(nameText, descText);
+
+                //flag auto save
+                view_task.setShouldSave(true);
+
                 // Switch to view so the user knows the action succeeded
                 Intent switchToView = new Intent(getApplicationContext(), view_task.class);
                 startActivity(switchToView);

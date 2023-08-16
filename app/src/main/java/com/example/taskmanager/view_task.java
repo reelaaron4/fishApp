@@ -1,5 +1,6 @@
 package com.example.taskmanager;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,7 +15,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.ParseException;
@@ -27,6 +30,7 @@ public class view_task extends AppCompatActivity {
     private static int currentId;
     public static ArrayList<Task> taskList = new ArrayList<Task>();
     public static ArrayList<String> fishNames = new ArrayList<String>();
+    private static boolean shouldSave = false;
 
     public static void createTask(String name, String desc){
         Task taskObj = new Task(name, desc);
@@ -47,6 +51,11 @@ public class view_task extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_task);
+
+        if(shouldSave) {
+            saveData();
+            shouldSave = false;
+        }
 
         // Add JSON code here
         if(taskList.isEmpty()) {
@@ -208,4 +217,76 @@ public class view_task extends AppCompatActivity {
         return currentName;
     }
     public static int getCurrentId(){return currentId;}
+    public static void setShouldSave(boolean save){ shouldSave = save;}
+    public void saveData(){
+        JSONArray locationArray = new JSONArray();
+        JSONArray speciesArray = new JSONArray();
+
+        for (Task task : view_task.taskList) {
+            JSONObject location = new JSONObject();
+            try {
+                location.put("ID", task.getId());
+                location.put("name", task.getName());
+                location.put("description", task.getDescription());
+
+                JSONArray fishArray = new JSONArray();
+                for (Fish fish : task.getFish()){
+                    JSONObject fishObject = new JSONObject();
+                    fishObject.put("ID", fish.getId());
+                    fishObject.put("species", fish.getSpecies());
+                    fishObject.put("length", fish.getLength());
+                    fishObject.put("weight", fish.getWeight());
+                    fishObject.put("bait", fish.getBait());
+                    fishObject.put("misc", fish.getMisc());
+                    fishObject.put("misc2", fish.getMisc2());
+                    fishObject.put("temp", fish.getTemp());
+                    fishObject.put("date", fish.getDate());
+                    fishObject.put("id", fish.getId());
+
+                    fishArray.put(fishObject);
+                }
+                location.put("fishList", fishArray);
+                locationArray.put(location);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        for(String species : view_task.fishNames){
+            JSONObject speciesObject = new JSONObject();
+            try {
+                speciesObject.put("species", species);
+                speciesArray.put(speciesObject);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        JSONObject resultObject = new JSONObject();
+        try {
+            resultObject.put("locations", locationArray);
+            resultObject.put("species", speciesArray);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        String fileName = "FishData.json";
+        String fileTemp = "FishDataTemp.json";
+        try {
+            // Step 1: Write data to the temporary file
+            FileOutputStream tempFos = openFileOutput(fileTemp, Context.MODE_PRIVATE);
+            tempFos.write(resultObject.toString().getBytes());
+            tempFos.close();
+
+            // Step 2: Perform atomic file replacement
+            File tempFile = new File(getFilesDir(), fileTemp);
+            File originalFile = new File(getFilesDir(), fileName);
+
+            if (tempFile.renameTo(originalFile)) {
+                // Success: The data was saved and renamed atomically
+            } else {
+                System.out.println("FAILED TO SAVE");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

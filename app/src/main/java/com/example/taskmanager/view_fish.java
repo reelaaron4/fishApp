@@ -31,11 +31,16 @@ public class view_fish extends AppCompatActivity {
     private static String startDate = "";
     private static String endDate = "";
     private static String miscSort = "No Selection";
+    private static boolean shouldSave = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_fish);
 
+        if(shouldSave){
+            saveData();
+            shouldSave = false;
+        }
         Button saveButton = findViewById(R.id.saveButton);
         Button createButton = findViewById(R.id.createButton);
         Button graphButton = findViewById(R.id.graphButton);
@@ -76,77 +81,8 @@ public class view_fish extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
-            public void onClick(View view)
-            {
-                JSONArray locationArray = new JSONArray();
-                JSONArray speciesArray = new JSONArray();
-
-                for (Task task : view_task.taskList) {
-                    JSONObject location = new JSONObject();
-                    try {
-                        location.put("ID", task.getId());
-                        location.put("name", task.getName());
-                        location.put("description", task.getDescription());
-
-                        JSONArray fishArray = new JSONArray();
-                        for (Fish fish : task.getFish()){
-                            JSONObject fishObject = new JSONObject();
-                            fishObject.put("ID", fish.getId());
-                            fishObject.put("species", fish.getSpecies());
-                            fishObject.put("length", fish.getLength());
-                            fishObject.put("weight", fish.getWeight());
-                            fishObject.put("bait", fish.getBait());
-                            fishObject.put("misc", fish.getMisc());
-                            fishObject.put("misc2", fish.getMisc2());
-                            fishObject.put("temp", fish.getTemp());
-                            fishObject.put("date", fish.getDate());
-                            fishObject.put("id", fish.getId());
-
-                            fishArray.put(fishObject);
-                        }
-                        location.put("fishList", fishArray);
-                        locationArray.put(location);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-                for(String species : view_task.fishNames){
-                    JSONObject speciesObject = new JSONObject();
-                    try {
-                        speciesObject.put("species", species);
-                        speciesArray.put(speciesObject);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-                JSONObject resultObject = new JSONObject();
-                try {
-                    resultObject.put("locations", locationArray);
-                    resultObject.put("species", speciesArray);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                String fileName = "FishData.json";
-                String fileTemp = "FishDataTemp.json";
-                try {
-                    // Step 1: Write data to the temporary file
-                    FileOutputStream tempFos = openFileOutput(fileTemp, Context.MODE_PRIVATE);
-                    tempFos.write(resultObject.toString().getBytes());
-                    tempFos.close();
-
-                    // Step 2: Perform atomic file replacement
-                    File tempFile = new File(getFilesDir(), fileTemp);
-                    File originalFile = new File(getFilesDir(), fileName);
-
-                    if (tempFile.renameTo(originalFile)) {
-                        // Success: The data was saved and renamed atomically
-                    } else {
-                        System.out.println("FAILED TO SAVE");
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            public void onClick(View view) {
+                saveData();
             }
         });
 
@@ -204,6 +140,7 @@ public class view_fish extends AppCompatActivity {
     public static void setStartDate(String start){startDate = start;}
     public static void setEndDate(String end){endDate = end;}
     public static void setMiscSort(String misc){miscSort = misc;}
+    public static void setShouldSave(boolean save){shouldSave = save;}
 
     private static ArrayList<Fish> sortListSpecies(String species, ArrayList<Fish> list){
         ArrayList<Fish> newList = new ArrayList<>();
@@ -280,5 +217,76 @@ public class view_fish extends AppCompatActivity {
         return (year > startYear && year < endYear) ||
                 (year == startYear && month >= startMonth) ||
                 (year == endYear && month <= endMonth);
+    }
+    public void saveData(){
+        JSONArray locationArray = new JSONArray();
+        JSONArray speciesArray = new JSONArray();
+
+        for (Task task : view_task.taskList) {
+            JSONObject location = new JSONObject();
+            try {
+                location.put("ID", task.getId());
+                location.put("name", task.getName());
+                location.put("description", task.getDescription());
+
+                JSONArray fishArray = new JSONArray();
+                for (Fish fish : task.getFish()){
+                    JSONObject fishObject = new JSONObject();
+                    fishObject.put("ID", fish.getId());
+                    fishObject.put("species", fish.getSpecies());
+                    fishObject.put("length", fish.getLength());
+                    fishObject.put("weight", fish.getWeight());
+                    fishObject.put("bait", fish.getBait());
+                    fishObject.put("misc", fish.getMisc());
+                    fishObject.put("misc2", fish.getMisc2());
+                    fishObject.put("temp", fish.getTemp());
+                    fishObject.put("date", fish.getDate());
+                    fishObject.put("id", fish.getId());
+
+                    fishArray.put(fishObject);
+                }
+                location.put("fishList", fishArray);
+                locationArray.put(location);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        for(String species : view_task.fishNames){
+            JSONObject speciesObject = new JSONObject();
+            try {
+                speciesObject.put("species", species);
+                speciesArray.put(speciesObject);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        JSONObject resultObject = new JSONObject();
+        try {
+            resultObject.put("locations", locationArray);
+            resultObject.put("species", speciesArray);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        String fileName = "FishData.json";
+        String fileTemp = "FishDataTemp.json";
+        try {
+            // Step 1: Write data to the temporary file
+            FileOutputStream tempFos = openFileOutput(fileTemp, Context.MODE_PRIVATE);
+            tempFos.write(resultObject.toString().getBytes());
+            tempFos.close();
+
+            // Step 2: Perform atomic file replacement
+            File tempFile = new File(getFilesDir(), fileTemp);
+            File originalFile = new File(getFilesDir(), fileName);
+
+            if (tempFile.renameTo(originalFile)) {
+                // Success: The data was saved and renamed atomically
+            } else {
+                System.out.println("FAILED TO SAVE");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

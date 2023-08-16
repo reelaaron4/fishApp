@@ -101,6 +101,9 @@ public class edit_fish extends AppCompatActivity {
                 (taskList.get(currId).getFish().get(currentFish)).setMisc2(miscF2);
                 (taskList.get(currId).getFish().get(currentFish)).setDate(dateF);
 
+                //flag auto save
+                view_fish.setShouldSave(true);
+
                 //switch to view so user knows action succeeded
                 Intent switchToFish = new Intent(getApplicationContext(), view_fish.class);
                 startActivity(switchToFish);
