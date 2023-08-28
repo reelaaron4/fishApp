@@ -91,12 +91,23 @@ public class view_task extends AppCompatActivity {
                         String weightS = fishObject.getString("weight");
                         String bait = fishObject.getString("bait");
                         String tempS = fishObject.getString("temp");
-                        String misc = fishObject.getString("misc");
+                        String misc = "";
                         String misc2 = "";
+                        String misc3 = "";
+                        try{
+                            misc = fishObject.getString("misc");
+                        }catch (JSONException e){
+                            misc = "";
+                        }
                         try{
                             misc2 = fishObject.getString("misc2");
                         }catch (JSONException e){
                             misc2 = "";
+                        }
+                        try{
+                            misc3 = fishObject.getString("misc3");
+                        }catch (JSONException e){
+                            misc3 = "";
                         }
                         String dateS = fishObject.getString("date");
                         String idS = fishObject.getString("id");
@@ -117,7 +128,7 @@ public class view_task extends AppCompatActivity {
                         //Date date = new Date();
 
 
-                        Fish fish = new Fish(species, length, bait, misc, misc2, weight, temp, date, id);
+                        Fish fish = new Fish(species, length, bait, misc, misc2, misc3,weight, temp, date, id);
                         task.setFishList(fish);
                     }
 
@@ -239,6 +250,7 @@ public class view_task extends AppCompatActivity {
                     fishObject.put("bait", fish.getBait());
                     fishObject.put("misc", fish.getMisc());
                     fishObject.put("misc2", fish.getMisc2());
+                    fishObject.put("misc3", fish.getMisc3());
                     fishObject.put("temp", fish.getTemp());
                     fishObject.put("date", fish.getDate());
                     fishObject.put("id", fish.getId());

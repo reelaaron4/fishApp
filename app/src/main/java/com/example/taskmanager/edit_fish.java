@@ -40,6 +40,7 @@ public class edit_fish extends AppCompatActivity {
         EditText temp = findViewById(R.id.editFishTemp);
         EditText misc = findViewById(R.id.editFishMisc);
         EditText misc2 = findViewById(R.id.editFishMisc2);
+        EditText misc3 = findViewById(R.id.editFishMisc3);
         EditText date = findViewById(R.id.editFishDate);
         Button editButton = findViewById(R.id.editFishButton);
         Button viewButton = findViewById(R.id.viewButton);
@@ -71,6 +72,7 @@ public class edit_fish extends AppCompatActivity {
         temp.setText(String.valueOf(taskList.get(currId).getFish().get(currentFish).getTemp()));
         misc.setText(taskList.get(currId).getFish().get(currentFish).getMisc());
         misc2.setText(taskList.get(currId).getFish().get(currentFish).getMisc2());
+        misc3.setText(taskList.get(currId).getFish().get(currentFish).getMisc3());
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM d, yyyy h:mm a\n", Locale.getDefault());
         date.setText(dateFormat.format(taskList.get(currId).getFish().get(currentFish).getDate()));
 
@@ -84,6 +86,7 @@ public class edit_fish extends AppCompatActivity {
                 double tempF = (temp.getText().toString().isEmpty()) ? 0.0: Double.parseDouble(temp.getText().toString());
                 String miscF = (misc.getText().toString().isEmpty()) ? "": misc.getText().toString();
                 String miscF2 = (misc2.getText().toString().isEmpty()) ? "": misc2.getText().toString();
+                String miscF3 = (misc3.getText().toString().isEmpty()) ? "": misc3.getText().toString();
                 Date dateF = null;
                 try{
                     dateF = (date.getText().toString().isEmpty()) ? taskList.get(currId).getFish().get(currentFish).getDate() : dateFormat.parse(date.getText().toString());
@@ -99,6 +102,7 @@ public class edit_fish extends AppCompatActivity {
                 (taskList.get(currId).getFish().get(currentFish)).setTemp(tempF);
                 (taskList.get(currId).getFish().get(currentFish)).setMisc(miscF);
                 (taskList.get(currId).getFish().get(currentFish)).setMisc2(miscF2);
+                (taskList.get(currId).getFish().get(currentFish)).setMisc3(miscF3);
                 (taskList.get(currId).getFish().get(currentFish)).setDate(dateF);
 
                 //flag auto save

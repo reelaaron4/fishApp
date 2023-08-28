@@ -34,7 +34,6 @@ public class graphTest<ValueFormatter> extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph_test);
-
         range = graph.getRange();
         maxVisible = graph.getMaxVisible();
 
@@ -147,7 +146,7 @@ public class graphTest<ValueFormatter> extends AppCompatActivity {
         String typeSpecies = graph.getSpeciesGraph();
 
         ArrayList<Fish> filteredFishList = new ArrayList<>();
-        ArrayList<Fish> fishList = (ArrayList<Fish>) view_task.taskList.get(currId).getFish();
+        ArrayList<Fish> fishList = view_fish.getSortedList();
 
         // Filter the fishList based on typeSpecies
         if (typeSpecies != null && !typeSpecies.equals("No Selection")) {

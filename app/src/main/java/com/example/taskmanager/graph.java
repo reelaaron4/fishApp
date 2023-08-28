@@ -29,7 +29,6 @@ public class graph extends AppCompatActivity {
     private static String scatterY = null;
     private static String speciesGraph = null;
     private static int currentId = view_task.getCurrentId();
-    private static ArrayList<String> speciesList = new ArrayList<String>();
     private static String speciesTable = null;
     private static String baitTable = null;
     private static int startMonthTable;
@@ -78,9 +77,8 @@ public class graph extends AppCompatActivity {
         Spinner dropDownBar = findViewById(R.id.dropDownBar);
         dropDownBar.setAdapter(adapter);
 
-        speciesList.clear();
-        speciesList.add("No Selection");
-        setSpecies(currentId, speciesList);
+        int currId = view_task.getCurrentId();
+        ArrayList<String> speciesList = findSpecies(taskList.get(currId).getFish());
         ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(this, R.layout.spinner_dropdown_item, speciesList);
         adapter3.setDropDownViewResource(R.layout.spinner_dropdown_item);
         Spinner speciesSpinnerGraph = findViewById(R.id.speciesSpinnerGraph);
@@ -291,20 +289,15 @@ public class graph extends AppCompatActivity {
             }
         });
     }
-    public void setSpecies(int currentId, ArrayList<String> speciesList){
-        speciesList.add((taskList.get(currentId).getFish().get(0)).getSpecies());
-        for(int i = 0; i < taskList.get(currentId).getFish().size(); i++){
-            boolean found = false;
-            for(int j = 0; j < speciesList.size(); j++){
-                if((taskList.get(currentId).getFish().get(i)).getSpecies().equals(speciesList.get(j))){
-                    found = true;
-                }
-            }
-            if(!found){
-                speciesList.add((taskList.get(currentId).getFish().get(i)).getSpecies());
+    private ArrayList<String> findSpecies(ArrayList<Fish> list) {
+        ArrayList<String> species = new ArrayList<>();
+        species.add("No Selection");
+        for (int i = 0; i < list.size(); i++) {
+            if (!species.contains(list.get(i).getSpecies())) {
+                species.add(list.get(i).getSpecies());
             }
         }
-
+        return species;
     }
     public void setRange(int range){this.range = range;}
     public static String getBarSelection(){return barSelection;}

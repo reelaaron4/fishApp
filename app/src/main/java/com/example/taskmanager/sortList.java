@@ -20,6 +20,7 @@ import java.util.Calendar;
 
 public class sortList extends AppCompatActivity {
 
+    private static ArrayList<String> miscList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +42,8 @@ public class sortList extends AppCompatActivity {
         ArrayAdapter<String> lengthAdapter = new ArrayAdapter<>(this, R.layout.spinner_dropdown_item, lengthList);
         lengthSpinner.setAdapter(lengthAdapter);
 
-        ArrayList<String> miscList = findMisc(taskList.get(currId).getFish());
+        miscList = findMisc(taskList.get(currId).getFish());
+        sortMiscList();
         ArrayAdapter<String> miscAdapter = new ArrayAdapter<>(this, R.layout.spinner_dropdown_item, miscList);
         miscSpinner.setAdapter(miscAdapter);
 
@@ -140,6 +142,9 @@ public class sortList extends AppCompatActivity {
             if(!misc.contains(list.get(i).getMisc2())){
                 misc.add(list.get(i).getMisc2());
             }
+            if(!misc.contains(list.get(i).getMisc3())){
+                misc.add(list.get(i).getMisc3());
+            }
         }
         for(int i = 0; i < misc.size(); i++){
             if(misc.get(i).equals("")){
@@ -147,5 +152,16 @@ public class sortList extends AppCompatActivity {
             }
         }
         return misc;
+    }
+    private void sortMiscList(){
+        for(int i = 1; i < miscList.size(); i++){
+            for(int j = 1; j < miscList.size(); j++){
+                if(miscList.get(i).toLowerCase().compareTo(miscList.get(j).toLowerCase()) < 0){
+                    String temp = miscList.get(i);
+                    miscList.set(i, miscList.get(j));
+                    miscList.set(j, temp);
+                }
+            }
+        }
     }
 }

@@ -32,6 +32,7 @@ public class view_fish extends AppCompatActivity {
     private static String endDate = "";
     private static String miscSort = "No Selection";
     private static boolean shouldSave = false;
+    private static ArrayList<Fish> sortedList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +47,6 @@ public class view_fish extends AppCompatActivity {
         Button graphButton = findViewById(R.id.graphButton);
         Button viewButton = findViewById(R.id.viewButton);
         TextView current = findViewById(R.id.textViewTitle);
-        ArrayList<Fish> sortedList = new ArrayList<>();
         sortedList = sortListSpecies(speciesSort, view_task.getTaskAtIndex(currentId).fishList);
         sortedList = sortListLength(lengthSort, sortedList);
         sortedList = sortListDate(startDate, endDate, sortedList);
@@ -133,6 +133,7 @@ public class view_fish extends AppCompatActivity {
         });
     }
     public static int getCurrentFishId(){return currentFishId;}
+    public static ArrayList<Fish> getSortedList(){return sortedList;}
     public static void setCurrentId(){currentId = view_task.getCurrentId();}
     public static void setCurrentName(){currentName = view_task.getCurrentName();}
     public static void setSpeciesSort(String species){speciesSort = species;}
@@ -202,6 +203,8 @@ public class view_fish extends AppCompatActivity {
                     newList.add(fish);
                 }else if(fish.getMisc2().equals(misc)){
                     newList.add(fish);
+                }else if(fish.getMisc3().equals(misc)){
+                    newList.add(fish);
                 }
             }
             return newList;
@@ -239,6 +242,7 @@ public class view_fish extends AppCompatActivity {
                     fishObject.put("bait", fish.getBait());
                     fishObject.put("misc", fish.getMisc());
                     fishObject.put("misc2", fish.getMisc2());
+                    fishObject.put("misc3", fish.getMisc3());
                     fishObject.put("temp", fish.getTemp());
                     fishObject.put("date", fish.getDate());
                     fishObject.put("id", fish.getId());

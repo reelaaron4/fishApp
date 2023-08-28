@@ -141,6 +141,17 @@
                 android:autoSizeMinTextSize="10dp"
                 android:autoSizeMaxTextSize="18dp"/>
             <EditText
+                android:id="@+id/editFishMisc3"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:ems="10"
+                android:hint="Misc 3"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="10dp"
+                android:autoSizeMaxTextSize="18dp"/>
+            <EditText
                 android:id="@+id/editFishDate"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
