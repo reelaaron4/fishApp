@@ -169,6 +169,15 @@
                 android:layout_weight="1"
                 android:orientation="horizontal">
                 <Button
+                    android:id="@+id/addImage"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="Add Image"
+                    android:layout_weight="1"
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="10dp"
+                    android:autoSizeMaxTextSize="18dp"/>
+                <Button
                     android:id="@+id/deleteFishButton"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"

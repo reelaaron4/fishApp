@@ -45,6 +45,7 @@ public class edit_fish extends AppCompatActivity {
         Button editButton = findViewById(R.id.editFishButton);
         Button viewButton = findViewById(R.id.viewButton);
         Button deleteButton = findViewById(R.id.deleteFishButton);
+        Button addImageButton = findViewById(R.id.addImage);
         TextView error = findViewById(R.id.errorTextView);
         error.setText("");
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_dropdown_item, view_task.fishNames);
@@ -119,6 +120,14 @@ public class edit_fish extends AppCompatActivity {
             public void onClick(View view) {
                 Intent switchToView = new Intent(getApplicationContext(), view_fish.class);
                 startActivity(switchToView);
+            }
+        });
+        addImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                intent.setType("image/jpeg");
             }
         });
         deleteButton.setOnClickListener(new View.OnClickListener() {

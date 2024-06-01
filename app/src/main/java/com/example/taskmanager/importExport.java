@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.DocumentsContract;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -40,9 +39,9 @@ public class importExport extends AppCompatActivity {
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
                 intent.setType("*/*");  // Set the desired file type(s) here
 
-                // Optionally, you can restrict the file picker to the Downloads folder
+                /*// Optionally, you can restrict the file picker to the Downloads folder
                 Uri downloadsUri = Uri.parse("content://com.android.providers.downloads.documents/document/primary:Download");
-                intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, downloadsUri);
+                intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, downloadsUri);*/
 
                 startActivityForResult(intent, 1);
             }
