@@ -112,7 +112,7 @@ public class viewTable extends AppCompatActivity {
                             row.addView(column);
                         } else if (j == 2) {//finds average length of the fish caught on the bait
                             TextView column = new TextView(this);
-                            column.setText(String.valueOf(avgLengthBait(taskList.get(currId).getFish(), baitArray.get(i - 1), bait)));
+                            column.setText(String.format("%.2f",avgLengthBait(taskList.get(currId).getFish(), baitArray.get(i - 1), bait)));
                             column.setLayoutParams(new TableRow.LayoutParams(0, TableLayout.LayoutParams.WRAP_CONTENT, 1f));
                             column.setTextSize(18);
                             row.addView(column);
@@ -163,7 +163,7 @@ public class viewTable extends AppCompatActivity {
                             row.addView(column);
                         } else if (j == 2) {//finds average length of the species
                             TextView column = new TextView(this);
-                            column.setText(String.valueOf(avgLength(taskList.get(currId).getFish(), speciesArray.get(i - 1))));
+                            column.setText(String.format("%.2f",avgLength(taskList.get(currId).getFish(), speciesArray.get(i - 1))));
                             column.setLayoutParams(new TableRow.LayoutParams(0, TableLayout.LayoutParams.WRAP_CONTENT, 1f));
                             column.setTextSize(18);
                             row.addView(column);
