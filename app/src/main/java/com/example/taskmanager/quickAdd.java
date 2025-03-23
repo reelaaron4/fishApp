@@ -75,7 +75,6 @@ public class quickAdd extends AppCompatActivity {
                 JSONArray fishArray = new JSONArray();
                 for (Fish fish : task.getFish()){
                     JSONObject fishObject = new JSONObject();
-                    fishObject.put("ID", fish.getId());
                     fishObject.put("species", fish.getSpecies());
                     fishObject.put("length", fish.getLength());
                     fishObject.put("weight", fish.getWeight());

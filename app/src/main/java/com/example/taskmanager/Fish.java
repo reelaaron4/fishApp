@@ -6,7 +6,7 @@ public class Fish {
     private String species, bait, misc, misc2, misc3;
     private double length, weight, temp;
     private Date date;
-    private int id, taskID, imageResourceId;
+    private int id, taskID;
 
     public Fish(String species, double length, String bait, String misc, String misc2, String misc3, double weight, double temp, Date date, int id) {
         this.species = species;
@@ -62,7 +62,6 @@ public class Fish {
 
     public int getTaskID(){return taskID;}
 
-    public int getImageResourceId(){return imageResourceId;}
 
 
     public void setSpecies(String species) {
@@ -105,9 +104,5 @@ public class Fish {
 
     public void setTaskID(int taskID){
         this.taskID = taskID;
-    }
-
-    public void setImageResourceId(int imageResourceId){
-        this.imageResourceId = imageResourceId;
     }
 }

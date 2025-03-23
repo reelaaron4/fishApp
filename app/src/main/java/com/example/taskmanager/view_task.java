@@ -57,7 +57,6 @@ public class view_task extends AppCompatActivity {
             shouldSave = false;
         }
 
-        // Add JSON code here
         if(taskList.isEmpty()) {
             String fileName = "FishData.json";
             try {
@@ -85,7 +84,6 @@ public class view_task extends AppCompatActivity {
 
                     for (int j = 0; j < fishArray.length(); j++){
                         JSONObject fishObject = fishArray.getJSONObject(j);
-                        String ID = fishObject.getString("ID");
                         String species = fishObject.getString("species");
                         String lengthS = fishObject.getString("length");
                         String weightS = fishObject.getString("weight");
@@ -124,9 +122,6 @@ public class view_task extends AppCompatActivity {
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
-
-                        //Date date = new Date();
-
 
                         Fish fish = new Fish(species, length, bait, misc, misc2, misc3,weight, temp, date, id);
                         task.setFishList(fish);
